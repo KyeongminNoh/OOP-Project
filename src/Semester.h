@@ -1,14 +1,14 @@
 class Semester 
 {
 public:
-	int get_current_semester(){return current_semester;}
-	bool get_have_lover(){return have_lover;}
+	int get_CurrentSemester(){return CurrentSemester;}
+	bool get_HaveLover(){return HaveLover;}
 	int grade(){return grade;}
-	void set_current_semester();
-	void set_have_lover();
+	void set_CurrentSemester();
+	void set_HaveLover();
 	void set_grade();
 private:
-	int current_semester;
-	bool have_lover;
+	int CurrentSemester;
+	bool HaveLover;
 	int grade;
 }

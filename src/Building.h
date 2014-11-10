@@ -3,13 +3,13 @@
 class Building
 {
 public:
-	void upgrade(); // level++, upgrade_cost 변경
+	void Upgrade(); // level++, upgrade_cost 변경
 
 private:
 	int level;
-	int upgrade_cost;
+	int UpgradeCost;
 	bool constructed;
-	bool enable_night;
+	bool enabled_atNight;
 	string name;
 //	int position;
 }

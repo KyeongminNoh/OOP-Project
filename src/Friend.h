@@ -3,10 +3,10 @@
 class Friend
 {
 public:
-	void check_sociality(); // if(req_sociality<Player.sociality)
+	void check_Sociality(); // if(SocialityRequirment<Player.sociality)
 private:
-	int req_sociality;
+	int SocialityRequirment;
 	string name;
-	int num_friend;
+	int Num_Friend;
 //	int position;
 }
