@@ -22,11 +22,15 @@ public:
 		void Girlcome();
 		void Dayclicked();
 		void Nightclicked();
+		void NextClicked();
 
 private:
 	GameWindow* window;
 	QWidget* Page;
+	QLabel* Head;
 	QLabel* Title;
 	QLabel* Person;
 	QLabel* Night;
+	int isMan;
+	int isDayPerson;
 };

@@ -11,11 +11,9 @@ class start : public QMainWindow
 public:
 	start(QWidget *parent = 0);
 	~start();
-public slots:
-	void newstart();
+
 private:
 	Ui::startClass ui;
-
 };
 
 #endif // START_H

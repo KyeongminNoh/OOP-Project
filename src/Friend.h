@@ -1,12 +1,13 @@
-#include <string>
 
-class Friend
-{
+class Friend {
+
 public:
-	void check_Sociality(); // if(SocialityRequirment<Player.sociality)
+	void check_Sociality(); 
 private:
 	int SocialityRequirment;
-	string name;
+	QString name;
 	int Num_Friend;
-//	int position;
-}
+public slots:
+
+
+};

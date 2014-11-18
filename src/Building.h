@@ -1,15 +1,28 @@
-#include <string>
+#include <QString>
 
+class ManageGame;
+
+#ifndef BUILDING_H
+#define BUILDING_H
 class Building
 {
 public:
-	void Upgrade(); // level++, upgrade_cost 변경
+	Building(){};
+	Building(ManageGame *mg);
 
-private:
+	int get_UpgradeCost(){return UpgradeCost;}
+	int get_level(){ return level;}
+	virtual void Upgrade(ManageGame *mg) = 0; // level++, upgrade_cost 변경
+	virtual void Upgrade2(ManageGame *mg) = 0;
+
+protected:
 	int level;
+	int ConstructCost;
 	int UpgradeCost;
 	bool constructed;
 	bool enabled_atNight;
-	string name;
+	QString name;
 //	int position;
-}
+};
+
+#endif

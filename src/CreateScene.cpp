@@ -1,5 +1,6 @@
 #include "CreateScene.h"
 #include "StartScene.h"
+#include "FieldScene.h"
 
 
 CreateScene::CreateScene(GameWindow* win)
@@ -13,10 +14,15 @@ CreateScene::CreateScene(GameWindow* win)
 	Title->setScaledContents(true);
 	Title->setGeometry(QRect(0,0,800,600));
     QPixmap image;
-    image.load(QString::fromUtf8("Resources/test.jpg"));
+    image.load(QString::fromUtf8("Resources/White.png"));
     Title->setPixmap(image);
 
+	
+
 	window->setCentralWidget(Title);
+
+	isMan = 0;
+	isDayPerson = 0;
 
 	QIcon ManMenu;
 	ManMenu.addPixmap(QPixmap(QString::fromUtf8("Resources/ManMenu.png")), QIcon::Normal, QIcon::Off);
@@ -26,6 +32,15 @@ CreateScene::CreateScene(GameWindow* win)
 	DayMenu.addPixmap(QPixmap(QString::fromUtf8("Resources/DayMenu.png")), QIcon::Normal, QIcon::Off);
 	QIcon NightMenu;
 	NightMenu.addPixmap(QPixmap(QString::fromUtf8("Resources/NightMenu.png")), QIcon::Normal, QIcon::Off);
+
+	Head = new QLabel(Title);
+	Head->setScaledContents(true);
+	Head->setGeometry(QRect(200,45,400,125));
+    QPixmap Himage;
+    Himage.load(QString::fromUtf8("Resources/CreateCharacter.png"));
+    Head->setPixmap(Himage);
+	Head->show();
+
 
 	QPushButton *manButton;
 	manButton = new QPushButton(Title);
@@ -55,16 +70,27 @@ CreateScene::CreateScene(GameWindow* win)
 	nightButton->setIconSize(QSize(100, 100));
 	nightButton->show();
 
+	QPushButton *nextButton;
+	nextButton = new QPushButton(Title);
+	nextButton->setText("Start!!");
+	nextButton->resize(80,50);
+	nextButton->setGeometry(QRect(650, 520, 80, 40));
+	nextButton->show();
+
+
 	QObject::connect(manButton,SIGNAL(clicked()),this,SLOT(Mancome()));
 	QObject::connect(girlButton,SIGNAL(clicked()),this,SLOT(Girlcome()));
 
 	QObject::connect(dayButton,SIGNAL(clicked()),this,SLOT(Dayclicked()));
 	QObject::connect(nightButton,SIGNAL(clicked()),this,SLOT(Nightclicked()));
 
+	QObject::connect(nextButton, SIGNAL(clicked()),this,SLOT(NextClicked()));
+
 	Title->show();
 }
 void CreateScene::Mancome()
 {
+	isMan = 2;
 
 	Person = new QLabel(Title);
 	Person->setScaledContents(true);
@@ -78,6 +104,7 @@ void CreateScene::Mancome()
 }
 void CreateScene::Girlcome()
 {
+	isMan = 3;
 
 	Person = new QLabel(Title);
 	Person->setScaledContents(true);
@@ -90,6 +117,7 @@ void CreateScene::Girlcome()
 }
 void CreateScene::Dayclicked()
 {
+	isDayPerson = 2;
 
 	Night = new QLabel(Title);
 	Night->setScaledContents(true);
@@ -102,6 +130,7 @@ void CreateScene::Dayclicked()
 }
 void CreateScene::Nightclicked()
 {
+	isDayPerson = 3;
 
 	Night = new QLabel(Title);
 	Night->setScaledContents(true);
@@ -111,5 +140,14 @@ void CreateScene::Nightclicked()
     Night->setPixmap(weather);
 
 	Night->show();
+}
+
+void CreateScene::NextClicked()
+{
+	if(isMan == 0 || isDayPerson == 0){
+	}
+	else{
+		FieldScene* fieldscene = new FieldScene(window, isMan, isDayPerson);
+	}
 }
 

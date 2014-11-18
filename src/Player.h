@@ -1,27 +1,38 @@
-class Player{
-public:
-	void set_knowledge(int S_know); // knowledge+=S_know	
-	void set_finance(int S_finan);
-	void set_sociality(int S_social);
-	void set_Max_strength(int M_str); // Max_strength=M_str;
-	void check_Max_strength(); // max값이 넘으면 strength=Max_strength
-	int check_Max_lonely(); // max값 넘으면 오류 return 0;
-	void add_friend(); // friend++
-	bool get_nocturnal() {return nocturnal;}
-	bool get_man() {return man;}
-private:
-	bool nocturnal;
-	bool man;
-	int knowledge;
-	int strength;
-	int lonely;
-	int finance;
-//	int Max_knowledge;
-	int Max_strength;
-	int Max_lonely;
-//	int Max_finance;
-	int Num_friend;
-	int sociality;
+#include <QtGlobal>
 
-//	int position; // x,y 따로?
+class Player{
+
+public:
+	Player(bool Nocturnal, bool Man);
+	void set_Lonely(qreal S_Lone);
+	void set_Health(qreal S_Hea);
+	void set_Knowledge(qreal S_Know); // Knowledge+=S_Know	
+	void set_Finance(qreal S_Finan);
+	void set_Sociality(qreal S_social);
+	void set_Max_Health(qreal M_Hea); // Max_strength=M_str;
+
+	void check_Max_Health(); // max값이 넘으면 strength=Max_strength
+	qreal check_Max_Lonely(); // max값 넘으면 오류 return 0;
+
+	void add_Friend(); // Friend++
+	
+	qreal get_Sociality(){return Sociality;};
+	qreal get_Finance(){return Finance;};
+	qreal get_Knowledge(){return Knowledge;}
+	qreal get_Health(){return Health;};
+	qreal get_Lonely(){return Lonely;};
+	bool get_Nocturnal() {return Nocturnal;}
+	bool get_Man() {return Man;}
+private:
+	bool Nocturnal;
+	bool Man;
+	qreal Knowledge;
+	qreal Health;
+	qreal Lonely;
+	qreal Finance;
+	qreal Max_Health;
+	qreal Max_Lonely;
+	qreal Num_Friend;
+	qreal Sociality;
+
 };
