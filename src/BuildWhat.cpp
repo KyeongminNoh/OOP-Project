@@ -1,6 +1,11 @@
 #include "BuildWhat.h"
+#include <qtimer.h>
+#include "Map.h"
+#include "ManageGame.h"
 
-BuildWhat::BuildWhat(QWidget *parent) : QWidget(parent){
+BuildWhat::BuildWhat(Map *map, QWidget *parent) : QWidget(parent){
+
+	nowmap = map;
 
 	gym = new QPushButton(this);
 	lib = new QPushButton(this);
@@ -57,4 +62,60 @@ BuildWhat::BuildWhat(QWidget *parent) : QWidget(parent){
 	mar->setIcon(marB);
 	mar->setIconSize(QSize(100, 50));
 	mar->show();
+}
+
+void BuildWhat::setGymIcon(){
+	if(nowmap->getOnGoingGame()->getBuilding(3) == NULL){
+		gym->setGeometry(QRect(22, 52, 100, 45));
+		QTimer::singleShot(150, this, SLOT(resetIcon()));
+		QTimer::singleShot(151, nowmap, SLOT(setGymAlert()));
+	}
+}
+
+void BuildWhat::setLibIcon(){
+	if(nowmap->getOnGoingGame()->getBuilding(6) == NULL){
+		lib->setGeometry(QRect(22, 112, 100, 45));
+		QTimer::singleShot(150, this, SLOT(resetIcon()));
+		QTimer::singleShot(151, nowmap, SLOT(setLibAlert()));
+	}
+}
+
+void BuildWhat::setLabIcon(){
+	if(nowmap->getOnGoingGame()->getBuilding(4) == NULL){
+		lab->setGeometry(QRect(22, 172, 100, 45));
+		QTimer::singleShot(150, this, SLOT(resetIcon()));
+		QTimer::singleShot(151, nowmap, SLOT(setLabAlert()));
+	}
+}
+
+void BuildWhat::setStuIcon(){
+	if(nowmap->getOnGoingGame()->getBuilding(5) == NULL){
+		stu->setGeometry(QRect(22, 292, 100, 45));
+		QTimer::singleShot(150, this, SLOT(resetIcon()));
+		QTimer::singleShot(151, nowmap, SLOT(setStuAlert()));
+	}
+}
+
+void BuildWhat::setLogIcon(){
+	if(nowmap->getOnGoingGame()->getBuilding(7) == NULL){
+		logH->setGeometry(QRect(22, 232, 100, 45));
+		QTimer::singleShot(150, this, SLOT(resetIcon()));
+		QTimer::singleShot(151, nowmap, SLOT(setLogAlert()));
+	}
+}
+
+void BuildWhat::setMarIcon(){
+	if(nowmap->getOnGoingGame()->getBuilding(8) == NULL){
+		mar->setGeometry(QRect(22, 352, 100, 44));
+		QTimer::singleShot(150, this, SLOT(resetIcon()));
+		QTimer::singleShot(151, nowmap, SLOT(setMarAlert()));
+	}
+}
+void BuildWhat::resetIcon(){
+	gym->setGeometry(QRect(20, 50, 100, 45));
+	lib->setGeometry(QRect(20, 110, 100, 45));
+	lab->setGeometry(QRect(20, 170, 100, 45));
+	stu->setGeometry(QRect(20, 290, 100, 45));
+	logH->setGeometry(QRect(20, 230, 100, 45));
+	mar->setGeometry(QRect(20, 350, 100, 44));
 }

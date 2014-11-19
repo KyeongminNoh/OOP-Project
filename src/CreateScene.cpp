@@ -1,11 +1,14 @@
 #include "CreateScene.h"
 #include "StartScene.h"
 #include "FieldScene.h"
+#include <QMouseEvent>
+#include <QTimer>
 
 
 CreateScene::CreateScene(GameWindow* win)
 {
 	window = win;
+	setMouseTracking(true);
 
 	Page = new QWidget(window);
 	Page->resize(800,600);
@@ -42,28 +45,28 @@ CreateScene::CreateScene(GameWindow* win)
 	Head->show();
 
 
-	QPushButton *manButton;
+	
 	manButton = new QPushButton(Title);
     manButton->setGeometry(QRect(125, 250, 100, 100));
 	manButton->setIcon(ManMenu);
 	manButton->setIconSize(QSize(100, 100));
 	manButton->show();
 
-	QPushButton *girlButton;
+	
 	girlButton = new QPushButton(Title);
     girlButton->setGeometry(QRect(275, 250, 100, 100));
 	girlButton->setIcon(GirlMenu);
 	girlButton->setIconSize(QSize(100, 100));
 	girlButton->show();
 
-	QPushButton *dayButton;
+	
 	dayButton = new QPushButton(Title);
     dayButton->setGeometry(QRect(125, 400, 100, 100));
 	dayButton->setIcon(DayMenu);
 	dayButton->setIconSize(QSize(100, 100));
 	dayButton->show();
 
-	QPushButton *nightButton;
+	
 	nightButton = new QPushButton(Title);
     nightButton->setGeometry(QRect(275, 400, 100, 100));
 	nightButton->setIcon(NightMenu);
@@ -88,10 +91,22 @@ CreateScene::CreateScene(GameWindow* win)
 
 	Title->show();
 }
+
+void CreateScene::MousePressEvent(QMouseEvent *event){
+	Cursor = event->pos();
+}
+
+void CreateScene::resetButton(){
+	manButton->setGeometry(QRect(125, 250, 100, 100));
+	girlButton->setGeometry(QRect(275, 250, 100, 100));
+	dayButton->setGeometry(QRect(125, 400, 100, 100));
+	nightButton->setGeometry(QRect(275, 400, 100, 100));
+}
+
 void CreateScene::Mancome()
 {
 	isMan = 2;
-
+	manButton->setGeometry(QRect(128, 253, 100, 100));
 	Person = new QLabel(Title);
 	Person->setScaledContents(true);
 	Person->setGeometry(QRect(425,250,250,250));
@@ -101,11 +116,13 @@ void CreateScene::Mancome()
 
 	Person->show();
 
+	QTimer::singleShot(150, this, SLOT(resetButton()));
+
 }
 void CreateScene::Girlcome()
 {
-	isMan = 3;
-
+	isMan = 1;
+	girlButton->setGeometry(QRect(278, 253, 100, 100));
 	Person = new QLabel(Title);
 	Person->setScaledContents(true);
 	Person->setGeometry(QRect(425,250,250,250));
@@ -114,10 +131,13 @@ void CreateScene::Girlcome()
     Person->setPixmap(Iperson);
 
 	Person->show();
+
+	QTimer::singleShot(150, this, SLOT(resetButton()));
 }
 void CreateScene::Dayclicked()
 {
 	isDayPerson = 2;
+	dayButton->setGeometry(QRect(128, 403, 100, 100));
 
 	Night = new QLabel(Title);
 	Night->setScaledContents(true);
@@ -127,11 +147,12 @@ void CreateScene::Dayclicked()
     Night->setPixmap(weather);
 
 	Night->show();
+	QTimer::singleShot(150, this, SLOT(resetButton()));
 }
 void CreateScene::Nightclicked()
 {
-	isDayPerson = 3;
-
+	isDayPerson = 1;
+	nightButton->setGeometry(QRect(278, 403, 100, 100));
 	Night = new QLabel(Title);
 	Night->setScaledContents(true);
 	Night->setGeometry(QRect(425,200,50,50));
@@ -140,6 +161,8 @@ void CreateScene::Nightclicked()
     Night->setPixmap(weather);
 
 	Night->show();
+
+	QTimer::singleShot(150, this, SLOT(resetButton()));
 }
 
 void CreateScene::NextClicked()

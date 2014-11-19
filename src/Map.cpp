@@ -1,16 +1,30 @@
 #include "Map.h"
+#include "ManageGame.h"
+#include "AskAlert.h"
+#include "NormalAlert.h"
 
 Map::Map(QWidget *parent) : QWidget(parent){
 
+	askalert = NULL;
+	normalalert = NULL;
+
 	nowEnvironment = new QLabel(this);
-	nowEnvironment->resize(640, 450);
+	nowEnvironment->resize(660, 450);
 
 
 	nowEnvironment->show();
 
+	Session1 = new QLabel(nowEnvironment);
+	Session1->setScaledContents(true);
+	Session1->setGeometry(QRect(550, 10, 100, 45));
+	QPixmap SImage;
+	SImage.load(QString::fromUtf8("Resources/Session1.png"));
+	Session1->setPixmap(SImage);
+	Session1->show();
+
 	DormitoryImage = new QLabel(nowEnvironment);
 	DormitoryImage->setScaledContents(true);
-	DormitoryImage->setGeometry(QRect(250,40,110,110));
+	DormitoryImage->setGeometry(QRect(250,0,110,110));
 	QPixmap IDormitory;
     IDormitory.load(QString::fromUtf8("Resources/Dormitory.png"));
     DormitoryImage->setPixmap(IDormitory);
@@ -18,7 +32,7 @@ Map::Map(QWidget *parent) : QWidget(parent){
 
 	EngineeringImage = new QLabel(nowEnvironment);
 	EngineeringImage->setScaledContents(true);
-	EngineeringImage->setGeometry(QRect(40,40,110,110));
+	EngineeringImage->setGeometry(QRect(10,80,110,110));
 	QPixmap IEngineering;
     IEngineering.load(QString::fromUtf8("Resources/Engineering.png"));
     EngineeringImage->setPixmap(IEngineering);
@@ -26,7 +40,7 @@ Map::Map(QWidget *parent) : QWidget(parent){
 
 	CafeteriaImage = new QLabel(nowEnvironment);
 	CafeteriaImage->setScaledContents(true);
-	CafeteriaImage->setGeometry(QRect(460,280,110,110));
+	CafeteriaImage->setGeometry(QRect(500,290,110,110));
 	QPixmap ICafeteria;
     ICafeteria.load(QString::fromUtf8("Resources/Cafeteria.png"));
     CafeteriaImage->setPixmap(ICafeteria);
@@ -38,7 +52,7 @@ Map::Map(QWidget *parent) : QWidget(parent){
 void Map::createGymImage(int level){
 	GymImage = new QLabel(nowEnvironment);
 	GymImage->setScaledContents(true);
-	GymImage->setGeometry(QRect(500,150,100,100));
+	GymImage->setGeometry(QRect(400,30,100,100));
 	QPixmap IGym;
     IGym.load(QString::fromUtf8("Resources/Gym.png"));
     GymImage->setPixmap(IGym);
@@ -48,7 +62,7 @@ void Map::createGymImage(int level){
 void Map::createLaborBuilding(int level){
 	LaborBuildingImage = new QLabel(nowEnvironment);
 	LaborBuildingImage->setScaledContents(true);
-	LaborBuildingImage->setGeometry(QRect(40,300,100,100));
+	LaborBuildingImage->setGeometry(QRect(530,180,100,100));
 	QPixmap ILaborBuilding;
     ILaborBuilding.load(QString::fromUtf8("Resources/LaborBuilding.png"));
     LaborBuildingImage->setPixmap(ILaborBuilding);
@@ -58,7 +72,7 @@ void Map::createLaborBuilding(int level){
 void Map::createStudentHall(int level){
 	StudentHallImage = new QLabel(nowEnvironment);
 	StudentHallImage->setScaledContents(true);
-	StudentHallImage->setGeometry(QRect(60,160,100,100));
+	StudentHallImage->setGeometry(QRect(130,20,100,100));
 	QPixmap IStudentHall;
     IStudentHall.load(QString::fromUtf8("Resources/StudentHall.png"));
     StudentHallImage->setPixmap(IStudentHall);
@@ -69,7 +83,7 @@ void Map::createStudentHall(int level){
 void Map::createLogHouseImage(int level){
 	LogHouseImage = new QLabel(nowEnvironment);
 	LogHouseImage->setScaledContents(true);
-	LogHouseImage->setGeometry(QRect(240,360,100,100));
+	LogHouseImage->setGeometry(QRect(520,70,100,100));
 	QPixmap ILogHouse;
     ILogHouse.load(QString::fromUtf8("Resources/LogHouse.png"));
     LogHouseImage->setPixmap(ILogHouse);
@@ -79,7 +93,7 @@ void Map::createLogHouseImage(int level){
 void Map::createLibraryImage(int level){
 	LibraryImage = new QLabel(nowEnvironment);
 	LibraryImage->setScaledContents(true);
-	LibraryImage->setGeometry(QRect(500,150,100,100));
+	LibraryImage->setGeometry(QRect(10,190,100,100));
 	QPixmap ILibrary;
     ILibrary.load(QString::fromUtf8("Resources/Library.png"));
     LibraryImage->setPixmap(ILibrary);
@@ -89,9 +103,94 @@ void Map::createLibraryImage(int level){
 void Map::createMarketImage(int level){
 	MarketImage = new QLabel(nowEnvironment);
 	MarketImage->setScaledContents(true);
-	MarketImage->setGeometry(QRect(500,150,100,100));
+	MarketImage->setGeometry(QRect(30,440,100,100));
 	QPixmap IMarket;
     IMarket.load(QString::fromUtf8("Resources/Market.png"));
     MarketImage->setPixmap(IMarket);
 	MarketImage->show();
+}
+
+void Map::setGymAlert(){
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Gym",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+
+}
+
+void Map::setLibAlert(){
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Lib",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+
+void Map::setLabAlert(){
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Lab",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+
+void Map::setLogAlert(){
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Log",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+
+void Map::setStuAlert(){
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Stu",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+
+void Map::setMarAlert(){
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Mar",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+
+void Map::setNormalAlert(QString name){
+	if(normalalert != NULL)
+		return;
+	else{
+		normalalert = new NormalAlert(onGoingGame, name ,nowEnvironment);
+		normalalert->setGeometry(QRect(110, 150, 300, 200));
+		normalalert->show();
+	}
+}
+
+void Map::DeleteAskAlert(){
+	delete askalert;
+	askalert = NULL;
+}
+
+void Map::DeleteNormalAlert(){
+	delete normalalert;
+	normalalert = NULL;
+}
+
+void Map::setManageGame(ManageGame *Game){
+	onGoingGame = Game;
 }

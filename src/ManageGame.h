@@ -1,3 +1,4 @@
+#include <QPushButton>
 #include <QGridLayout>
 #include <QTime>
 #include <QTimer>
@@ -13,6 +14,7 @@
 #define LIBRARY_COST 500
 #define MARKET_COST 500
 
+
 class Player;
 class Building;
 class Friend;
@@ -27,6 +29,7 @@ class ManageGame : public QWidget {
 public:
 	ManageGame( int isMan, int isDayPerson, Map *map, QWidget *parent = 0);
 
+	Building* getBuilding(int i);
 	void SetStrings();
 	void Build();
 	void change_status();
@@ -36,6 +39,8 @@ public:
 
 private:
 	void paintEvent(QPaintEvent *);
+	
+	QWidget *Parent;
 	//QGridLayout *grid;
 	QString s1, s2, s3, s4, g, st1, st2, st3, st4, gt;
 	QLabel *Page;
@@ -60,6 +65,8 @@ private:
 public slots:
 	void StartGame();
 	void TakeGold();
+	void OKalert();
+	void NoBuild();
 	void BuildMarket();
 	void BuildGym();
 	void BuildLaborBuilding();

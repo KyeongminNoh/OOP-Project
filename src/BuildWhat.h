@@ -2,13 +2,14 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 
+class Map;
 
 class BuildWhat : public QWidget{
 
 	Q_OBJECT
 
 public:
-	BuildWhat(QWidget *parent=0);
+	BuildWhat(Map *map, QWidget *parent=0);
 	QPushButton *gym;
 	QPushButton *lib;
 	QPushButton *logH;
@@ -17,6 +18,17 @@ public:
 	QPushButton *mar;
 
 private:
+	Map *nowmap;
 	QVBoxLayout *Menu;
+
+public slots:
+	void setGymIcon();
+	void setLibIcon();
+	void setLogIcon();
+	void setStuIcon();
+	void setLabIcon();
+	void setMarIcon();
+	void resetIcon();
+
 	
 };

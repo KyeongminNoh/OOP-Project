@@ -9,12 +9,16 @@
 #include "LaborBuilding.h"
 #include "Market.h"
 #include "Map.h"
+#include "AskAlert.h"
 #include <QMessageBox>
 
 
 ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,QWidget *parent) : QWidget(parent){
 
 	ParentMap = map;
+	ParentMap->setManageGame(this);
+	Parent = parent;
+
 
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
 	InclineLonely = 1;
@@ -56,6 +60,10 @@ void ManageGame::change_InclineLonely(qreal d){
 
 void ManageGame::change_DeclineHealth(qreal i){
 	DeclineHealth = DeclineHealth + i;
+}
+
+Building* ManageGame::getBuilding(int i){
+	return BuildingList[i];
 }
 
 void ManageGame::SetStrings(){
@@ -136,6 +144,12 @@ void ManageGame::BuildMarket(){
 			repaint();
 			BuildingList[8] = new Market(this);
 			ParentMap->createMarketImage(1);
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("BCom");
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[8]->get_level() == 1){
@@ -154,6 +168,8 @@ void ManageGame::BuildMarket(){
 	}
 }
 
+
+
 void ManageGame::BuildGym(){
 	if(BuildingList[3] == NULL){
 		if(onPlayer->get_Finance() >= GYM_COST){
@@ -161,6 +177,12 @@ void ManageGame::BuildGym(){
 			repaint();
 			BuildingList[3] = new Gym(this);
 			ParentMap->createGymImage(1);
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("BCom");
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[3]->get_level() == 1){
@@ -187,6 +209,12 @@ void ManageGame::BuildLaborBuilding(){
 			repaint();
 			BuildingList[4] = new LaborBuilding(this);
 			ParentMap->createLaborBuilding(1);
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("BCom");
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[4]->get_level() == 1){
@@ -213,6 +241,12 @@ void ManageGame::BuildStudentHall(){
 			repaint();
 			BuildingList[5] = new StudentHall(this);
 			ParentMap->createStudentHall(1);
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("BCom");
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[5]->get_level() == 1){
@@ -238,6 +272,12 @@ void ManageGame::BuildLibrary(){
 			repaint();
 			BuildingList[6] = new Library(this);
 			ParentMap->createLibraryImage(1);
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("BCom");
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[6]->get_level() == 1){
@@ -257,6 +297,10 @@ void ManageGame::BuildLibrary(){
 	
 }
 
+void ManageGame::NoBuild(){
+	ParentMap->DeleteAskAlert();
+}
+
 void ManageGame::BuildLogHouse(){
 	if(BuildingList[7] == NULL){
 		if(onPlayer->get_Finance() >= LOGHOUSE_COST){
@@ -264,6 +308,12 @@ void ManageGame::BuildLogHouse(){
 			repaint();
 			BuildingList[7] = new LogHouse(this);
 			ParentMap->createLogHouseImage(1);
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("BCom");
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[6]->get_level() == 1){
@@ -282,6 +332,10 @@ void ManageGame::BuildLogHouse(){
 	}
 
 	
+}
+
+void ManageGame::OKalert(){
+	ParentMap->DeleteNormalAlert();
 }
 
 void ManageGame::StartGame(){

@@ -18,6 +18,7 @@ public:
 	~CreateScene(){}
 
 	public slots:
+		void resetButton();
 		void Mancome();
 		void Girlcome();
 		void Dayclicked();
@@ -25,12 +26,18 @@ public:
 		void NextClicked();
 
 private:
+	void MousePressEvent(QMouseEvent *event);
+	QPoint Cursor;
 	GameWindow* window;
 	QWidget* Page;
 	QLabel* Head;
 	QLabel* Title;
 	QLabel* Person;
 	QLabel* Night;
+	QPushButton *manButton;
+	QPushButton *girlButton;
+	QPushButton *dayButton;
+	QPushButton *nightButton;
 	int isMan;
 	int isDayPerson;
 };

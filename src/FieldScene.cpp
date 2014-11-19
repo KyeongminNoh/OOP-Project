@@ -18,7 +18,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 	maP = new Map(Title);
 
-	maP->setGeometry(QRect(140,0, 640, 450));
+	maP->setGeometry(QRect(140,0, 660, 450));
 	maP->show();
 
 	SideBar = new QLabel(Title);
@@ -28,7 +28,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	SideBarImage.load(QString::fromUtf8("Resources/SideBar.png"));
 	SideBar->setPixmap(SideBarImage);
 
-	MenuBar = new BuildWhat(SideBar);
+	MenuBar = new BuildWhat(maP, SideBar);
 
 	MenuBar->setGeometry(QRect(0,0,140, 460));
 	MenuBar->show();
@@ -41,7 +41,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	Footer->setPixmap(footerImage);
 
 	QIcon TAImage;
-	TAImage.addPixmap(QPixmap(QString::fromUtf8("Resources/TestAssnButton.jpg")), QIcon::Normal, QIcon::Off);
+	TAImage.addPixmap(QPixmap(QString::fromUtf8("Resources/TestAssnButton.png")), QIcon::Normal, QIcon::Off);
 
 	QPushButton *TAButton;
 	TAButton = new QPushButton(Footer);
@@ -51,7 +51,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	TAButton->show();
 
 	QIcon FriendImage;
-	FriendImage.addPixmap(QPixmap(QString::fromUtf8("Resources/FriendButton.jpg")), QIcon::Normal, QIcon::Off);
+	FriendImage.addPixmap(QPixmap(QString::fromUtf8("Resources/FriendButton.png")), QIcon::Normal, QIcon::Off);
 
 	QPushButton *FriendButton;
 	FriendButton = new QPushButton(Footer);
@@ -64,12 +64,29 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 	onGoingGame->setGeometry(QRect(300,0,800,150));
 	onGoingGame->show();
+	
+	QObject::connect(MenuBar->gym, SIGNAL(clicked()),  MenuBar, SLOT(setGymIcon()));
+	
 
-	QObject::connect(MenuBar->gym, SIGNAL(clicked()), onGoingGame, SLOT(BuildGym()));
-	QObject::connect(MenuBar->lib, SIGNAL(clicked()), onGoingGame, SLOT(BuildLibrary()));
-	QObject::connect(MenuBar->lab, SIGNAL(clicked()), onGoingGame, SLOT(BuildLaborBuilding()));
-	QObject::connect(MenuBar->stu, SIGNAL(clicked()), onGoingGame, SLOT(BuildStudentHall()));
-	QObject::connect(MenuBar->logH, SIGNAL(clicked()), onGoingGame, SLOT(BuildLogHouse()));
-	QObject::connect(MenuBar->mar, SIGNAL(clicked()), onGoingGame, SLOT(BuildMarket()));
+	
+	QObject::connect(MenuBar->lib, SIGNAL(clicked()), MenuBar, SLOT(setLibIcon()));
+	
+
+	
+	QObject::connect(MenuBar->lab, SIGNAL(clicked()), MenuBar, SLOT(setLabIcon()));
+	
+
+	
+	QObject::connect(MenuBar->stu, SIGNAL(clicked()), MenuBar, SLOT(setStuIcon()));
+	
+
+	
+	QObject::connect(MenuBar->logH, SIGNAL(clicked()), MenuBar, SLOT(setLogIcon()));
+	
+
+
+	QObject::connect(MenuBar->mar, SIGNAL(clicked()), MenuBar, SLOT(setMarIcon()));
+	
+	//QObject::connect(MenuBar->mar, SIGNAL(clicked()), maP, SLOT(setMarAlert()));
 
 }
