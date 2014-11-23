@@ -16,11 +16,12 @@ public:
 
 	void add_Friend(); // Friend++
 	
-	qreal get_Sociality(){return Sociality;};
-	qreal get_Finance(){return Finance;};
+	qreal get_Sociality(){return Sociality;}
+	qreal get_Finance(){return Finance;}
 	qreal get_Knowledge(){return Knowledge;}
-	qreal get_Health(){return Health;};
-	qreal get_Lonely(){return Lonely;};
+	qreal get_Health(){return Health;}
+	qreal get_Lonely(){return Lonely;}
+	qreal get_Max_Health(){return Max_Health;}
 	bool get_Nocturnal() {return Nocturnal;}
 	bool get_Man() {return Man;}
 private:

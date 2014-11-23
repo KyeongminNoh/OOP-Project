@@ -23,6 +23,11 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		Image.load(QString::fromUtf8("Resources/AskStuHall.png"));
 	else if(BuildingName == "Mar")
 		Image.load(QString::fromUtf8("Resources/AskMarket.png"));
+	else if(BuildingName == "Exer") // 운동하는 것, building은 아님
+		Image.load(QString::fromUtf8("Resources/AskExercise.png"));
+	else if(BuildingName == "GymUpgrade")
+		Image.load(QString::fromUtf8("Resources/AskGymUpgrade.png"));
+
 
 	askalert = new QLabel(this);
 	askalert->resize(300, 300);
@@ -57,7 +62,10 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildStudentHall()));
 	else if(BuildingName == "Mar")
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildMarket()));
-
+	else if(BuildingName == "Exer")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoExer()));
+	else if(BuildingName == "GymUpgrade")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(UpgradeGym()));
 
 	QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NoBuild()));
 }

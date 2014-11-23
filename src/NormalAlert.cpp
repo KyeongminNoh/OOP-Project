@@ -14,6 +14,11 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QWidget *parent) : QWid
 		Image.load(QString::fromUtf8("Resources/FinancialAlert.png"));
 	else if(alertType == "BCom")
 		Image.load(QString::fromUtf8("Resources/BuildComplete.png"));
+	else if(alertType == "Ecom")
+		Image.load(QString::fromUtf8("Resources/ExerciseComplete.png"));
+	else if(alertType == "Heal")
+		Image.load(QString::fromUtf8("Resources/HealthAlert.png"));
+
 
 	normalalert = new QLabel(this);
 	normalalert->resize(300, 200);

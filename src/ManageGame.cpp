@@ -333,7 +333,30 @@ void ManageGame::BuildLogHouse(){
 
 	
 }
-
+void ManageGame::DoExer()
+{
+	if(onPlayer->get_Health() >= 1) // 운동시 필요 체력
+	{
+//		onPlayer->set_Health();
+//		onPlayer->set_Max_Health();
+		ParentMap->setNormalAlert("ECom");
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+void ManageGame::UpgradeGym()
+{
+	if(onPlayer->get_Finance() >= BuildingList[3]->get_UpgradeCost())
+	{
+		onPlayer->set_Finance(BuildingList[3]->get_UpgradeCost());
+		if(BuildingList[3]->get_level()==1)
+			BuildingList[3]->Upgrade(this);
+		else if(BuildingList[3]->get_level()==2)
+			BuildingList[3]->Upgrade2(this);
+	}
+}
 void ManageGame::OKalert(){
 	ParentMap->DeleteNormalAlert();
 }

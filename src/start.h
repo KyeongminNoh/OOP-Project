@@ -2,7 +2,7 @@
 #define START_H
 
 #include <QtWidgets/QMainWindow>
-#include "ui_start.h"
+#include "ui_new.h"
 
 class start : public QMainWindow
 {

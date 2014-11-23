@@ -65,4 +65,7 @@ public slots:
 	void MoveToGym();
 	void MovePlayer();
 
+
+	void setExerAlert();
+	void setGym_Upgrade_Alert();
 };

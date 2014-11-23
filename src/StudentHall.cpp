@@ -6,7 +6,7 @@ StudentHall::StudentHall(ManageGame *mg){
 	constructed = true;
 	level = 1;
 	enabled_atNight = true;
-	name = "학생회관";
+	name = "통나무집";
 	UpgradeCost = 100;
 	mg->change_InclineLonely(0.05);
 };

@@ -152,6 +152,27 @@ void Map::createMarketImage(int level){
 	MarketImage->show();
 }
 
+void Map::setGym_Upgrade_Alert()
+{
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "GymUpgrade",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+void Map::setExerAlert()
+{
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Exer",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->show();
+	}
+}
+
 void Map::setGymAlert(){
 	if(askalert != NULL)
 		return;

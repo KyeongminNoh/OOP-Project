@@ -73,5 +73,11 @@ public slots:
 	void BuildLibrary();
 	void BuildLogHouse();
 	void BuildStudentHall();
-
+	void DoExer();
+	void UpgradeGym();
+//	void UpgradeMarket();
+//	void UpgradeLaborBuilding();
+//	void UpgradeLibrary();
+//	void UpgradeLogHouse();
+//	void UpgradeStudentHall();
 };
