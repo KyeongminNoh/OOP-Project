@@ -2,10 +2,13 @@
 #include "GameWindow.h"
 #include "CreateScene.h"
 #include "LoadScene.h"
+#include <QMouseEvent>
 
 StartScene::StartScene(GameWindow* win)
 {
 	window = win;
+
+
 
 	Page = new QWidget(window);
 	Page->resize(800,600);
@@ -19,12 +22,19 @@ StartScene::StartScene(GameWindow* win)
 
 	window->setCentralWidget(Title);
 
+	setMouseTracking(true);
+
 	QIcon NewGame;
 	NewGame.addPixmap(QPixmap(QString::fromUtf8("Resources/NewGame.png")), QIcon::Normal, QIcon::Off);
 	QIcon Continue;
 	Continue.addPixmap(QPixmap(QString::fromUtf8("Resources/Continue.png")), QIcon::Normal, QIcon::Off);
 	QIcon Exit;
 	Exit.addPixmap(QPixmap(QString::fromUtf8("Resources/Exit.png")), QIcon::Normal, QIcon::Off);
+
+	alertButton1 = new QLabel(Title);
+	alertButton1->setGeometry(QRect( 0, 0, 200, 200 ));
+	alertButton1->setText("Go");
+	alertButton1->show();
 
 	QPushButton *pushButton;
 	pushButton = new QPushButton(Title);

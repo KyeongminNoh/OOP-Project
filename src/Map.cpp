@@ -2,8 +2,16 @@
 #include "ManageGame.h"
 #include "AskAlert.h"
 #include "NormalAlert.h"
+#include <QMouseEvent>
+#include <QTimer>
 
 Map::Map(QWidget *parent) : QWidget(parent){
+	x =320;
+	y =350;
+	
+	px = 1;
+	py = 1;
+
 
 	askalert = NULL;
 	normalalert = NULL;
@@ -22,91 +30,125 @@ Map::Map(QWidget *parent) : QWidget(parent){
 	Session1->setPixmap(SImage);
 	Session1->show();
 
-	DormitoryImage = new QLabel(nowEnvironment);
-	DormitoryImage->setScaledContents(true);
+	nowPlayer = new QLabel(nowEnvironment);
+	nowPlayer->setScaledContents(true);
+	nowPlayer->setGeometry(QRect(320, 350, 40, 80));
+	QPixmap PlayerImage;
+	PlayerImage.load(QString::fromUtf8("Resources/Player.png"));
+	nowPlayer->setPixmap(PlayerImage);
+	nowPlayer->show();
+
+
+
+	DormitoryImage = new QPushButton(nowEnvironment);
+	//DormitoryImage->setScaledContents(true);
 	DormitoryImage->setGeometry(QRect(250,0,110,110));
-	QPixmap IDormitory;
-    IDormitory.load(QString::fromUtf8("Resources/Dormitory.png"));
-    DormitoryImage->setPixmap(IDormitory);
+	QIcon IDormitory;
+    IDormitory.addPixmap(QPixmap(QString::fromUtf8("Resources/Dormitory.png")), QIcon::Normal, QIcon::Off);
+    DormitoryImage->setIcon(IDormitory);
+	DormitoryImage->setIconSize(QSize(110, 110));
+	DormitoryImage->setFlat(true);
 	DormitoryImage->show();
 
-	EngineeringImage = new QLabel(nowEnvironment);
-	EngineeringImage->setScaledContents(true);
+	EngineeringImage = new QPushButton(nowEnvironment);
+	//EngineeringImage->setScaledContents(true);
 	EngineeringImage->setGeometry(QRect(10,80,110,110));
-	QPixmap IEngineering;
-    IEngineering.load(QString::fromUtf8("Resources/Engineering.png"));
-    EngineeringImage->setPixmap(IEngineering);
+	QIcon IEngineering;
+    IEngineering.addPixmap(QPixmap(QString::fromUtf8("Resources/Engineering.png")), QIcon::Normal, QIcon::Off);
+    EngineeringImage->setIcon(IEngineering);
+	EngineeringImage->setIconSize(QSize(110, 110));
+	EngineeringImage->setFlat(true);
 	EngineeringImage->show();
 
-	CafeteriaImage = new QLabel(nowEnvironment);
-	CafeteriaImage->setScaledContents(true);
+	CafeteriaImage = new QPushButton(nowEnvironment);
+	//CafeteriaImage->setScaledContents(true);
 	CafeteriaImage->setGeometry(QRect(500,290,110,110));
-	QPixmap ICafeteria;
-    ICafeteria.load(QString::fromUtf8("Resources/Cafeteria.png"));
-    CafeteriaImage->setPixmap(ICafeteria);
+	QIcon ICafeteria;
+    ICafeteria.addPixmap(QPixmap(QString::fromUtf8("Resources/Cafeteria.png")), QIcon::Normal, QIcon::Off);
+    CafeteriaImage->setIcon(ICafeteria);
+	CafeteriaImage->setIconSize(QSize(110, 110));
+	CafeteriaImage->setFlat(true);
 	CafeteriaImage->show();
+
+	QObject::connect(EngineeringImage, SIGNAL(clicked()), SLOT(MoveToEngineering()));
+	QObject::connect(CafeteriaImage, SIGNAL(clicked()), SLOT(MoveToCafeteria()));
+	
 
 }
 
 
 void Map::createGymImage(int level){
-	GymImage = new QLabel(nowEnvironment);
-	GymImage->setScaledContents(true);
+	GymImage = new QPushButton(nowEnvironment);
+	//GymImage->setScaledContents(true);
 	GymImage->setGeometry(QRect(400,30,100,100));
-	QPixmap IGym;
-    IGym.load(QString::fromUtf8("Resources/Gym.png"));
-    GymImage->setPixmap(IGym);
+	QIcon IGym;
+    IGym.addPixmap(QPixmap(QString::fromUtf8("Resources/Gym.png")), QIcon::Normal, QIcon::Off);
+    GymImage->setIcon(IGym);
+	GymImage->setIconSize(QSize(100, 100));
+	GymImage->setFlat(true);
 	GymImage->show();
+
+	QObject::connect(GymImage, SIGNAL(clicked()), SLOT(MoveToGym()));
 }
 
 void Map::createLaborBuilding(int level){
-	LaborBuildingImage = new QLabel(nowEnvironment);
-	LaborBuildingImage->setScaledContents(true);
+	LaborBuildingImage = new QPushButton(nowEnvironment);
+	//LaborBuildingImage->setScaledContents(true);
 	LaborBuildingImage->setGeometry(QRect(530,180,100,100));
-	QPixmap ILaborBuilding;
-    ILaborBuilding.load(QString::fromUtf8("Resources/LaborBuilding.png"));
-    LaborBuildingImage->setPixmap(ILaborBuilding);
+	QIcon ILaborBuilding;
+    ILaborBuilding.addPixmap(QPixmap(QString::fromUtf8("Resources/LaborBuilding.png")), QIcon::Normal, QIcon::Off);
+    LaborBuildingImage->setIcon(ILaborBuilding);
+	LaborBuildingImage->setIconSize(QSize(100, 100));
+	LaborBuildingImage->setFlat(true);
 	LaborBuildingImage->show();
 }
 
 void Map::createStudentHall(int level){
-	StudentHallImage = new QLabel(nowEnvironment);
-	StudentHallImage->setScaledContents(true);
+	StudentHallImage = new QPushButton(nowEnvironment);
+	//StudentHallImage->setScaledContents(true);
 	StudentHallImage->setGeometry(QRect(130,20,100,100));
-	QPixmap IStudentHall;
-    IStudentHall.load(QString::fromUtf8("Resources/StudentHall.png"));
-    StudentHallImage->setPixmap(IStudentHall);
+	QIcon IStudentHall;
+    IStudentHall.addPixmap(QPixmap(QString::fromUtf8("Resources/StudentHall.png")), QIcon::Normal, QIcon::Off);
+    StudentHallImage->setIcon(IStudentHall);
+	StudentHallImage->setIconSize(QSize(100, 100));
+	StudentHallImage->setFlat(true);
 	StudentHallImage->show();
 }
 
 
 void Map::createLogHouseImage(int level){
-	LogHouseImage = new QLabel(nowEnvironment);
-	LogHouseImage->setScaledContents(true);
+	LogHouseImage = new QPushButton(nowEnvironment);
+	//LogHouseImage->setScaledContents(true);
 	LogHouseImage->setGeometry(QRect(520,70,100,100));
-	QPixmap ILogHouse;
-    ILogHouse.load(QString::fromUtf8("Resources/LogHouse.png"));
-    LogHouseImage->setPixmap(ILogHouse);
+	QIcon ILogHouse;
+    ILogHouse.addPixmap(QPixmap(QString::fromUtf8("Resources/LogHouse.png")), QIcon::Normal, QIcon::Off);
+    LogHouseImage->setIcon(ILogHouse);
+	LogHouseImage->setIconSize(QSize(100, 100));
+	LogHouseImage->setFlat(true);
 	LogHouseImage->show();
 }
 
 void Map::createLibraryImage(int level){
-	LibraryImage = new QLabel(nowEnvironment);
-	LibraryImage->setScaledContents(true);
+	LibraryImage = new QPushButton(nowEnvironment);
+	//LibraryImage->setScaledContents(true);
 	LibraryImage->setGeometry(QRect(10,190,100,100));
-	QPixmap ILibrary;
-    ILibrary.load(QString::fromUtf8("Resources/Library.png"));
-    LibraryImage->setPixmap(ILibrary);
+	QIcon ILibrary;
+    ILibrary.addPixmap(QPixmap(QString::fromUtf8("Resources/Library.png")), QIcon::Normal, QIcon::Off);
+    LibraryImage->setIcon(ILibrary);
+	LibraryImage->setIconSize(QSize(100, 100));
+	LibraryImage->setFlat(true);
 	LibraryImage->show();
 }
 
 void Map::createMarketImage(int level){
-	MarketImage = new QLabel(nowEnvironment);
-	MarketImage->setScaledContents(true);
+	MarketImage = new QPushButton(nowEnvironment);
+	//MarketImage->setScaledContents(true);
 	MarketImage->setGeometry(QRect(30,440,100,100));
-	QPixmap IMarket;
-    IMarket.load(QString::fromUtf8("Resources/Market.png"));
-    MarketImage->setPixmap(IMarket);
+	QIcon IMarket;
+    IMarket.addPixmap(QPixmap(QString::fromUtf8("Resources/Market.png")), QIcon::Normal, QIcon::Off);
+    MarketImage->setIcon(IMarket);
+	MarketImage->setIconSize(QSize(100, 100));
+	MarketImage->setFlat(true);
 	MarketImage->show();
 }
 
@@ -193,4 +235,47 @@ void Map::DeleteNormalAlert(){
 
 void Map::setManageGame(ManageGame *Game){
 	onGoingGame = Game;
+}
+
+void Map::MovePlayer(){
+	x -= px;
+	y -= py;
+
+	nowPlayer->setGeometry(QRect(x, y, 40, 80));
+	repaint();
+}
+
+void Map::MoveToEngineering(){
+	px = 1.2;
+	py = 1;
+
+
+	QTimer *Timer;
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(2000, Timer, SLOT(stop()));
+	Timer->start(10);
+}
+
+
+void Map::MoveToCafeteria(){
+	px = -1;
+	py = 0.3;
+	
+	QTimer *Timer;
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(1000, Timer, SLOT(stop()));
+	Timer->start(5);
+}
+
+void Map::MoveToGym(){
+	px = -0.8;
+	py = 1.7;
+	
+	QTimer *Timer;
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(1000, Timer, SLOT(stop()));
+	Timer->start(5);
 }

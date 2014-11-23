@@ -9,6 +9,9 @@ class Environment;
 class AskAlert;
 class NormalAlert;
 
+//enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
+//enum { CLICK_MOUSE_MOVE_RANGE = 6 };
+
 class Map : public QWidget {
 	Q_OBJECT
 
@@ -27,28 +30,39 @@ public:
 	void createLogHouseImage(int level);
 	void createStudentHall(int level);
 private:
+	qreal x, y, px, py;
+	int time, stoptime;
+
 	ManageGame *onGoingGame;
 	NormalAlert *normalalert;
 	AskAlert *askalert;
-	QLabel *GymImage;
-	QLabel *DormitoryImage;
-	QLabel *EngineeringImage;
-	QLabel *CafeteriaImage;
+
+
 	QLabel *nowEnvironment;
-	QLabel *LogHouseImage;
-	QLabel *LaborBuildingImage;
-	QLabel *StudentHallImage;
-	QLabel *MarketImage;
-	QLabel *LibraryImage;
+	QLabel *nowPlayer;
+
+	QPushButton *GymImage;
+	QPushButton *DormitoryImage;
+	QPushButton *EngineeringImage;
+	QPushButton *CafeteriaImage;
+	QPushButton *LogHouseImage;
+	QPushButton *LaborBuildingImage;
+	QPushButton *StudentHallImage;
+	QPushButton *MarketImage;
+	QPushButton *LibraryImage;
 	QLabel *Session1;
 
 public slots:
+	//void mousePressEvent(QMouseEvent *event);
 	void setGymAlert();
 	void setLibAlert();
 	void setLabAlert();
 	void setLogAlert();
 	void setStuAlert();
 	void setMarAlert();
-
+	void MoveToEngineering();
+	void MoveToCafeteria();
+	void MoveToGym();
+	void MovePlayer();
 
 };
