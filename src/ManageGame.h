@@ -66,6 +66,7 @@ public slots:
 	void StartGame();
 	void TakeGold();
 	void OKalert();
+	void BACKalert();
 	void NoBuild();
 	void BuildMarket();
 	void BuildGym();

@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "GameWindow.h"
 #include "FieldScene.h"
 #include "qwidget.h"
@@ -16,19 +16,22 @@ class InGym : public QWidget
 
 public:
 	InGym() {}
-	InGym(GameWindow* win, ManageGame* preGame, FieldScene* preScene);
+	InGym(ManageGame* preGame, QString Name, QWidget *parent = 0);
 	~InGym(){}
 
 public slots:
 
 private:
-	GameWindow* window;
+//	GameWindow* window;
 	QWidget* Page;
 	QLabel* Title;
 	QLabel* buildname;
 	QLabel* exerEff;
+	QLabel *normalalert;
+	QString alertType;
+	QFont *font;
 	Map* maP;
 	FieldScene* preScene;
 	BuildWhat *MenuBar;
-//	ManageGame *onGoingGame;
-};
+	ManageGame *onGoingGame;
+};*/

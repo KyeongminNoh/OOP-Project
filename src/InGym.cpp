@@ -1,24 +1,24 @@
-#include "InGym.h"
+/*#include "InGym.h"
 
-InGym::InGym(GameWindow* win, ManageGame* onGoingGame,FieldScene* preScene)
+InGym::InGym(ManageGame* Game,QString Name, QWidget *parent) : QWidget(parent)
 {
-	window = win;
+//	window = win;
 
-	Page = new QWidget(window);
-	Page->resize(800,600);
+//	Page = new QWidget(window);
+//	Page->resize(800,600);
 
-	Title = new QLabel();
-	Title->setScaledContents(true);
-	Title->setGeometry(QRect(0,0,800,600));
+//	Title = new QLabel();
+//	Title->setScaledContents(true);
+//	Title->setGeometry(QRect(0,0,800,600));
+	alertType = Name;
+	onGoingGame = Game;
+	resize(660,450);
     QPixmap image;
-    image.load(QString::fromUtf8("Resources/White.png"));
-    Title->setPixmap(image);
+    image.load(QString::fromUtf8("Resources/White.png")); // GYM
 
-	window->setCentralWidget(Title);
-
-	buildname = new QLabel(Title);
+	buildname = new QLabel(this);
 	buildname->setScaledContents(true);
-	buildname->setGeometry(QRect(0,0,500,140));
+	buildname->setGeometry(QRect(0,0,300,140));
 	QPixmap buildnameImage;
 	if(onGoingGame->getBuilding(3)->get_level()==1)
 	{
@@ -33,6 +33,8 @@ InGym::InGym(GameWindow* win, ManageGame* onGoingGame,FieldScene* preScene)
 		buildnameImage.load(QString::fromUtf8("Resources/Gym_Title_level3.png"));
 	}
 	buildname->setPixmap(buildnameImage);
+
+	buildname->show();
 
 	QIcon ExerImage;
 	ExerImage.addPixmap(QPixmap(QString::fromUtf8("Resources/ExerciseButton.png")), QIcon::Normal, QIcon::Off);
@@ -69,7 +71,7 @@ InGym::InGym(GameWindow* win, ManageGame* onGoingGame,FieldScene* preScene)
 
 	QPushButton *UpgradeButton;
 	UpgradeButton = new QPushButton(Title);
-    UpgradeButton->setGeometry(QRect(500, 440, 120, 60));
+    UpgradeButton->setGeometry(QRect(300, 340, 120, 60));
 	UpgradeButton->setIcon(UpgradeImage);
 	UpgradeButton->setIconSize(QSize(120, 60));
 	UpgradeButton->show();
@@ -81,11 +83,13 @@ InGym::InGym(GameWindow* win, ManageGame* onGoingGame,FieldScene* preScene)
 
 	QPushButton *BackButton;
 	BackButton = new QPushButton(Title);
-    BackButton->setGeometry(QRect(640, 440, 120, 60));
+    BackButton->setGeometry(QRect(450, 340, 120, 60));
 	BackButton->setIcon(BackImage);
 	BackButton->setIconSize(QSize(120, 60));
 	BackButton->show();
 
+	QObject::connect(BackButton,SIGNAL(clicked()), onGoingGame, SLOT(OKalert()));
+
 	Title->show();
 	///////
-}
+}*/

@@ -8,6 +8,7 @@ class Building;
 class Environment;
 class AskAlert;
 class NormalAlert;
+class InbuildingAlert;
 
 //enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
 //enum { CLICK_MOUSE_MOVE_RANGE = 6 };
@@ -23,6 +24,7 @@ public:
 	AskAlert* getAskAlert(){return askalert;};
 	void DeleteAskAlert();
 	void DeleteNormalAlert();
+	void DeleteInbuildingAlert();
 	void createGymImage(int level);
 	void createLibraryImage(int level);
 	void createMarketImage(int level);
@@ -36,7 +38,7 @@ private:
 	ManageGame *onGoingGame;
 	NormalAlert *normalalert;
 	AskAlert *askalert;
-
+	InbuildingAlert *Inbuildingalert;
 
 	QLabel *nowEnvironment;
 	QLabel *nowPlayer;

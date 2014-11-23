@@ -360,6 +360,10 @@ void ManageGame::UpgradeGym()
 void ManageGame::OKalert(){
 	ParentMap->DeleteNormalAlert();
 }
+void ManageGame::BACKalert()
+{
+	ParentMap->DeleteInbuildingAlert();
+}
 
 void ManageGame::StartGame(){
 

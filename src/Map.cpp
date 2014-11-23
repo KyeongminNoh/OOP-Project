@@ -2,6 +2,7 @@
 #include "ManageGame.h"
 #include "AskAlert.h"
 #include "NormalAlert.h"
+#include "InbuildingAlert.h"
 #include <QMouseEvent>
 #include <QTimer>
 
@@ -253,6 +254,11 @@ void Map::DeleteNormalAlert(){
 	delete normalalert;
 	normalalert = NULL;
 }
+void Map::DeleteInbuildingAlert()
+{
+	delete Inbuildingalert;
+	Inbuildingalert = NULL;
+}
 
 void Map::setManageGame(ManageGame *Game){
 	onGoingGame = Game;
@@ -291,12 +297,19 @@ void Map::MoveToCafeteria(){
 }
 
 void Map::MoveToGym(){
-	px = -0.8;
-	py = 1.7;
+	px = -0.6;
+	py = 1.2;
 	
 	QTimer *Timer;
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, Timer, SLOT(stop()));
 	Timer->start(5);
+//	if(Inbuildingalert != NULL)
+//		return;
+//	else{
+		Inbuildingalert = new InbuildingAlert(onGoingGame, "Gym",nowEnvironment);
+		Inbuildingalert->setGeometry(QRect(0, 0, 660, 450));
+		Inbuildingalert->show();
+//	}
 }
