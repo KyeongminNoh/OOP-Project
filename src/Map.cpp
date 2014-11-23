@@ -14,6 +14,8 @@ Map::Map(QWidget *parent) : QWidget(parent){
 	py = 1;
 
 
+
+
 	askalert = NULL;
 	normalalert = NULL;
 
@@ -39,6 +41,11 @@ Map::Map(QWidget *parent) : QWidget(parent){
 	nowPlayer->setPixmap(PlayerImage);
 	nowPlayer->show();
 
+	QPushButton *Reset;
+	Reset = new QPushButton(nowEnvironment);
+	Reset->setText("Reset!");
+	Reset->setGeometry(QRect(0, 0, 40, 30));
+	Reset->show();
 
 
 	DormitoryImage = new QPushButton(nowEnvironment);
@@ -73,7 +80,8 @@ Map::Map(QWidget *parent) : QWidget(parent){
 
 	QObject::connect(EngineeringImage, SIGNAL(clicked()), SLOT(MoveToEngineering()));
 	QObject::connect(CafeteriaImage, SIGNAL(clicked()), SLOT(MoveToCafeteria()));
-	
+	QObject::connect(DormitoryImage, SIGNAL(clicked()), SLOT(MoveToDormitory()));
+	QObject::connect(Reset, SIGNAL(clicked()), SLOT(ResetPlayer()));
 
 }
 
@@ -102,6 +110,8 @@ void Map::createLaborBuilding(int level){
 	LaborBuildingImage->setIconSize(QSize(100, 100));
 	LaborBuildingImage->setFlat(true);
 	LaborBuildingImage->show();
+
+	QObject::connect(LaborBuildingImage, SIGNAL(clicked()), SLOT(MoveToLaborBuilding()));
 }
 
 void Map::createStudentHall(int level){
@@ -114,6 +124,7 @@ void Map::createStudentHall(int level){
 	StudentHallImage->setIconSize(QSize(100, 100));
 	StudentHallImage->setFlat(true);
 	StudentHallImage->show();
+	QObject::connect(StudentHallImage, SIGNAL(clicked()), SLOT(MoveToStudentHall()));
 }
 
 
@@ -127,6 +138,7 @@ void Map::createLogHouseImage(int level){
 	LogHouseImage->setIconSize(QSize(100, 100));
 	LogHouseImage->setFlat(true);
 	LogHouseImage->show();
+	QObject::connect(LogHouseImage, SIGNAL(clicked()), SLOT(MoveToLogHouse()));
 }
 
 void Map::createLibraryImage(int level){
@@ -139,12 +151,13 @@ void Map::createLibraryImage(int level){
 	LibraryImage->setIconSize(QSize(100, 100));
 	LibraryImage->setFlat(true);
 	LibraryImage->show();
+	QObject::connect(LibraryImage, SIGNAL(clicked()), SLOT(MoveToLibrary()));
 }
 
 void Map::createMarketImage(int level){
 	MarketImage = new QPushButton(nowEnvironment);
 	//MarketImage->setScaledContents(true);
-	MarketImage->setGeometry(QRect(30,440,100,100));
+	MarketImage->setGeometry(QRect(30,340,100,100));
 	QIcon IMarket;
     IMarket.addPixmap(QPixmap(QString::fromUtf8("Resources/Market.png")), QIcon::Normal, QIcon::Off);
     MarketImage->setIcon(IMarket);
@@ -264,6 +277,14 @@ void Map::setManageGame(ManageGame *Game){
 	onGoingGame = Game;
 }
 
+void Map::ResetPlayer(){
+	x =320;
+	y =350;
+
+	nowPlayer->setGeometry(QRect(x, y, 40, 80));
+	repaint();
+}
+
 void Map::MovePlayer(){
 	x -= px;
 	y -= py;
@@ -273,38 +294,81 @@ void Map::MovePlayer(){
 }
 
 void Map::MoveToEngineering(){
-	px = 1.2;
-	py = 1;
+	px = 5.77;
+	py = 5.77;
 
-
-	QTimer *Timer;
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
-	QTimer::singleShot(2000, Timer, SLOT(stop()));
-	Timer->start(10);
+	QTimer::singleShot(1300, this, SLOT(DeleteTimer()));
+	Timer->start(20);
 }
 
-
 void Map::MoveToCafeteria(){
-	px = -1;
-	py = 0.3;
+	px = -6.4;
+	py = 2;
 	
-	QTimer *Timer;
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
-	QTimer::singleShot(1000, Timer, SLOT(stop()));
-	Timer->start(5);
+	QTimer::singleShot(800, this, SLOT(DeleteTimer()));
+	Timer->start(20);
 }
 
 void Map::MoveToGym(){
+<<<<<<< HEAD
 	px = -0.6;
 	py = 1.2;
+=======
+	px = -3.5;
+	py = 7.5;
 	
-	QTimer *Timer;
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
-	QTimer::singleShot(1000, Timer, SLOT(stop()));
-	Timer->start(5);
+	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	Timer->start(30);
+}
+
+void Map::MoveToLaborBuilding(){
+	px = -5.5;
+	py = 5.05;
+	
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	Timer->start(30);
+}
+
+void Map::DeleteTimer(){
+	delete Timer;
+	px = 0;
+	py = 0;
+}
+
+void Map::MoveToDormitory(){
+	px = 0.9;
+	py = 7;
+	
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(1200, this, SLOT(DeleteTimer()));
+	Timer->start(30);
+}
+
+void Map::MoveToStudentHall(){
+	px = 3;
+	py = 6.5;
+	
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(1200, this, SLOT(DeleteTimer()));
+	Timer->start(30);
+}
+
+void Map::MoveToLogHouse(){
+	px = -5.5;
+	py = 7.3;
+	
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 //	if(Inbuildingalert != NULL)
 //		return;
 //	else{
@@ -312,4 +376,16 @@ void Map::MoveToGym(){
 		Inbuildingalert->setGeometry(QRect(0, 0, 660, 450));
 		Inbuildingalert->show();
 //	}
+	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	Timer->start(30);
+}
+
+void Map::MoveToLibrary(){
+	px = 7;
+	py = 4.7;
+	
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	Timer->start(30);
 }

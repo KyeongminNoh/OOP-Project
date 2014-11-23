@@ -6,7 +6,7 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QWidget *parent) : QWid
 
 	alertType = Name;
 	onGoingGame = Game;
-	resize(300, 200);
+	resize(300, 150);
 
 	QPixmap Image;
 	
@@ -21,8 +21,8 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QWidget *parent) : QWid
 
 
 	normalalert = new QLabel(this);
-	normalalert->resize(300, 200);
-	normalalert->setGeometry(QRect(0, 0, 300, 200));
+	normalalert->setScaledContents(true);
+	normalalert->setGeometry(QRect(0, 0, 300, 150));
 	normalalert->setPixmap(Image);
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");
@@ -32,9 +32,13 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QWidget *parent) : QWid
 
 	
 	OK = new QPushButton(normalalert);
-	OK->setText("OK");
-	OK->resize(100, 50);
-	OK->setGeometry(QRect(100, 125, 100, 50));
+	OK->setGeometry(QRect(100, 90, 100, 50));
+	QIcon OKIcon;
+    OKIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/OK.png")), QIcon::Normal, QIcon::Off);
+	OK->setIcon(OKIcon);
+	OK->setIconSize(QSize(90, 36));
+	OK->setFlat(true);
+	OK->show();
 
 	normalalert->show();
 

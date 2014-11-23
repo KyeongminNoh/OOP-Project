@@ -37,7 +37,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	Footer->setScaledContents(true);
 	Footer->setGeometry(QRect(0,450,800,150));
 	QPixmap footerImage;
-	footerImage.load(QString::fromUtf8("Resources/Footer.png"));
+	footerImage.load(QString::fromUtf8("Resources/footer.png"));
 	Footer->setPixmap(footerImage);
 
 	QIcon TAImage;

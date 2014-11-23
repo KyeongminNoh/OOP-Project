@@ -1,4 +1,4 @@
-
+#include <QTimer>
 #include <QLabel>
 #include <QWidget>
 #include <QPushButton>
@@ -35,6 +35,8 @@ private:
 	qreal x, y, px, py;
 	int time, stoptime;
 
+	QTimer *Timer;
+
 	ManageGame *onGoingGame;
 	NormalAlert *normalalert;
 	AskAlert *askalert;
@@ -62,11 +64,19 @@ public slots:
 	void setLogAlert();
 	void setStuAlert();
 	void setMarAlert();
+
+
+	void ResetPlayer();
 	void MoveToEngineering();
 	void MoveToCafeteria();
 	void MoveToGym();
+	void MoveToLaborBuilding();
+	void MoveToDormitory();
+	void MoveToStudentHall();
+	void MoveToLogHouse();
+	void MoveToLibrary();
 	void MovePlayer();
-
+	void DeleteTimer();
 
 	void setExerAlert();
 	void setGym_Upgrade_Alert();

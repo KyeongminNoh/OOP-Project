@@ -17,12 +17,20 @@ StartScene::StartScene(GameWindow* win)
 	Title->setScaledContents(true);
 	Title->setGeometry(QRect(0,0,800,600));
     QPixmap image;
-    image.load(QString::fromUtf8("Resources/backscreen.jpg"));
+    image.load(QString::fromUtf8("Resources/backscreen.png"));
     Title->setPixmap(image);
 
 	window->setCentralWidget(Title);
 
 	setMouseTracking(true);
+
+	Head = new QLabel(Title);
+	Head->setScaledContents(true);
+	Head->setGeometry(QRect(175,25,450,220));
+    QPixmap Himage;
+    Himage.load(QString::fromUtf8("Resources/Title.png"));
+    Head->setPixmap(Himage);
+	Head->show();
 
 	QIcon NewGame;
 	NewGame.addPixmap(QPixmap(QString::fromUtf8("Resources/NewGame.png")), QIcon::Normal, QIcon::Off);
@@ -31,34 +39,33 @@ StartScene::StartScene(GameWindow* win)
 	QIcon Exit;
 	Exit.addPixmap(QPixmap(QString::fromUtf8("Resources/Exit.png")), QIcon::Normal, QIcon::Off);
 
-	alertButton1 = new QLabel(Title);
-	alertButton1->setGeometry(QRect( 0, 0, 200, 200 ));
-	alertButton1->setText("Go");
-	alertButton1->show();
 
 	QPushButton *pushButton;
 	pushButton = new QPushButton(Title);
-    pushButton->setGeometry(QRect(125, 350, 75, 25));
+    pushButton->setGeometry(QRect(300, 360, 200, 60));
 	pushButton->setIcon(NewGame);
-	pushButton->setIconSize(QSize(100, 50));
+	pushButton->setIconSize(QSize(200, 60));
+	pushButton->setFlat(true);
 	pushButton->show();
 
 	QObject::connect(pushButton,SIGNAL(clicked()),this,SLOT(RunNewGame()));
 	
 	QPushButton *pushButton2;
 	pushButton2 = new QPushButton(Title);
-    pushButton2->setGeometry(QRect(125, 400, 75, 25));
+    pushButton2->setGeometry(QRect(300, 440, 200, 60));
 	pushButton2->setIcon(Continue);
-	pushButton2->setIconSize(QSize(100, 50));
+	pushButton2->setIconSize(QSize(200, 60));
+	pushButton2->setFlat(true);
 	pushButton2->show();
 	
 	QObject::connect(pushButton2,SIGNAL(clicked()),this,SLOT(RunContinue()));
 	
 	QPushButton *pushButton3;
 	pushButton3 = new QPushButton(Title);
-    pushButton3->setGeometry(QRect(125, 450, 75, 25));
+    pushButton3->setGeometry(QRect(300, 520, 200, 60));
 	pushButton3->setIcon(Exit);
-	pushButton3->setIconSize(QSize(100, 50));
+	pushButton3->setIconSize(QSize(200, 60));
+	pushButton3->setFlat(true);
 	pushButton3->show();
 
 	QObject::connect(pushButton3,SIGNAL(clicked()),this,SLOT(RunExit()));

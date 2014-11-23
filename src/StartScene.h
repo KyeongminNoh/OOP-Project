@@ -29,7 +29,7 @@ protected:
 
 private:
 
-
+	QLabel *Head;
 
 	QLabel *alertButton1;
 	GameWindow* window;

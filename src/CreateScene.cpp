@@ -38,7 +38,7 @@ CreateScene::CreateScene(GameWindow* win)
 
 	Head = new QLabel(Title);
 	Head->setScaledContents(true);
-	Head->setGeometry(QRect(200,45,400,125));
+	Head->setGeometry(QRect(270,45,250,80));
     QPixmap Himage;
     Himage.load(QString::fromUtf8("Resources/CreateCharacter.png"));
     Head->setPixmap(Himage);
@@ -111,7 +111,7 @@ void CreateScene::Mancome()
 	Person->setScaledContents(true);
 	Person->setGeometry(QRect(425,250,250,250));
 	QPixmap Iperson;
-    Iperson.load(QString::fromUtf8("Resources/Man.jpg"));
+    Iperson.load(QString::fromUtf8("Resources/Man.png"));
     Person->setPixmap(Iperson);
 
 	Person->show();
@@ -127,7 +127,7 @@ void CreateScene::Girlcome()
 	Person->setScaledContents(true);
 	Person->setGeometry(QRect(425,250,250,250));
 	QPixmap Iperson;
-    Iperson.load(QString::fromUtf8("Resources/Girl.jpg"));
+    Iperson.load(QString::fromUtf8("Resources/Girl.png"));
     Person->setPixmap(Iperson);
 
 	Person->show();
@@ -143,7 +143,7 @@ void CreateScene::Dayclicked()
 	Night->setScaledContents(true);
 	Night->setGeometry(QRect(425,200,50,50));
 	QPixmap weather;
-    weather.load(QString::fromUtf8("Resources/Day.jpg"));
+    weather.load(QString::fromUtf8("Resources/Day.png"));
     Night->setPixmap(weather);
 
 	Night->show();
@@ -157,7 +157,7 @@ void CreateScene::Nightclicked()
 	Night->setScaledContents(true);
 	Night->setGeometry(QRect(425,200,50,50));
 	QPixmap weather;
-    weather.load(QString::fromUtf8("Resources/Night.jpg"));
+    weather.load(QString::fromUtf8("Resources/Night.png"));
     Night->setPixmap(weather);
 
 	Night->show();
