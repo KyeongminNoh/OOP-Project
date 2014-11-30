@@ -16,17 +16,17 @@ BuildWhat::BuildWhat(Map *map, QWidget *parent) : QWidget(parent){
 	mar = new QPushButton(this);
 
 	QIcon gymB;
-	gymB.addPixmap(QPixmap(QString::fromUtf8("Resources/Gym_Inactivated.png")), QIcon::Normal, QIcon::Off);
+	gymB.addPixmap(QPixmap(QString::fromUtf8("Resources/Gym_inactivated.png")), QIcon::Normal, QIcon::Off);
 	QIcon libB;
-	libB.addPixmap(QPixmap(QString::fromUtf8("Resources/Library_Inactivated.png")), QIcon::Normal, QIcon::Off);
+	libB.addPixmap(QPixmap(QString::fromUtf8("Resources/Library_inactivated.png")), QIcon::Normal, QIcon::Off);
 	QIcon labB;
-	labB.addPixmap(QPixmap(QString::fromUtf8("Resources/Labor_Inactivated.png")), QIcon::Normal, QIcon::Off);
+	labB.addPixmap(QPixmap(QString::fromUtf8("Resources/Labor_inactivated.png")), QIcon::Normal, QIcon::Off);
 	QIcon logHB;
-	logHB.addPixmap(QPixmap(QString::fromUtf8("Resources/LogHouse_Inactivated.png")), QIcon::Normal, QIcon::Off);
+	logHB.addPixmap(QPixmap(QString::fromUtf8("Resources/LogHouse_inactivated.png")), QIcon::Normal, QIcon::Off);
 	QIcon stuB;
-	stuB.addPixmap(QPixmap(QString::fromUtf8("Resources/StudentHall_Inactivated.png")), QIcon::Normal, QIcon::Off);
+	stuB.addPixmap(QPixmap(QString::fromUtf8("Resources/StudentHall_inactivated.png")), QIcon::Normal, QIcon::Off);
 	QIcon marB;
-	marB.addPixmap(QPixmap(QString::fromUtf8("Resources/Market_Inactivated.png")), QIcon::Normal, QIcon::Off);
+	marB.addPixmap(QPixmap(QString::fromUtf8("Resources/Market_inactivated.png")), QIcon::Normal, QIcon::Off);
 
 	//gym->setText("gym");
 	gym->setGeometry(QRect(15, 45, 110, 50));

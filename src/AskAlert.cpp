@@ -26,7 +26,7 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 
 	/* Gym 내부 */
 	else if(BuildingName == "Exer") // 운동하는 것, building은 아님
-		Image.load(QString::fromUtf8("Resources/AskGym.png"));
+		Image.load(QString::fromUtf8("Resources/AskExercise.png"));
 	else if(BuildingName == "GymUpgrade1")
 		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
 	else if(BuildingName == "GymUpgrade2")
@@ -34,7 +34,7 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 
 	/* Cafeteria 내부 */
 	else if(BuildingName == "Eat") // 운동하는 것, building은 아님
-		Image.load(QString::fromUtf8("Resources/AskGym.png"));
+		Image.load(QString::fromUtf8("Resources/AskEat.png"));
 	else if(BuildingName == "CafUpgrade1")
 		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
 	else if(BuildingName == "CafUpgrade2")
