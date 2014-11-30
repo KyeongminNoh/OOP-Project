@@ -15,6 +15,8 @@ public:
 	virtual void Upgrade(ManageGame *mg) = 0; // level++, upgrade_cost º¯°æ
 	virtual void Upgrade2(ManageGame *mg) = 0;
 
+
+
 protected:
 	int level;
 	int ConstructCost;

@@ -17,6 +17,13 @@ public:
 	QPushButton *lab;
 	QPushButton *mar;
 
+	void setGymInactive();
+	void setLibInactive();
+	void setLogInactive();
+	void setStuInactive();
+	void setLabInactive();
+	void setMarInactive();
+
 private:
 	Map *nowmap;
 	QVBoxLayout *Menu;

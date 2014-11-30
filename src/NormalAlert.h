@@ -13,7 +13,7 @@ class NormalAlert : public QWidget{
 	Q_OBJECT
 
 public:
-	NormalAlert(ManageGame *Game, QString Name, QWidget *parent = 0);
+	NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget *parent = 0);
 
 private:
 	void paintEvent(QPaintEvent *event);
@@ -21,9 +21,10 @@ private:
 	QPushButton *OK;
 	QLabel *normalalert;
 	QString alertType;
+	QString canvas;
 	QFont *font;
 
 
 public slots:
-
+	void SendOK();
 };

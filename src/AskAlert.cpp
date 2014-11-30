@@ -23,11 +23,22 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		Image.load(QString::fromUtf8("Resources/AskStuHall.png"));
 	else if(BuildingName == "Mar")
 		Image.load(QString::fromUtf8("Resources/AskMarket.png"));
-	else if(BuildingName == "Exer") // 운동하는 것, building은 아님
-		Image.load(QString::fromUtf8("Resources/AskExercise.png"));
-	else if(BuildingName == "GymUpgrade")
-		Image.load(QString::fromUtf8("Resources/AskGymUpgrade.png"));
 
+	/* Gym 내부 */
+	else if(BuildingName == "Exer") // 운동하는 것, building은 아님
+		Image.load(QString::fromUtf8("Resources/AskGym.png"));
+	else if(BuildingName == "GymUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
+	else if(BuildingName == "GymUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
+
+	/* Cafeteria 내부 */
+	else if(BuildingName == "Eat") // 운동하는 것, building은 아님
+		Image.load(QString::fromUtf8("Resources/AskGym.png"));
+	else if(BuildingName == "CafUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
+	else if(BuildingName == "CafUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
 
 	askalert = new QLabel(this);
 	askalert->setScaledContents(true);
@@ -72,10 +83,27 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildMarket()));
 	else if(BuildingName == "Exer")
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoExer()));
-	else if(BuildingName == "GymUpgrade")
-		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(UpgradeGym()));
+	else if(BuildingName == "GymUpgrade1" || BuildingName == "GymUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildGym()));
+	else if(BuildingName == "B" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(EatB()));
+	else if(BuildingName == "C" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(EatC()));
+	else if(BuildingName == "D" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(EatD()));
+	else if(BuildingName == "CafUpgrade1" || BuildingName == "CafUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildCafeteria()));
 
-	QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NoBuild()));
+
+
+	if(BuildingName == "GymUpgrade1" || BuildingName == "GymUpgrade2" || BuildingName == "Exer")
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInGym()));
+	else if(BuildingName == "CafUpgrade1" || BuildingName == "CafUpgrade2" || BuildingName == "B" || BuildingName == "C" || BuildingName == "D"){
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInCaf()));
+	}
+	else{
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NoBuild()));
+	}
 }
 
 
@@ -85,4 +113,16 @@ void AskAlert::paintEvent(QPaintEvent *event){
 	QString question, B;
 	question.append("Do you want Build");
 	
+}
+
+void AskAlert::EatB(){
+	onGoingGame->EatinCaf(1);
+}
+
+void AskAlert::EatC(){
+	onGoingGame->EatinCaf(2);
+}
+
+void AskAlert::EatD(){
+	onGoingGame->EatinCaf(3);
 }

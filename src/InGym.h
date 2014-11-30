@@ -1,37 +1,35 @@
-/*#pragma once
-#include "GameWindow.h"
-#include "FieldScene.h"
-#include "qwidget.h"
-#include "Building.h"
-#include "AskAlert.h"
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QTextEdit>
+#include <QWidget>
+#include <QPushButton>
+#include <QPixmap>
+#include <QLabel>
+#include <QPainter>
+#include <QFont>
 
-class InGym : public QWidget
-{
+
+class ManageGame;
+class Map;
+class AskAlert;
+class NormalAlert;
+
+class InGym : public QWidget{
+
 	Q_OBJECT
 
 public:
-	InGym() {}
-	InGym(ManageGame* preGame, QString Name, QWidget *parent = 0);
-	~InGym(){}
+	InGym(ManageGame *Game, QWidget *parent = 0);
+	void ReDraw();
+protected:
+
+	ManageGame *onGoingGame;
+	QLabel *Screen;
+	QPushButton *OK;
+	AskAlert *askalert;
+	NormalAlert *normalalert;
 
 public slots:
-
-private:
-//	GameWindow* window;
-	QWidget* Page;
-	QLabel* Title;
-	QLabel* buildname;
-	QLabel* exerEff;
-	QLabel *normalalert;
-	QString alertType;
-	QFont *font;
-	Map* maP;
-	FieldScene* preScene;
-	BuildWhat *MenuBar;
-	ManageGame *onGoingGame;
-};*/
+	void DeleteAskAlert();
+	void DeleteNormalAlert();
+	void setNormalAlert(QString Name);
+	void setGym_Upgrade_Alert();
+	void setExerAlert();
+};

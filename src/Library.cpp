@@ -8,21 +8,20 @@ Library::Library(ManageGame *mg){
 	level = 1;
 	enabled_atNight = true;
 	name = "µµ¼­°ü";
-	UpgradeCost = 100;
+	UpgradeCost = 50;
 
-	mg->get_onPlayer()->set_Knowledge(10);
+	mg->get_onPlayer()->set_Knowledge(5);
 
 };
 
 void Library::Upgrade(ManageGame *mg){
 	level++;
-	UpgradeCost += 100;
-	mg->get_onPlayer()->set_Knowledge(5);
+	UpgradeCost += 50;
+	mg->get_onPlayer()->set_Knowledge(10);
 };
 
 void Library::Upgrade2(ManageGame *mg){
 	level++;
-	UpgradeCost += 100;
-	mg->get_onPlayer()->set_Knowledge(7);
+	mg->get_onPlayer()->set_Knowledge(15);
 };
 

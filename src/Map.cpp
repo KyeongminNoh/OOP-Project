@@ -2,17 +2,22 @@
 #include "ManageGame.h"
 #include "AskAlert.h"
 #include "NormalAlert.h"
-#include "InbuildingAlert.h"
+#include "InGym.h"
+#include "InDormitory.h"
+#include "InCafeteria.h"
+#include "Player.h"
 #include <QMouseEvent>
 #include <QTimer>
 
-Map::Map(QWidget *parent) : QWidget(parent){
+Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	x =320;
 	y =350;
 	
 	px = 1;
 	py = 1;
 
+	incafeteria = NULL;
+	Inbuildingalert = NULL;
 
 
 
@@ -37,10 +42,14 @@ Map::Map(QWidget *parent) : QWidget(parent){
 	nowPlayer->setScaledContents(true);
 	nowPlayer->setGeometry(QRect(320, 350, 40, 80));
 	QPixmap PlayerImage;
-	PlayerImage.load(QString::fromUtf8("Resources/Player.png"));
+	if(Man == true)
+		PlayerImage.load(QString::fromUtf8("Resources/Player.png"));
+	else
+		PlayerImage.load(QString::fromUtf8("Resources/Woman.png"));
 	nowPlayer->setPixmap(PlayerImage);
 	nowPlayer->show();
 
+	
 	QPushButton *Reset;
 	Reset = new QPushButton(nowEnvironment);
 	Reset->setText("Reset!");
@@ -172,7 +181,7 @@ void Map::setGym_Upgrade_Alert()
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "GymUpgrade",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -182,7 +191,7 @@ void Map::setExerAlert()
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Exer",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -192,7 +201,7 @@ void Map::setGymAlert(){
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Gym",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 
@@ -203,7 +212,7 @@ void Map::setLibAlert(){
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Lib",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -213,7 +222,7 @@ void Map::setLabAlert(){
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Lab",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -223,7 +232,7 @@ void Map::setLogAlert(){
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Log",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -233,7 +242,7 @@ void Map::setStuAlert(){
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Stu",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -243,7 +252,7 @@ void Map::setMarAlert(){
 		return;
 	else{
 		askalert = new AskAlert(onGoingGame, "Mar",nowEnvironment);
-		askalert->setGeometry(QRect(110, 100, 300, 300));
+		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
 	}
 }
@@ -252,8 +261,11 @@ void Map::setNormalAlert(QString name){
 	if(normalalert != NULL)
 		return;
 	else{
-		normalalert = new NormalAlert(onGoingGame, name ,nowEnvironment);
-		normalalert->setGeometry(QRect(110, 150, 300, 200));
+		normalalert = new NormalAlert(onGoingGame, name, "map", nowEnvironment);
+		normalalert->setGeometry(QRect(110, 150, 300, 150));
+		if(name == "Sleep" || name == "CTSleep"){
+			normalalert->setGeometry(QRect(0, 0, 660, 450));
+		}
 		normalalert->show();
 	}
 }
@@ -267,10 +279,20 @@ void Map::DeleteNormalAlert(){
 	delete normalalert;
 	normalalert = NULL;
 }
-void Map::DeleteInbuildingAlert()
+void Map::DeleteInBldg()
 {
 	delete Inbuildingalert;
 	Inbuildingalert = NULL;
+	delete incafeteria;
+	incafeteria = NULL;
+	ResetPlayer();
+}
+
+void Map::DeleteInDormitory()
+{
+	delete indormitory;
+	indormitory = NULL;
+	ResetPlayer();
 }
 
 void Map::setManageGame(ManageGame *Game){
@@ -310,20 +332,21 @@ void Map::MoveToCafeteria(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(800, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(850, this, SLOT(setInCafeteria()));
 	Timer->start(20);
 }
 
 void Map::MoveToGym(){
-<<<<<<< HEAD
-	px = -0.6;
-	py = 1.2;
-=======
+
 	px = -3.5;
 	py = 7.5;
 	
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+
+
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1050, this, SLOT(setInGym()));
 	Timer->start(30);
 }
 
@@ -334,6 +357,7 @@ void Map::MoveToLaborBuilding(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	
 	Timer->start(30);
 }
 
@@ -350,6 +374,7 @@ void Map::MoveToDormitory(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1200, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1250, this, SLOT(setInDormitory()));
 	Timer->start(30);
 }
 
@@ -372,9 +397,7 @@ void Map::MoveToLogHouse(){
 //	if(Inbuildingalert != NULL)
 //		return;
 //	else{
-		Inbuildingalert = new InbuildingAlert(onGoingGame, "Gym",nowEnvironment);
-		Inbuildingalert->setGeometry(QRect(0, 0, 660, 450));
-		Inbuildingalert->show();
+
 //	}
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	Timer->start(30);
@@ -388,4 +411,32 @@ void Map::MoveToLibrary(){
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	Timer->start(30);
+}
+
+void Map::setInGym(){
+	Inbuildingalert = new InGym(onGoingGame, nowEnvironment);
+	Inbuildingalert->setGeometry(QRect(0, 0, 660, 450));
+	Inbuildingalert->show();
+
+}
+
+InGym* Map::getInGym(){
+	return Inbuildingalert;
+}
+
+InCafeteria* Map::getInCafeteria(){
+	return incafeteria;
+}
+
+void Map::setInDormitory(){
+	indormitory = new InDormitory(onGoingGame, nowEnvironment);
+	indormitory->setGeometry(QRect(0, 0, 660, 450));
+	indormitory->show();
+
+}
+
+void Map::setInCafeteria(){
+	incafeteria = new InCafeteria(onGoingGame, nowEnvironment);
+	incafeteria->setGeometry(QRect(0,0,660, 450));
+	incafeteria->show();
 }

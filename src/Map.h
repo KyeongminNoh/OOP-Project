@@ -8,7 +8,9 @@ class Building;
 class Environment;
 class AskAlert;
 class NormalAlert;
-class InbuildingAlert;
+class InGym;
+class InDormitory;
+class InCafeteria;
 
 //enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
 //enum { CLICK_MOUSE_MOVE_RANGE = 6 };
@@ -17,14 +19,19 @@ class Map : public QWidget {
 	Q_OBJECT
 
 public:
-	Map(QWidget *parent = 0);
+	Map(bool Man, QWidget *parent = 0);
+	InGym* getInGym();
+	InCafeteria* getInCafeteria();
+
 	void setNormalAlert(QString name);
 	void setManageGame(ManageGame *Game);
 	ManageGame* getOnGoingGame(){return onGoingGame;};
 	AskAlert* getAskAlert(){return askalert;};
 	void DeleteAskAlert();
 	void DeleteNormalAlert();
-	void DeleteInbuildingAlert();
+	void DeleteInBldg();
+	void DeleteInDormitory();
+	//void DeleteInCafeteria();
 	void createGymImage(int level);
 	void createLibraryImage(int level);
 	void createMarketImage(int level);
@@ -40,7 +47,9 @@ private:
 	ManageGame *onGoingGame;
 	NormalAlert *normalalert;
 	AskAlert *askalert;
-	InbuildingAlert *Inbuildingalert;
+	InGym *Inbuildingalert;
+	InDormitory *indormitory;
+	InCafeteria *incafeteria;
 
 	QLabel *nowEnvironment;
 	QLabel *nowPlayer;
@@ -80,4 +89,9 @@ public slots:
 
 	void setExerAlert();
 	void setGym_Upgrade_Alert();
+
+
+	void setInCafeteria();
+	void setInDormitory();
+	void setInGym();
 };

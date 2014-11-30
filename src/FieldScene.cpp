@@ -16,7 +16,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 	window->setCentralWidget(Title);
 
-	maP = new Map(Title);
+	maP = new Map(isMan-1,Title);
 
 	maP->setGeometry(QRect(140,0, 660, 450));
 	maP->show();
@@ -60,7 +60,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	FriendButton->setIconSize(QSize(90, 60));
 	FriendButton->show();
 
-	onGoingGame = new ManageGame(isMan, isDayPerson, maP ,Footer);
+	onGoingGame = new ManageGame(isMan, isDayPerson, maP , MenuBar ,Footer);
 
 	onGoingGame->setGeometry(QRect(300,0,800,150));
 	onGoingGame->show();

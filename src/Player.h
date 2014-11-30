@@ -22,11 +22,11 @@ public:
 	qreal get_Health(){return Health;}
 	qreal get_Lonely(){return Lonely;}
 	qreal get_Max_Health(){return Max_Health;}
-	bool get_Nocturnal() {return Nocturnal;}
-	bool get_Man() {return Man;}
+	bool get_Nocturnal() {return isNocturnal;}
+	bool get_Man() {return isMan;}
 private:
-	bool Nocturnal;
-	bool Man;
+	bool isNocturnal;
+	bool isMan;
 	qreal Knowledge;
 	qreal Health;
 	qreal Lonely;

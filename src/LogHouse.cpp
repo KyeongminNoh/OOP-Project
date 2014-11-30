@@ -6,18 +6,17 @@ LogHouse::LogHouse(ManageGame *mg){
 	level = 1;
 	enabled_atNight = true;
 	name = "통나무집";
-	UpgradeCost = 100;
-	mg->change_InclineLonely(0.05);
+	UpgradeCost = 50;
+	mg->change_InclineLonely(0.03);
 };
 
 void LogHouse::Upgrade(ManageGame *mg){
 	level++;
-	UpgradeCost += 100;
-	mg->change_InclineLonely(0.05);
+	UpgradeCost += 50;
+	mg->change_InclineLonely(0.02);
 };
 
 void LogHouse::Upgrade2(ManageGame *mg){
 	level++;
-	UpgradeCost += 100;
-	mg->change_InclineLonely(0.1);
+	mg->change_InclineLonely(0.05);
 };

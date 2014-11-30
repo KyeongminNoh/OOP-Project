@@ -35,6 +35,8 @@ CreateScene::CreateScene(GameWindow* win)
 	DayMenu.addPixmap(QPixmap(QString::fromUtf8("Resources/DayMenu.png")), QIcon::Normal, QIcon::Off);
 	QIcon NightMenu;
 	NightMenu.addPixmap(QPixmap(QString::fromUtf8("Resources/NightMenu.png")), QIcon::Normal, QIcon::Off);
+	QIcon NextIcon;
+	NextIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoStart.png")), QIcon::Normal, QIcon::Off);
 
 	Head = new QLabel(Title);
 	Head->setScaledContents(true);
@@ -49,37 +51,49 @@ CreateScene::CreateScene(GameWindow* win)
 	manButton = new QPushButton(Title);
     manButton->setGeometry(QRect(125, 250, 100, 100));
 	manButton->setIcon(ManMenu);
-	manButton->setIconSize(QSize(100, 100));
+	manButton->setIconSize(QSize(90, 90));
+	manButton->setFlat(true);
 	manButton->show();
 
 	
 	girlButton = new QPushButton(Title);
     girlButton->setGeometry(QRect(275, 250, 100, 100));
 	girlButton->setIcon(GirlMenu);
-	girlButton->setIconSize(QSize(100, 100));
+	girlButton->setIconSize(QSize(90, 90));
+	girlButton->setFlat(true);
 	girlButton->show();
 
 	
 	dayButton = new QPushButton(Title);
     dayButton->setGeometry(QRect(125, 400, 100, 100));
 	dayButton->setIcon(DayMenu);
-	dayButton->setIconSize(QSize(100, 100));
+	dayButton->setIconSize(QSize(90, 90));
+	dayButton->setFlat(true);
 	dayButton->show();
 
 	
 	nightButton = new QPushButton(Title);
     nightButton->setGeometry(QRect(275, 400, 100, 100));
 	nightButton->setIcon(NightMenu);
-	nightButton->setIconSize(QSize(100, 100));
+	nightButton->setIconSize(QSize(90, 90));
+	nightButton->setFlat(true);
 	nightButton->show();
 
 	QPushButton *nextButton;
 	nextButton = new QPushButton(Title);
-	nextButton->setText("Start!!");
-	nextButton->resize(80,50);
-	nextButton->setGeometry(QRect(650, 520, 80, 40));
+	nextButton->setGeometry(QRect(295, 515, 210, 70));
+	nextButton->setIcon(NextIcon);
+	nextButton->setIconSize(QSize(200, 64));
+	nextButton->setFlat(true);
 	nextButton->show();
 
+	Person = new QLabel(Title);
+	Person->setScaledContents(true);
+	Person->setGeometry(QRect(425,250,250,250));
+
+	Night = new QLabel(Title);
+	Night->setScaledContents(true);
+	Night->setGeometry(QRect(425,200,50,50));
 
 	QObject::connect(manButton,SIGNAL(clicked()),this,SLOT(Mancome()));
 	QObject::connect(girlButton,SIGNAL(clicked()),this,SLOT(Girlcome()));
@@ -106,63 +120,52 @@ void CreateScene::resetButton(){
 void CreateScene::Mancome()
 {
 	isMan = 2;
-	manButton->setGeometry(QRect(128, 253, 100, 100));
-	Person = new QLabel(Title);
-	Person->setScaledContents(true);
-	Person->setGeometry(QRect(425,250,250,250));
+
 	QPixmap Iperson;
     Iperson.load(QString::fromUtf8("Resources/Man.png"));
     Person->setPixmap(Iperson);
 
 	Person->show();
 
-	QTimer::singleShot(150, this, SLOT(resetButton()));
 
 }
 void CreateScene::Girlcome()
 {
 	isMan = 1;
-	girlButton->setGeometry(QRect(278, 253, 100, 100));
-	Person = new QLabel(Title);
-	Person->setScaledContents(true);
-	Person->setGeometry(QRect(425,250,250,250));
+
+
 	QPixmap Iperson;
     Iperson.load(QString::fromUtf8("Resources/Girl.png"));
     Person->setPixmap(Iperson);
 
 	Person->show();
 
-	QTimer::singleShot(150, this, SLOT(resetButton()));
+
 }
 void CreateScene::Dayclicked()
 {
 	isDayPerson = 2;
-	dayButton->setGeometry(QRect(128, 403, 100, 100));
 
-	Night = new QLabel(Title);
-	Night->setScaledContents(true);
-	Night->setGeometry(QRect(425,200,50,50));
+
+
 	QPixmap weather;
     weather.load(QString::fromUtf8("Resources/Day.png"));
     Night->setPixmap(weather);
 
 	Night->show();
-	QTimer::singleShot(150, this, SLOT(resetButton()));
+
 }
 void CreateScene::Nightclicked()
 {
 	isDayPerson = 1;
-	nightButton->setGeometry(QRect(278, 403, 100, 100));
-	Night = new QLabel(Title);
-	Night->setScaledContents(true);
-	Night->setGeometry(QRect(425,200,50,50));
+
 	QPixmap weather;
     weather.load(QString::fromUtf8("Resources/Night.png"));
     Night->setPixmap(weather);
 
 	Night->show();
 
-	QTimer::singleShot(150, this, SLOT(resetButton()));
+
 }
 
 void CreateScene::NextClicked()

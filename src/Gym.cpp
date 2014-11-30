@@ -6,19 +6,18 @@ Gym::Gym(ManageGame *mg){
 	level = 1;
 	enabled_atNight = true;
 	name = "Ã¼À°°ü";
-	UpgradeCost = 100;
+	UpgradeCost = 50;
 
-	mg->change_DeclineHealth(0.1);
+	mg->change_DeclineHealth(0.05);
 };
 
 void Gym::Upgrade(ManageGame *mg){
 	level++;
-	UpgradeCost += 100;
-	mg->change_DeclineHealth(0.2);
+	UpgradeCost += 50;
+	mg->change_DeclineHealth(0.05);
 };
 
 void Gym::Upgrade2(ManageGame *mg){
 	level++;
-	UpgradeCost += 100;
-	mg->change_DeclineHealth(0.2);
+	mg->change_DeclineHealth(0.15);
 };

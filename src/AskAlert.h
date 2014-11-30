@@ -27,5 +27,7 @@ private:
 
 
 public slots:
-
+	void EatB();
+	void EatC();
+	void EatD();
 };
