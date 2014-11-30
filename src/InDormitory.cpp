@@ -11,7 +11,7 @@ InDormitory::InDormitory(ManageGame *Game, QWidget *parent) : QWidget(parent){
 	QPixmap Image;
 	
 	
-	Image.load(QString::fromUtf8("Resources/Dorm.png"));
+	Image.load(QString::fromUtf8("Resources/Dorm1.png"));
 	
 
 	Screen = new QLabel(this);
