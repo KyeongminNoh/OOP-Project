@@ -1,0 +1,107 @@
+[33mcommit 86193561656c11988ab1531ed1967ee34d674b48[m
+Author: startstory <startstory@postech.ac.kr>
+Date:   Sun Nov 23 19:59:02 2014 +0900
+
+    체육관 안 장면 class
+
+[33mcommit a307f0b9569cd808b2c59efac782c92b2d594f86[m
+Author: Noh Kyeong min <ppsseo18@gmail.com>
+Date:   Sun Nov 23 19:56:02 2014 +0900
+
+    플레이어 이동 애니메이션 추가
+
+[33mcommit 4372f37c1016004ba405e61fc1033f6919b96ee4[m
+Author: lty13220 <lty13220@postech.ac.kr>
+Date:   Sun Nov 23 17:22:51 2014 +0900
+
+    이름 수정(통나무집->학생회관)
+
+[33mcommit 80daa6cb3c4f9b265eb7d6c25e7020e5fe976e9b[m
+Author: Noh Kyeong min <ppsseo18@gmail.com>
+Date:   Thu Nov 20 02:20:49 2014 +0900
+
+    버튼 클릭시 active하게 변경, 팝업창 추가로 건물건설 기능 완성 , 오른쪽 상단의 학기 표시
+
+[33mcommit 6386807b61a13bdc521c19ddcd6b0b51a3b3e59a[m
+Author: Noh Kyeong min <ppsseo18@gmail.com>
+Date:   Wed Nov 19 00:32:40 2014 +0900
+
+    실제 게임화면과, 기본적인 스텟변화 및  건물 건설기능 추가
+
+[33mcommit 335c6b3b26cfb6970a4f7247d7bb3b44474d7611[m
+Author: startstory <startstory@postech.ac.kr>
+Date:   Sun Nov 16 23:20:01 2014 +0900
+
+    main.cpp 추가
+
+[33mcommit baab8e9e928152eb994556ea97b3c1ae076029dd[m
+Author: startstory <startstory@postech.ac.kr>
+Date:   Sun Nov 16 23:14:03 2014 +0900
+
+    QT Scene 추가 및 Resource 폴더 추가
+
+[33mcommit 2961432d98855b3f83bd62e8cb5ffabf134776f5[m
+Author: ppsseo97 <ppsseo18@gmail.com>
+Date:   Sun Nov 9 23:57:33 2014 -0800
+
+    변수명, 메소드명 직관적으로 수정
+
+[33mcommit b555f72f70e20a64b6f25612a60b849e3feda4d5[m
+Author: startstory <startstory@postech.ac.kr>
+Date:   Sun Nov 9 23:53:15 2014 +0900
+
+    기본 클래스 선언부 설계
+
+[33mcommit 1864b0de4692848b8328145ef7b6358749f8e351[m
+Author: Noh Kyeong min <ppsseo18@gmail.com>
+Date:   Sun Nov 9 21:13:28 2014 +0900
+
+    Map.cpp 다시 원래대로
+
+[33mcommit 7f488fe38043252ed9ed6982d3d0c125c65513b6[m
+Author: lty13220 <lty13220@postech.ac.kr>
+Date:   Sun Nov 9 21:00:17 2014 +0900
+
+    stdio.h 추가
+
+[33mcommit c409656eec1092522247fc2640ea2e5c7f27b951[m
+Author: JustinaMoon <hymun1108@gmail.com>
+Date:   Sun Nov 9 21:00:21 2014 +0900
+
+    실험용Map.cpp
+
+[33mcommit 41861a33742e6fcedacc1b6130835c676b000280[m
+Author: SeunghyunMoon <apxpdhd@naver.com>
+Date:   Sun Nov 9 21:00:25 2014 +0900
+
+    modified library file
+
+[33mcommit 9818f71a82dce40661d610dceeb96de881236c09[m
+Author: startstory <startstory@postech.ac.kr>
+Date:   Sun Nov 9 20:35:59 2014 +0900
+
+    main.cpp 추가
+
+[33mcommit e6b38a091b6d1d2274b1fc710c17efb5f0766e86[m
+Author: Noh Kyeong min <ppsseo18@gmail.com>
+Date:   Sun Nov 9 20:17:42 2014 +0900
+
+    기본 클래스 파일 추가
+
+[33mcommit b92aa9bdbe2c297de25fc0244c49a0f22a3f284d[m
+Author: startstory <startstory@postech.ac.kr>
+Date:   Sun Nov 9 19:41:17 2014 +0900
+
+    클론 체크
+
+[33mcommit 1dbce76a8f37c6d5a8b8b3be4b2856ebb870e310[m
+Author: Noh Kyeong min <ppsseo18@gmail.com>
+Date:   Sun Nov 9 19:13:39 2014 +0900
+
+    first commit
+
+[33mcommit 05bf63ba5a90cc6fcad60f30f2ca68e2ededa369[m
+Author: KyeongminNoh <ppsseo18@gmail.com>
+Date:   Sun Nov 9 19:08:14 2014 +0900
+
+    Initial commit

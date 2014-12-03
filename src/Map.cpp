@@ -9,6 +9,8 @@
 #include "InLogHouse.h"
 #include "InStudentHall.h"
 #include "InEngineering.h"
+#include "InLibrary.h"
+#include "InLabor.h"
 #include "Player.h"
 #include "Semester.h"
 #include "TestAssn.h"
@@ -225,6 +227,26 @@ void Map::setGymAlert(){
 
 }
 
+void Map::setLib_Upgrade_Alert()
+{
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "LibUpgrade",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 225));
+		askalert->show();
+	}
+}
+void Map::setStudyAlert()
+{
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Study",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 225));
+		askalert->show();
+	}
+}
 void Map::setLibAlert(){
 	if(askalert != NULL)
 		return;
@@ -235,6 +257,26 @@ void Map::setLibAlert(){
 	}
 }
 
+void Map::setLab_Upgrade_Alert()
+{
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "LabUpgrade",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 225));
+		askalert->show();
+	}
+}
+void Map::setWorkAlert()
+{
+	if(askalert != NULL)
+		return;
+	else{
+		askalert = new AskAlert(onGoingGame, "Work",nowEnvironment);
+		askalert->setGeometry(QRect(110, 100, 300, 225));
+		askalert->show();
+	}
+}
 void Map::setLabAlert(){
 	if(askalert != NULL)
 		return;
@@ -310,6 +352,10 @@ void Map::DeleteInBldg()
 	inloghouse  = NULL;
 	delete instudenthall;
 	instudenthall = NULL;
+	delete inlibrary;
+	inlibrary = NULL;
+//	delete inlabor;
+//	inlabor = NULL;
 	ResetPlayer();
 }
 
@@ -401,6 +447,7 @@ void Map::MoveToLaborBuilding(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1050, this, SLOT(setInLabor()));
 	
 	Timer->start(30);
 }
@@ -456,6 +503,7 @@ void Map::MoveToLibrary(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1050, this, SLOT(setInLibrary()));
 	Timer->start(30);
 }
 
@@ -501,6 +549,13 @@ InStudentHall* Map::getInStudentHall(){
 	return instudenthall;
 }
 
+InLibrary* Map::getInLibrary(){
+	return inlibrary;
+}
+InLabor* Map::getInLabor(){
+	return inlabor;
+}
+
 void Map::setInDormitory(){
 	indormitory = new InDormitory(onGoingGame, nowEnvironment);
 	indormitory->setGeometry(QRect(0, 0, 660, 450));
@@ -530,6 +585,16 @@ void Map::setInLogHouse(){
 	inloghouse = new InLogHouse(onGoingGame, nowEnvironment);
 	inloghouse->setGeometry(QRect(0,0,660, 450));
 	inloghouse->show();
+}
+void Map::setInLibrary(){
+	inlibrary = new InLibrary(onGoingGame, nowEnvironment);
+	inlibrary->setGeometry(QRect(0,0,660, 450));
+	inlibrary->show();
+}
+void Map::setInLabor(){
+	inlabor = new InLabor(onGoingGame, nowEnvironment);
+	inlabor->setGeometry(QRect(0,0,660, 450));
+	inlabor->show();
 }
 
 void Map::setInStudentHall(){

@@ -17,6 +17,8 @@
 #include "InCafeteria.h"
 #include "InMarket.h"
 #include "InLogHouse.h"
+#include "InLibrary.h"
+#include "InLabor.h"
 #include "InStudentHall.h"
 #include "Assignment.h"
 #include "TestAssn.h"
@@ -346,6 +348,10 @@ void ManageGame::BuildLaborBuilding(){
 			onPlayer->set_Finance(-BuildingList[4]->get_UpgradeCost());
 			repaint();
 			BuildingList[4]->Upgrade(this);
+			ParentMap->getInLabor()->DeleteAskAlert();
+			MenuBar->setLabInactive();
+			ParentMap->getInLabor()->setNormalAlert("UCom");
+			ParentMap->getInLabor()->ReDraw();
 		}
 	}
 	else if(BuildingList[4]->get_level() == 2){
@@ -353,6 +359,10 @@ void ManageGame::BuildLaborBuilding(){
 			onPlayer->set_Finance(-BuildingList[4]->get_UpgradeCost());
 			repaint();
 			BuildingList[4]->Upgrade2(this);
+			ParentMap->getInLabor()->DeleteAskAlert();
+			MenuBar->setLabInactive();
+			ParentMap->getInLabor()->setNormalAlert("UCom");
+			ParentMap->getInLabor()->ReDraw();
 		}
 	}
 	
@@ -427,6 +437,10 @@ void ManageGame::BuildLibrary(){
 			onPlayer->set_Finance(-BuildingList[6]->get_UpgradeCost());
 			repaint();
 			BuildingList[6]->Upgrade(this);
+			ParentMap->getInLibrary()->DeleteAskAlert();
+			MenuBar->setLibInactive();
+			ParentMap->getInLibrary()->setNormalAlert("UCom");
+			ParentMap->getInLibrary()->ReDraw();
 		}
 	}
 	else if(BuildingList[6]->get_level() == 2){
@@ -434,6 +448,10 @@ void ManageGame::BuildLibrary(){
 			onPlayer->set_Finance(-BuildingList[6]->get_UpgradeCost());
 			repaint();
 			BuildingList[6]->Upgrade2(this);
+			ParentMap->getInLibrary()->DeleteAskAlert();
+			MenuBar->setLibInactive();
+			ParentMap->getInLibrary()->setNormalAlert("UCom");
+			ParentMap->getInLibrary()->ReDraw();
 		}
 	}
 	
@@ -501,7 +519,7 @@ if(BuildingList[3]->get_level() == 1){
 		onPlayer->set_Health(-10);
 		onPlayer->set_Max_Health(5);
 		ParentMap->getInGym()->DeleteAskAlert();
-		ParentMap->getInGym()->setNormalAlert("ECom");
+		ParentMap->getInGym()->setNormalAlert("ECom1");
 		repaint();
 	}
 	else
@@ -515,7 +533,7 @@ else if(BuildingList[3]->get_level() == 2){
 		onPlayer->set_Health(-15);
 		onPlayer->set_Max_Health(10);
 		ParentMap->getInGym()->DeleteAskAlert();
-		ParentMap->getInGym()->setNormalAlert("ECom");
+		ParentMap->getInGym()->setNormalAlert("ECom2");
 		repaint();
 	}
 	else
@@ -529,7 +547,99 @@ else if(BuildingList[3]->get_level() == 3){
 		onPlayer->set_Health(-20);
 		onPlayer->set_Max_Health(20);
 		ParentMap->getInGym()->DeleteAskAlert();
-		ParentMap->getInGym()->setNormalAlert("ECom");
+		ParentMap->getInGym()->setNormalAlert("ECom3");
+		repaint();
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+}
+
+void ManageGame::DoStudy()
+{
+if(BuildingList[6]->get_level() == 1){
+	if(onPlayer->get_Health() >= 10) // 공부시 필요 체력
+	{
+		onPlayer->set_Health(-10);
+		onPlayer->set_Knowledge(1);
+		ParentMap->getInLibrary()->DeleteAskAlert();
+		ParentMap->getInLibrary()->setNormalAlert("SCom1");
+		repaint();
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+else if(BuildingList[6]->get_level() == 2){
+	if(onPlayer->get_Health() >= 15) // 운동시 필요 체력
+	{
+		onPlayer->set_Health(-15);
+		onPlayer->set_Knowledge(3);
+		ParentMap->getInLibrary()->DeleteAskAlert();
+		ParentMap->getInLibrary()->setNormalAlert("SCom2");
+		repaint();
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+else if(BuildingList[6]->get_level() == 3){
+	if(onPlayer->get_Health() >= 20) // 운동시 필요 체력
+	{
+		onPlayer->set_Health(-20);
+		onPlayer->set_Knowledge(5);
+		ParentMap->getInLibrary()->DeleteAskAlert();
+		ParentMap->getInLibrary()->setNormalAlert("SCom3");
+		repaint();
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+}
+
+void ManageGame::DoWork()
+{
+if(BuildingList[4]->get_level() == 1){
+	if(onPlayer->get_Health() >= 20) // 공부시 필요 체력
+	{
+		onPlayer->set_Health(-20);
+		onPlayer->set_Finance(10);
+		ParentMap->getInLabor()->DeleteAskAlert();
+		ParentMap->getInLabor()->setNormalAlert("WCom1");
+		repaint();
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+else if(BuildingList[4]->get_level() == 2){
+	if(onPlayer->get_Health() >= 30) // 운동시 필요 체력
+	{
+		onPlayer->set_Health(-30);
+		onPlayer->set_Finance(20);
+		ParentMap->getInLabor()->DeleteAskAlert();
+		ParentMap->getInLabor()->setNormalAlert("WCom2");
+		repaint();
+	}
+	else
+	{
+		ParentMap->setNormalAlert("Heal");
+	}
+}
+else if(BuildingList[4]->get_level() == 3){
+	if(onPlayer->get_Health() >= 40) // 운동시 필요 체력
+	{
+		onPlayer->set_Health(-40);
+		onPlayer->set_Finance(30);
+		ParentMap->getInLabor()->DeleteAskAlert();
+		ParentMap->getInLabor()->setNormalAlert("WCom3");
 		repaint();
 	}
 	else
@@ -548,6 +658,10 @@ void ManageGame::OKBldgAlert(QString Type){
 		ParentMap->getInGym()->DeleteNormalAlert();
 	if(Type == "Caf")
 		ParentMap->getInCafeteria()->DeleteNormalAlert();
+	if(Type == "Lib")
+		ParentMap->getInLibrary()->DeleteNormalAlert();
+	if(Type == "Lab")
+		ParentMap->getInLabor()->DeleteNormalAlert();
 	if(Type == "Mar")
 		ParentMap->getInMarket()->DeleteNormalAlert();
 	if(Type == "Log")
@@ -628,6 +742,12 @@ void ManageGame::NothingInGym(){
 	ParentMap->getInGym()->DeleteAskAlert();
 };
 
+void ManageGame::NothingInLib(){
+	ParentMap->getInLibrary()->DeleteAskAlert();
+};
+void ManageGame::NothingInLab(){
+	ParentMap->getInLabor()->DeleteAskAlert();
+};
 void ManageGame::NothingInCaf(){
 	ParentMap->getInCafeteria()->DeleteAskAlert();
 };

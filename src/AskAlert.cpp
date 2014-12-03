@@ -64,6 +64,24 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 	else if(BuildingName == "StuUpgrade2")
 		Image.load(QString::fromUtf8("Resources/AskUpgrade2_StuHall.png"));
 
+	// Library 내부
+
+	else if(BuildingName == "Study") 
+		Image.load(QString::fromUtf8("Resources/AskStudy.png"));
+	else if(BuildingName == "LibUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
+	else if(BuildingName == "LibUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
+
+	// Labor 내부
+
+	else if(BuildingName == "Work") 
+		Image.load(QString::fromUtf8("Resources/AskWork.png"));
+	else if(BuildingName == "LabUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
+	else if(BuildingName == "LabUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
+
 	askalert = new QLabel(this);
 	askalert->setScaledContents(true);
 	askalert->setGeometry(QRect(0, 0, 300, 225));
@@ -150,8 +168,22 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 	else if(BuildingName == "StuUpgrade1" || BuildingName == "StuUpgrade2")
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildStudentHall()));
 
+	else if(BuildingName == "Study") // Library
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoStudy()));
+	else if(BuildingName == "LibUpgrade1" || BuildingName == "LibUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildLibrary()));
+
+	else if(BuildingName == "Work") // Labor
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoWork()));
+	else if(BuildingName == "LabUpgrade1" || BuildingName == "LabUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildLaborBuilding()));
+
 	if(BuildingName == "GymUpgrade1" || BuildingName == "GymUpgrade2" || BuildingName == "Exer")
 		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInGym()));
+	else if(BuildingName == "LibUpgrade1" || BuildingName == "LibUpgrade2" || BuildingName == "Study")
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInLib()));
+	else if(BuildingName == "LabUpgrade1" || BuildingName == "LabUpgrade2" || BuildingName == "Work")
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInLab()));
 	else if(BuildingName == "CafUpgrade1" || BuildingName == "CafUpgrade2" || BuildingName == "B" || BuildingName == "C" || BuildingName == "D"){
 		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInCaf()));
 	}

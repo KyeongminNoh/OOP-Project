@@ -14,7 +14,9 @@ class InEngineering;
 class InCafeteria;
 class InMarket;
 class InLogHouse;
+class InLibrary;
 class InStudentHall;
+class InLabor;
 class TestAssn;
 class Semester;
 
@@ -36,6 +38,9 @@ public:
 	InMarket *getInMarket();
 	InLogHouse *getInLogHouse();
 	InStudentHall *getInStudentHall();
+	InLibrary *getInLibrary();
+	InLabor *getInLabor();
+
 	TestAssn* getTA();
 
 
@@ -47,7 +52,9 @@ public:
 	void DeleteNormalAlert();
 	void DeleteInBldg();
 	void DeleteInDormitory();
+	void DeleteInLibrary();
 	void DeleteInEngineering();
+	void DeleteInLabor();
 
 	void DeleteTA();
 
@@ -78,6 +85,8 @@ private:
 	InMarket *inmarket;
 	InLogHouse *inloghouse;
 	InStudentHall *instudenthall;
+	InLibrary *inlibrary;
+	InLabor *inlabor;
 
 	QLabel *Screen;
 	TestAssn *TA;
@@ -122,6 +131,11 @@ public slots:
 	void setExerAlert();
 	void setGym_Upgrade_Alert();
 
+	void setStudyAlert();
+	void setLib_Upgrade_Alert();
+
+	void setWorkAlert();
+	void setLab_Upgrade_Alert();
 
 	void setInCafeteria();
 	void setInDormitory();
@@ -130,6 +144,8 @@ public slots:
 	void setInMarket();
 	void setInLogHouse();
 	void setInStudentHall();
+	void setInLibrary();
+	void setInLabor();
 
 	void setTA();
 };

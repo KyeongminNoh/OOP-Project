@@ -18,12 +18,28 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 		Image.load(QString::fromUtf8("Resources/FinancialAlert.png"));
 	else if(alertType == "BCom")
 		Image.load(QString::fromUtf8("Resources/BuildComplete.png"));
-	else if(alertType == "ECom")
-		Image.load(QString::fromUtf8("Resources/BuildComplete.png"));
+	else if(alertType == "ECom1")
+		Image.load(QString::fromUtf8("Resources/exercise1_notice.png"));
+	else if(alertType == "ECom2")
+		Image.load(QString::fromUtf8("Resources/exercise2_notice.png"));
+	else if(alertType == "ECom3")
+		Image.load(QString::fromUtf8("Resources/exercise3_notice.png"));
 	else if(alertType == "Heal")
 		Image.load(QString::fromUtf8("Resources/HealthAlert.png"));
 	else if(alertType == "UCom")
 		Image.load(QString::fromUtf8("Resources/UpgradeComplete.png"));
+	else if(alertType == "SCom1")
+		Image.load(QString::fromUtf8("Resources/study1_notice.png"));
+	else if(alertType == "SCom2")
+		Image.load(QString::fromUtf8("Resources/study2_notice.png"));
+	else if(alertType == "SCom3")
+		Image.load(QString::fromUtf8("Resources/study3_notice.png"));
+	else if(alertType == "WCom1")
+		Image.load(QString::fromUtf8("Resources/labor1_notice.png"));
+	else if(alertType == "WCom2")
+		Image.load(QString::fromUtf8("Resources/labor2_notice.png"));
+	else if(alertType == "WCom3")
+		Image.load(QString::fromUtf8("Resources/labor3_notice.png"));
 	else if(alertType == "Sleep"){
 		Image.load(QString::fromUtf8("Resources/Dorm2.png"));
 		resize(660, 450);

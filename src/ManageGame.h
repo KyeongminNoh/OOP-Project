@@ -98,6 +98,8 @@ public slots:
 	void NothingInMar();
 	void NothingInLog();
 	void NothingInStu();
+	void NothingInLib();
+	void NothingInLab();
 	void NoBuild();
 	void BuildCafeteria();
 	void BuildMarket();
@@ -110,6 +112,8 @@ public slots:
 
 
 	void DoExer();
+	void DoStudy();
+	void DoWork();
 	void Sleep();
 	void EatinCaf(int T);
 	void DrinkinMarket(int T);

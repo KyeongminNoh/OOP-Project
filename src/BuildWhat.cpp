@@ -147,7 +147,7 @@ void BuildWhat::setGymInactive(){
 
 void BuildWhat::setLibInactive(){
 	QIcon LibB;
-	LibB.addPixmap(QPixmap(QString::fromUtf8("Resources/Library_lv1.png")), QIcon::Normal, QIcon::Off);
+//	LibB.addPixmap(QPixmap(QString::fromUtf8("Resources/Library_lv1.png")), QIcon::Normal, QIcon::Off);
 	if(nowmap->getOnGoingGame()->getBuilding(6)->get_level() == 1){
 		LibB.addPixmap(QPixmap(QString::fromUtf8("Resources/Library_lv1.png")), QIcon::Normal, QIcon::Off);
 	}
