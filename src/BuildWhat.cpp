@@ -166,10 +166,10 @@ void BuildWhat::setLibInactive(){
 
 void BuildWhat::setLogInactive(){
 	QIcon LogB;
-	if(nowmap->getOnGoingGame()->getBuilding(6)->get_level() == 1){
+	if(nowmap->getOnGoingGame()->getBuilding(7)->get_level() == 1){
 		LogB.addPixmap(QPixmap(QString::fromUtf8("Resources/LogHouse_lv1.png")), QIcon::Normal, QIcon::Off);
 	}
-	else if(nowmap->getOnGoingGame()->getBuilding(6)->get_level() == 2){
+	else if(nowmap->getOnGoingGame()->getBuilding(7)->get_level() == 2){
 		LogB.addPixmap(QPixmap(QString::fromUtf8("Resources/LogHouse_lv2.png")), QIcon::Normal, QIcon::Off);
 	}
 	else{

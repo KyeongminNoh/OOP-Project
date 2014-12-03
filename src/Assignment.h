@@ -1,14 +1,18 @@
+#include <QLabel>
+
 class Assignment
 {
 public:
+	static int Num_Assign;
+	Assignment(int num, int KnowReq);
 	bool get_solved() {return solved;}
-	void check_Knowledge(); // KnowledgeRequire<Player.knowledge
-	int get_TimeRequire() {return TimeRequire;}
+	//void set_KnowReq(); // KnowledgeRequire<Player.knowledge
+	int get_KnowReq() {return KnowledgeRequire;}
 	void set_solve() {solved = true;}
 private:
-	static int Num_Assign;
+	
 	bool solved;
 	int KnowledgeRequire;
-	int TimeRequire;
+	int number;
 	//////////////////
-}
+};

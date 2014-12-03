@@ -33,12 +33,36 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
 
 	/* Cafeteria 내부 */
-	else if(BuildingName == "Eat") // 운동하는 것, building은 아님
+	else if(BuildingName == "B" || BuildingName == "C" || BuildingName == "D") // 운동하는 것, building은 아님
 		Image.load(QString::fromUtf8("Resources/AskEat.png"));
 	else if(BuildingName == "CafUpgrade1")
 		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
 	else if(BuildingName == "CafUpgrade2")
 		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
+
+	/* Market 내부 */
+	else if(BuildingName == "Drink1" || BuildingName == "Drink2" || BuildingName == "Drink3") // 운동하는 것, building은 아님
+		Image.load(QString::fromUtf8("Resources/AskDrink.png"));
+	else if(BuildingName == "MarUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1_Market.png"));
+	else if(BuildingName == "MarUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2_Market.png"));
+
+	/* LogHouse 내부 */
+	else if(BuildingName == "LogA" || BuildingName == "LogB" || BuildingName == "LogC") // 운동하는 것, building은 아님
+		Image.load(QString::fromUtf8("Resources/AskLog.png"));
+	else if(BuildingName == "LogUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
+	else if(BuildingName == "LogUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
+
+		/* StudentHall 내부 */
+	else if(BuildingName == "clubA" || BuildingName == "clubB" || BuildingName == "clubC") // 운동하는 것, building은 아님
+		Image.load(QString::fromUtf8("Resources/AskClub.png"));
+	else if(BuildingName == "StuUpgrade1")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1_StuHall.png"));
+	else if(BuildingName == "StuUpgrade2")
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2_StuHall.png"));
 
 	askalert = new QLabel(this);
 	askalert->setScaledContents(true);
@@ -81,11 +105,15 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildStudentHall()));
 	else if(BuildingName == "Mar")
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildMarket()));
-	else if(BuildingName == "Exer")
+
+
+	else if(BuildingName == "Exer") // Gym
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoExer()));
 	else if(BuildingName == "GymUpgrade1" || BuildingName == "GymUpgrade2")
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildGym()));
-	else if(BuildingName == "B" )
+
+
+	else if(BuildingName == "B" ) // Cafeteria
 		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(EatB()));
 	else if(BuildingName == "C" )
 		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(EatC()));
@@ -95,11 +123,46 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildCafeteria()));
 
 
+	else if(BuildingName == "Drink1" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(Drink1()));
+	else if(BuildingName == "Drink2" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(Drink2()));
+	else if(BuildingName == "Drink3" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(Drink3()));
+	else if(BuildingName == "MarUpgrade1" || BuildingName == "MarUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildMarket()));
+
+	else if(BuildingName == "LogA" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(LogA()));
+	else if(BuildingName == "LogB" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(LogB()));
+	else if(BuildingName == "LogC" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(LogC()));
+	else if(BuildingName == "LogUpgrade1" || BuildingName == "LogUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildLogHouse()));
+
+	else if(BuildingName == "clubA" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(ClubA()));
+	else if(BuildingName == "clubB" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(ClubB()));
+	else if(BuildingName == "clubC" )
+		QObject::connect(Yes, SIGNAL(clicked()), this ,SLOT(ClubC()));
+	else if(BuildingName == "StuUpgrade1" || BuildingName == "StuUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildStudentHall()));
 
 	if(BuildingName == "GymUpgrade1" || BuildingName == "GymUpgrade2" || BuildingName == "Exer")
 		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInGym()));
 	else if(BuildingName == "CafUpgrade1" || BuildingName == "CafUpgrade2" || BuildingName == "B" || BuildingName == "C" || BuildingName == "D"){
 		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInCaf()));
+	}
+	else if(BuildingName == "MarUpgrade1" || BuildingName == "MarUpgrade2" || BuildingName == "Drink1" || BuildingName == "Drink2" || BuildingName == "Drink3"){
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInMar()));
+	}
+	else if(BuildingName == "LogUpgrade1" || BuildingName == "LogUpgrade2" || BuildingName == "LogA" || BuildingName == "LogB" || BuildingName == "LogC"){
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInMar()));
+	}
+	else if(BuildingName == "StuUpgrade1" || BuildingName == "StuUpgrade2" || BuildingName == "clubA" || BuildingName == "clubB" || BuildingName == "clubC"){
+		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInStu()));
 	}
 	else{
 		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NoBuild()));
@@ -125,4 +188,40 @@ void AskAlert::EatC(){
 
 void AskAlert::EatD(){
 	onGoingGame->EatinCaf(3);
+}
+
+void AskAlert::Drink1(){
+	onGoingGame->DrinkinMarket(1);
+};
+
+void AskAlert::Drink2(){
+	onGoingGame->DrinkinMarket(2);
+};
+
+void AskAlert::Drink3(){
+	onGoingGame->DrinkinMarket(3);
+};
+
+void AskAlert::LogA(){
+	onGoingGame->EatinLogHouse(1);
+}
+
+void AskAlert::LogB(){
+	onGoingGame->EatinLogHouse(2);
+}
+
+void AskAlert::LogC(){
+	onGoingGame->EatinLogHouse(3);
+}
+
+void AskAlert::ClubA(){
+	onGoingGame->ClubActivity(1);
+}
+
+void AskAlert::ClubB(){
+	onGoingGame->ClubActivity(2);
+}
+
+void AskAlert::ClubC(){
+	onGoingGame->ClubActivity(3);
 }

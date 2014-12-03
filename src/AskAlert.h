@@ -30,4 +30,13 @@ public slots:
 	void EatB();
 	void EatC();
 	void EatD();
+	void Drink1();
+	void Drink2();
+	void Drink3();
+	void LogA();
+	void LogB();
+	void LogC();
+	void ClubA();
+	void ClubB();
+	void ClubC();
 };

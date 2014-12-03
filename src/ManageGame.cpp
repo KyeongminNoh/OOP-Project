@@ -1,5 +1,6 @@
 #include "ManageGame.h"
 #include "Player.h"
+#include "Semester.h"
 #include "Building.h"
 #include "Dormitory.h"
 #include "Cafeteria.h"
@@ -14,6 +15,11 @@
 #include "BuildWhat.h"
 #include "InGym.h"
 #include "InCafeteria.h"
+#include "InMarket.h"
+#include "InLogHouse.h"
+#include "InStudentHall.h"
+#include "Assignment.h"
+#include "TestAssn.h"
 #include <QMessageBox>
 
 
@@ -24,37 +30,55 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	Parent = parent;
 	MenuBar = MB;
 
+	nowSemester = new Semester();
 
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
 	InclineLonely = 0.5;
 	DeclineHealth = -0.6;
 	InclineFinance = 0.25;
+
+	three_M = 0;
+	
+	Assignmentlist = new Assignment*[8];
 	BuildingList = new Building*[9];
-	for(int i = 0; i<9; i++)
+	for(int i = 0; i<9; i++){
+		if(i<2){
+			testCheck[i]=0;
+		}
+		if(i<8){
+			Assignmentlist[i] = NULL;
+			assnCheck[i]=0;
+		}
 		BuildingList[i] = NULL;
-
-
+	}
 	Build();
 	resize(500,150);
 
-	time = QTime::currentTime();
 
+
+	time = 0;
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");
 	font->setKerning( true );
 	font->setBold( true );
 	font->setPixelSize( 20 );
+	
+	showst = new QPainter(this);
+	showh = new QPainter(this);
+	showgold = new QPainter(this);
+	showw = new QPainter(this);
+	showS = new QPainter(this);
+	showTime = new QPainter(this);
 
 	GameTimer = new QTimer(this);
-	//GameTimer2 = new QTimer(this);
-	//GoldTimer = new QTimer(this);
+	MainTimer = new QTimer(this);
+
 	repaint();
 	QObject::connect(GameTimer, SIGNAL(timeout()), SLOT(StartGame()));
-	//QObject::connect(GoldTimer, SIGNAL(timeout()), SLOT(TakeGold()));
+	QObject::connect(MainTimer, SIGNAL(timeout()), SLOT(StartClock()));
 
-	//GoldTimer->start(30000);
 	GameTimer->start(9000);
-
+	MainTimer->start(1000);
 }
 
 void ManageGame::TakeGold(){
@@ -75,6 +99,19 @@ void ManageGame::change_DeclineHealth(qreal i){
 
 Building* ManageGame::getBuilding(int i){
 	return BuildingList[i];
+}
+
+Assignment* ManageGame::getAssignment(int i){
+	return Assignmentlist[i];
+}
+
+int ManageGame::getAssn(int i){
+	return assnCheck[i];
+}
+
+void ManageGame::setAssn(int i){
+	assnCheck[i] = 2;
+	Assignmentlist[i] = new Assignment(i+1, 10+(3*i));
 }
 
 void ManageGame::SetStrings(){
@@ -98,6 +135,12 @@ void ManageGame::SetStrings(){
 	g.append(" Gold : ");
 	gt.setNum(onPlayer->get_Finance());
 	g.append(gt);
+	t.clear();
+	t.append(" Time : ");
+	nt.setNum(time/60);
+	t.append(nt+":");
+	nt.setNum(time%60);
+	t.append(nt);
 
 }
 
@@ -105,37 +148,42 @@ void ManageGame::paintEvent(QPaintEvent *){
 
 	SetStrings();
 
-	showst = new QPainter(this);
+	
 	showst->begin(this);
 	showst->setFont(*font);
 	showst->drawText(50, 45, s1);
 	showst->end();
 
-	showh = new QPainter(this);
+	
 	showh->begin(this);
 	showh->setFont(*font);
 	showh->drawText(50, 85, s2);
 	showh->end();
 
-	showgold = new QPainter(this);
+	
 	showgold->begin(this);
 	showgold->setFont(*font);
 	showgold->drawText(50, 125, g);
 	showgold->end();
 
-	showw = new QPainter(this);
+	
 	showw->begin(this);
 	showw->setFont(*font);
 	showw->drawText(220, 45, s3);
 	showw->end();
 
-	showS = new QPainter(this);
+
 	showS->begin(this);
 	showS->setFont(*font);
 	showS->drawText(220, 85, s4);
 	showS->end();
-}
 
+
+	showTime->begin(this);
+	showTime->setFont(*font);
+	showTime->drawText(220, 125, t);
+	showTime->end();
+}
 
 void ManageGame::change_status(){
 	onPlayer->set_Lonely(InclineLonely);
@@ -170,6 +218,14 @@ void ManageGame::BuildMarket(){
 			onPlayer->set_Finance(-BuildingList[8]->get_UpgradeCost());
 			repaint();
 			BuildingList[8]->Upgrade(this);
+			ParentMap->getInMarket()->DeleteAskAlert();
+			MenuBar->setMarInactive();
+			ParentMap->getInMarket()->setNormalAlert("UCom");
+			ParentMap->getInMarket()->ReDraw();
+		}
+		else{
+			ParentMap->getInMarket()->DeleteAskAlert();
+			ParentMap->getInMarket()->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[8]->get_level() == 2){
@@ -177,6 +233,14 @@ void ManageGame::BuildMarket(){
 			onPlayer->set_Finance(-BuildingList[8]->get_UpgradeCost());
 			repaint();
 			BuildingList[8]->Upgrade2(this);
+			ParentMap->getInMarket()->DeleteAskAlert();
+			MenuBar->setMarInactive();
+			ParentMap->getInMarket()->setNormalAlert("UCom");
+			ParentMap->getInMarket()->ReDraw();
+		}
+		else{
+			ParentMap->getInMarket()->DeleteAskAlert();
+			ParentMap->getInMarket()->setNormalAlert("Fin");
 		}
 	}
 }
@@ -315,6 +379,14 @@ void ManageGame::BuildStudentHall(){
 			onPlayer->set_Finance(-BuildingList[5]->get_UpgradeCost());
 			repaint();
 			BuildingList[5]->Upgrade(this);
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			MenuBar->setStuInactive();
+			ParentMap->getInStudentHall()->setNormalAlert("UCom");
+			ParentMap->getInStudentHall()->ReDraw();
+		}
+		else{
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			ParentMap->getInStudentHall()->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[5]->get_level() == 2){
@@ -322,6 +394,14 @@ void ManageGame::BuildStudentHall(){
 			onPlayer->set_Finance(-BuildingList[5]->get_UpgradeCost());
 			repaint();
 			BuildingList[5]->Upgrade2(this);
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			MenuBar->setStuInactive();
+			ParentMap->getInStudentHall()->setNormalAlert("UCom");
+			ParentMap->getInStudentHall()->ReDraw();
+		}
+		else{
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			ParentMap->getInStudentHall()->setNormalAlert("Fin");
 		}
 	}
 }
@@ -379,11 +459,19 @@ void ManageGame::BuildLogHouse(){
 			ParentMap->setNormalAlert("Fin");
 		}
 	}
-	else if(BuildingList[6]->get_level() == 1){
+	else if(BuildingList[7]->get_level() == 1){
 		if(onPlayer->get_Finance() >= BuildingList[7]->get_UpgradeCost()){
 			onPlayer->set_Finance(-BuildingList[7]->get_UpgradeCost());
 			repaint();
 			BuildingList[7]->Upgrade(this);
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			MenuBar->setLogInactive();
+			ParentMap->getInLogHouse()->setNormalAlert("UCom");
+			ParentMap->getInLogHouse()->ReDraw();
+		}
+		else{
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			ParentMap->getInLogHouse()->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[7]->get_level() == 2){
@@ -391,6 +479,14 @@ void ManageGame::BuildLogHouse(){
 			onPlayer->set_Finance(-BuildingList[7]->get_UpgradeCost());
 			repaint();
 			BuildingList[7]->Upgrade2(this);
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			MenuBar->setLogInactive();
+			ParentMap->getInLogHouse()->setNormalAlert("UCom");
+			ParentMap->getInLogHouse()->ReDraw();
+		}
+		else{
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			ParentMap->getInLogHouse()->setNormalAlert("Fin");
 		}
 	}
 
@@ -442,18 +538,7 @@ else if(BuildingList[3]->get_level() == 3){
 	}
 }
 }
-/*
-void ManageGame::UpgradeGym()
-{
-	if(onPlayer->get_Finance() >= BuildingList[3]->get_UpgradeCost())
-	{
-		onPlayer->set_Finance(BuildingList[3]->get_UpgradeCost());
-		if(BuildingList[3]->get_level()==1)
-			BuildingList[3]->Upgrade(this);
-		else if(BuildingList[3]->get_level()==2)
-			BuildingList[3]->Upgrade2(this);
-	}
-}*/
+
 void ManageGame::OKalert(){
 	ParentMap->DeleteNormalAlert();
 }
@@ -463,11 +548,48 @@ void ManageGame::OKBldgAlert(QString Type){
 		ParentMap->getInGym()->DeleteNormalAlert();
 	if(Type == "Caf")
 		ParentMap->getInCafeteria()->DeleteNormalAlert();
+	if(Type == "Mar")
+		ParentMap->getInMarket()->DeleteNormalAlert();
+	if(Type == "Log")
+		ParentMap->getInLogHouse()->DeleteNormalAlert();
+	if(Type == "Stu")
+		ParentMap->getInStudentHall()->DeleteNormalAlert();
 }
 
 void ManageGame::BACKalert()
 {
 	ParentMap->DeleteInBldg();
+}
+
+void ManageGame::StartClock(){
+	time++;
+	repaint();
+	Check_Assn();
+}
+
+void ManageGame::Check_Assn(){
+	if(time%10 == 0 ){
+		three_M++;
+		if(three_M%5 == 0){
+			testCheck[three_M/5] = 1;
+		}
+		else{
+			if(three_M == 1)
+				assnCheck[three_M - 1] = 1;
+			else if(three_M < 5){
+				if(assnCheck[three_M - 2] != 2){
+					assnCheck[three_M - 2] = 0;
+				}
+				assnCheck[three_M - 1] = 1;
+			}
+			else{
+				if(assnCheck[three_M - 3] != 2){
+					assnCheck[three_M - 3] = 0;
+				}
+				assnCheck[three_M - 2] = 1;
+			}
+		}
+	}
 }
 
 void ManageGame::StartGame(){
@@ -494,6 +616,14 @@ void ManageGame::NoSleep(){
 	ParentMap->DeleteInDormitory();
 }
 
+void ManageGame::CloseEngineering(){
+	ParentMap->DeleteInEngineering();
+}
+
+void ManageGame::CloseTA(){
+	ParentMap->DeleteTA();
+}
+
 void ManageGame::NothingInGym(){
 	ParentMap->getInGym()->DeleteAskAlert();
 };
@@ -501,6 +631,18 @@ void ManageGame::NothingInGym(){
 void ManageGame::NothingInCaf(){
 	ParentMap->getInCafeteria()->DeleteAskAlert();
 };
+
+void ManageGame::NothingInMar(){
+	ParentMap->getInMarket()->DeleteAskAlert();
+};
+
+void ManageGame::NothingInLog(){
+	ParentMap->getInLogHouse()->DeleteAskAlert();
+};
+
+void ManageGame::NothingInStu(){
+	ParentMap->getInStudentHall()->DeleteAskAlert();
+}
 
 void ManageGame::EatinCaf(int T){
 	if(T == 1){
@@ -543,4 +685,148 @@ void ManageGame::EatinCaf(int T){
 		}
 	}
 
+}
+
+void ManageGame::DrinkinMarket(int T){
+	if(T == 1){
+		if(onPlayer->get_Finance() >= 10){
+			onPlayer->set_Finance(-10);
+			onPlayer->set_Health(-6);
+			onPlayer->set_Lonely(-5);
+			ParentMap->getInMarket()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInMarket()->setNormalAlert("Drink1");
+		}
+		else{
+			ParentMap->getInMarket()->DeleteAskAlert();
+			ParentMap->getInMarket()->setNormalAlert("MarFin");
+		}
+	}
+	else if(T == 2){
+		if(onPlayer->get_Finance() >= 12){
+			onPlayer->set_Finance(-12);
+			onPlayer->set_Health(-8);
+			onPlayer->set_Lonely(-10);
+			ParentMap->getInMarket()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInMarket()->setNormalAlert("Drink2");
+		}
+		else{
+			ParentMap->getInMarket()->DeleteAskAlert();
+			ParentMap->getInMarket()->setNormalAlert("MarFin");
+		}
+	}
+	else if(T == 3){
+		if(onPlayer->get_Finance() >= 15){
+			onPlayer->set_Finance(-15);
+			onPlayer->set_Health(-10);
+			onPlayer->set_Lonely(-15);
+			ParentMap->getInMarket()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInMarket()->setNormalAlert("Drink3");
+		}
+		else{
+			ParentMap->getInMarket()->DeleteAskAlert();
+			ParentMap->getInMarket()->setNormalAlert("MarFin");
+		}
+	}
+
+}
+
+void ManageGame::EatinLogHouse(int T){
+	if(T == 1){
+		if(onPlayer->get_Finance() >= 5){
+			onPlayer->set_Finance(-5);
+			onPlayer->set_Health(2);
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInLogHouse()->setNormalAlert("AeatL");
+		}
+		else{
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			ParentMap->getInLogHouse()->setNormalAlert("logFin");
+		}
+	}
+	else if(T == 2){
+		if(onPlayer->get_Finance() >= 7){
+			onPlayer->set_Finance(-7);
+			onPlayer->set_Health(4);
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInLogHouse()->setNormalAlert("BeatL");
+		}
+		else{
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			ParentMap->getInLogHouse()->setNormalAlert("logFin");
+		}
+	}
+	else if(T == 3){
+		if(onPlayer->get_Finance() >= 10){
+			onPlayer->set_Finance(-10);
+			onPlayer->set_Health(7);
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInLogHouse()->setNormalAlert("CeatL");
+		}
+		else{
+			ParentMap->getInLogHouse()->DeleteAskAlert();
+			ParentMap->getInLogHouse()->setNormalAlert("logFin");
+		}
+	}
+
+}
+
+void ManageGame::ClubActivity(int T){
+	if(T == 1){
+		if(onPlayer->get_Health() >= 5){
+			onPlayer->set_Health(-5);
+			onPlayer->set_Lonely(-4);
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInStudentHall()->setNormalAlert("clubA");
+		}
+		else{
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			ParentMap->getInStudentHall()->setNormalAlert("stuHea");
+		}
+	}
+	else if(T == 2){
+		if(onPlayer->get_Health() >= 7){
+			onPlayer->set_Health(-7);
+			onPlayer->set_Lonely(-8);
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInStudentHall()->setNormalAlert("clubB");
+		}
+		else{
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			ParentMap->getInStudentHall()->setNormalAlert("stuHea");
+		}
+	}
+	else if(T == 3){
+		if(onPlayer->get_Health() >= 9){
+			onPlayer->set_Health(-9);
+			onPlayer->set_Lonely(-12);
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			repaint();
+			ParentMap->getInStudentHall()->setNormalAlert("clubC");
+		}
+		else{
+			ParentMap->getInStudentHall()->DeleteAskAlert();
+			ParentMap->getInStudentHall()->setNormalAlert("stuHea");
+		}
+	}
+
+}
+
+void ManageGame::SolveAssn(int i){
+	if(Assignmentlist[i]==NULL)
+		return;
+
+	if(!Assignmentlist[i]->get_solved()){
+		if(onPlayer->get_Knowledge()>=Assignmentlist[i]->get_KnowReq()){
+			Assignmentlist[i]->set_solve();
+			ParentMap->getTA()->repaint();
+		}
+	}
 }

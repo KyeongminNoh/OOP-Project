@@ -45,9 +45,10 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 	QPushButton *TAButton;
 	TAButton = new QPushButton(Footer);
-    TAButton->setGeometry(QRect(30, 40, 120, 60));
+    TAButton->setGeometry(QRect(25, 40, 130, 65));
 	TAButton->setIcon(TAImage);
 	TAButton->setIconSize(QSize(120, 60));
+	TAButton->setFlat(true);
 	TAButton->show();
 
 	QIcon FriendImage;
@@ -86,6 +87,9 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 
 	QObject::connect(MenuBar->mar, SIGNAL(clicked()), MenuBar, SLOT(setMarIcon()));
+
+	
+	QObject::connect(TAButton, SIGNAL(clicked()), maP, SLOT(setTA()));
 	
 	//QObject::connect(MenuBar->mar, SIGNAL(clicked()), maP, SLOT(setMarAlert()));
 

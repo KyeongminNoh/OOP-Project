@@ -40,7 +40,34 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 		Image.load(QString::fromUtf8("Resources/C_notice.png"));
 	else if( alertType == "Deat")
 		Image.load(QString::fromUtf8("Resources/D_notice.png"));
-	
+
+	else if( alertType == "Drink1")
+		Image.load(QString::fromUtf8("Resources/market1_notice.png"));
+	else if( alertType == "Drink2")
+		Image.load(QString::fromUtf8("Resources/market2_notice.png"));
+	else if( alertType == "Drink3")
+		Image.load(QString::fromUtf8("Resources/market3_notice.png"));
+	else if( alertType == "MarFin")
+		Image.load(QString::fromUtf8("Resources/market_notice.png"));
+
+	else if( alertType == "AeatL")
+		Image.load(QString::fromUtf8("Resources/log1_notice.png"));
+	else if( alertType == "BeatL")
+		Image.load(QString::fromUtf8("Resources/log2_notice.png"));
+	else if( alertType == "CeatL")
+		Image.load(QString::fromUtf8("Resources/log3_notice.png"));
+	else if( alertType == "logFin")
+		Image.load(QString::fromUtf8("Resources/log_notice.png"));
+
+	else if( alertType == "clubA")
+		Image.load(QString::fromUtf8("Resources/clubA_notice.png"));
+	else if( alertType == "clubB")
+		Image.load(QString::fromUtf8("Resources/clubB_notice.png"));
+	else if( alertType == "clubC")
+		Image.load(QString::fromUtf8("Resources/clubC_notice.png"));
+	else if( alertType == "stuHea")
+		Image.load(QString::fromUtf8("Resources/club_notice.png"));
+
 	normalalert->setPixmap(Image);
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");

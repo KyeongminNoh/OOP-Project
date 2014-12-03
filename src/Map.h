@@ -10,7 +10,14 @@ class AskAlert;
 class NormalAlert;
 class InGym;
 class InDormitory;
+class InEngineering;
 class InCafeteria;
+class InMarket;
+class InLogHouse;
+class InStudentHall;
+class TestAssn;
+class Semester;
+
 
 //enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
 //enum { CLICK_MOUSE_MOVE_RANGE = 6 };
@@ -20,8 +27,17 @@ class Map : public QWidget {
 
 public:
 	Map(bool Man, QWidget *parent = 0);
+
+	bool NowActing(){return nowActing;}
+
+	Semester* get_nowSemester(){ return nowSemester;}
 	InGym* getInGym();
 	InCafeteria* getInCafeteria();
+	InMarket *getInMarket();
+	InLogHouse *getInLogHouse();
+	InStudentHall *getInStudentHall();
+	TestAssn* getTA();
+
 
 	void setNormalAlert(QString name);
 	void setManageGame(ManageGame *Game);
@@ -31,6 +47,10 @@ public:
 	void DeleteNormalAlert();
 	void DeleteInBldg();
 	void DeleteInDormitory();
+	void DeleteInEngineering();
+
+	void DeleteTA();
+
 	//void DeleteInCafeteria();
 	void createGymImage(int level);
 	void createLibraryImage(int level);
@@ -44,12 +64,23 @@ private:
 
 	QTimer *Timer;
 
+	bool nowActing;
+
+	Semester *nowSemester;
 	ManageGame *onGoingGame;
 	NormalAlert *normalalert;
 	AskAlert *askalert;
+
 	InGym *Inbuildingalert;
 	InDormitory *indormitory;
+	InEngineering *inengineering;
 	InCafeteria *incafeteria;
+	InMarket *inmarket;
+	InLogHouse *inloghouse;
+	InStudentHall *instudenthall;
+
+	QLabel *Screen;
+	TestAssn *TA;
 
 	QLabel *nowEnvironment;
 	QLabel *nowPlayer;
@@ -84,6 +115,7 @@ public slots:
 	void MoveToStudentHall();
 	void MoveToLogHouse();
 	void MoveToLibrary();
+	void MoveToMarket();
 	void MovePlayer();
 	void DeleteTimer();
 
@@ -93,5 +125,11 @@ public slots:
 
 	void setInCafeteria();
 	void setInDormitory();
+	void setInEngineering();
 	void setInGym();
+	void setInMarket();
+	void setInLogHouse();
+	void setInStudentHall();
+
+	void setTA();
 };

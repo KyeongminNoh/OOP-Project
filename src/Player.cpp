@@ -12,7 +12,7 @@ Player::Player( bool Man, bool Nocturnal){
 
 	Max_Lonely = 100;
 	Num_Friend = 0;
-	Knowledge = 0;
+	Knowledge = 15;
 	Finance = 3000;
 	Sociality = 0;
 	Lonely = 0;

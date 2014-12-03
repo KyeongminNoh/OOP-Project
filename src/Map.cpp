@@ -5,7 +5,13 @@
 #include "InGym.h"
 #include "InDormitory.h"
 #include "InCafeteria.h"
+#include "InMarket.h"
+#include "InLogHouse.h"
+#include "InStudentHall.h"
+#include "InEngineering.h"
 #include "Player.h"
+#include "Semester.h"
+#include "TestAssn.h"
 #include <QMouseEvent>
 #include <QTimer>
 
@@ -15,10 +21,14 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	
 	px = 1;
 	py = 1;
+	nowActing = false;
+	nowSemester = new Semester();
 
 	incafeteria = NULL;
 	Inbuildingalert = NULL;
-
+	inmarket = NULL;
+	inloghouse = NULL;
+	instudenthall = NULL;
 
 
 	askalert = NULL;
@@ -30,11 +40,18 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 
 	nowEnvironment->show();
 
+	QString SN;
+	SN.setNum(nowSemester->get_CurrentSemester());
+	QByteArray Session;
+	Session.append("Resources/Session");
+	Session.append(SN);
+	Session.append(".png");
+
 	Session1 = new QLabel(nowEnvironment);
 	Session1->setScaledContents(true);
 	Session1->setGeometry(QRect(550, 10, 100, 45));
 	QPixmap SImage;
-	SImage.load(QString::fromUtf8("Resources/Session1.png"));
+	SImage.load(QString::fromUtf8(Session));
 	Session1->setPixmap(SImage);
 	Session1->show();
 
@@ -173,6 +190,7 @@ void Map::createMarketImage(int level){
 	MarketImage->setIconSize(QSize(100, 100));
 	MarketImage->setFlat(true);
 	MarketImage->show();
+	QObject::connect(MarketImage, SIGNAL(clicked()), SLOT(MoveToMarket()));
 }
 
 void Map::setGym_Upgrade_Alert()
@@ -279,12 +297,19 @@ void Map::DeleteNormalAlert(){
 	delete normalalert;
 	normalalert = NULL;
 }
+
 void Map::DeleteInBldg()
 {
 	delete Inbuildingalert;
 	Inbuildingalert = NULL;
 	delete incafeteria;
 	incafeteria = NULL;
+	delete inmarket;
+	inmarket = NULL;
+	delete inloghouse;
+	inloghouse  = NULL;
+	delete instudenthall;
+	instudenthall = NULL;
 	ResetPlayer();
 }
 
@@ -294,6 +319,24 @@ void Map::DeleteInDormitory()
 	indormitory = NULL;
 	ResetPlayer();
 }
+
+void Map::DeleteInEngineering()
+{
+	delete inengineering;
+	inengineering = NULL;
+	ResetPlayer();
+}
+
+void Map::DeleteTA(){
+	
+	delete TA;
+	TA = NULL;
+
+	delete Screen;
+	Screen = NULL;
+
+	nowActing = false;
+};
 
 void Map::setManageGame(ManageGame *Game){
 	onGoingGame = Game;
@@ -322,6 +365,7 @@ void Map::MoveToEngineering(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1300, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1350, this, SLOT(setInEngineering()));
 	Timer->start(20);
 }
 
@@ -385,6 +429,7 @@ void Map::MoveToStudentHall(){
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1200, this, SLOT(DeleteTimer()));
+		QTimer::singleShot(1250, this, SLOT(setInStudentHall()));
 	Timer->start(30);
 }
 
@@ -400,6 +445,7 @@ void Map::MoveToLogHouse(){
 
 //	}
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1050, this, SLOT(setInLogHouse()));
 	Timer->start(30);
 }
 
@@ -412,6 +458,21 @@ void Map::MoveToLibrary(){
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	Timer->start(30);
 }
+
+void Map::MoveToMarket(){
+
+	px = 6;
+	py = -0.5;
+	
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+
+
+	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(1050, this, SLOT(setInMarket()));
+	Timer->start(30);
+}
+
 
 void Map::setInGym(){
 	Inbuildingalert = new InGym(onGoingGame, nowEnvironment);
@@ -428,6 +489,18 @@ InCafeteria* Map::getInCafeteria(){
 	return incafeteria;
 }
 
+InMarket* Map::getInMarket(){
+	return inmarket;
+}
+
+InLogHouse* Map::getInLogHouse(){
+	return inloghouse;
+}
+
+InStudentHall* Map::getInStudentHall(){
+	return instudenthall;
+}
+
 void Map::setInDormitory(){
 	indormitory = new InDormitory(onGoingGame, nowEnvironment);
 	indormitory->setGeometry(QRect(0, 0, 660, 450));
@@ -435,8 +508,54 @@ void Map::setInDormitory(){
 
 }
 
+void Map::setInEngineering(){
+	inengineering = new InEngineering(onGoingGame, nowEnvironment);
+	inengineering->setGeometry(QRect(0, 0, 660, 450));
+	inengineering->show();
+}
+
 void Map::setInCafeteria(){
 	incafeteria = new InCafeteria(onGoingGame, nowEnvironment);
 	incafeteria->setGeometry(QRect(0,0,660, 450));
 	incafeteria->show();
+}
+
+void Map::setInMarket(){
+	inmarket = new InMarket(onGoingGame, nowEnvironment);
+	inmarket->setGeometry(QRect(0,0,660, 450));
+	inmarket->show();
+}
+
+void Map::setInLogHouse(){
+	inloghouse = new InLogHouse(onGoingGame, nowEnvironment);
+	inloghouse->setGeometry(QRect(0,0,660, 450));
+	inloghouse->show();
+}
+
+void Map::setInStudentHall(){
+	instudenthall = new InStudentHall(onGoingGame, nowEnvironment);
+	instudenthall->setGeometry(QRect(0,0,660, 450));
+	instudenthall->show();
+}
+
+void Map::setTA(){
+	if(!nowActing){
+
+		QPixmap BImage;
+		BImage.load(QString::fromUtf8("Resources/White.png"));
+		Screen = new QLabel(nowEnvironment);
+		Screen->setScaledContents(true);
+		Screen->setGeometry(QRect(0, 0, 660, 450));
+		Screen->setPixmap(BImage);
+		Screen->show();
+		TA = new TestAssn(onGoingGame, Screen);
+		TA->setGeometry(QRect(0, 0, 660, 450));
+		TA->show();
+		nowActing = true;
+	}
+	return;
+}
+
+TestAssn* Map::getTA(){
+	return TA;
 }
