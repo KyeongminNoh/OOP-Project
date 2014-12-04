@@ -28,45 +28,22 @@ TestAssn::TestAssn(ManageGame *Game, QWidget *parent) : QLabel(parent){
 	font->setBold( true );
 	font->setPixelSize( 20 );
 
+	testfont = new QFont( "Resources/NanumBarunGothic.ttp");
+	testfont->setKerning( true );
+	testfont->setBold( true );
+	testfont->setPixelSize( 30 );
+
+	SolveIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/solve.png")), QIcon::Normal, QIcon::Off);
+
 	Solve1= new QPushButton(this);
-	Solve1->setGeometry(QRect(540, 10, 80, 30));
-	Solve1->setText("Solve");
-	Solve1->show();
-
 	Solve2= new QPushButton(this);
-	Solve2->setGeometry(QRect(540, 50, 80, 30));
-	Solve2->setText("Solve");
-	Solve2->show();
-
 	Solve3= new QPushButton(this);
-	Solve3->setGeometry(QRect(540, 90, 80, 30));
-	Solve3->setText("Solve");
-	Solve3->show();
-
 	Solve4= new QPushButton(this);
-	Solve4->setGeometry(QRect(540, 130, 80, 30));
-	Solve4->setText("Solve");
-	Solve4->show();
-
 	Solve5= new QPushButton(this);
-	Solve5->setGeometry(QRect(540, 170, 80, 30));
-	Solve5->setText("Solve");
-	Solve5->show();
-
-	Solve6= new QPushButton(this);
-	Solve6->setGeometry(QRect(540, 210, 80, 30));
-	Solve6->setText("Solve");
-	Solve6->show();
-	
-	Solve7= new QPushButton(this);
-	Solve7->setGeometry(QRect(540, 250, 80, 30));
-	Solve7->setText("Solve");
-	Solve7->show();
-
+	Solve6= new QPushButton(this);		
+	Solve7= new QPushButton(this);	
 	Solve8= new QPushButton(this);
-	Solve8->setGeometry(QRect(540, 290, 80, 30));
-	Solve8->setText("Solve");
-	Solve8->show();
+	
 
 	Back = new QPushButton(this);
 	Back->setGeometry(QRect(510, 380, 140, 63));
@@ -83,14 +60,14 @@ TestAssn::TestAssn(ManageGame *Game, QWidget *parent) : QLabel(parent){
 
 	repaint();
 	QObject::connect(Back, SIGNAL(clicked()), onGoingGame,SLOT(CloseTA()));
-	QObject::connect(Solve1, SIGNAL(clicked()), SLOT(SolveA1()));
-	QObject::connect(Solve2, SIGNAL(clicked()), SLOT(SolveA2()));
-	QObject::connect(Solve3, SIGNAL(clicked()), SLOT(SolveA3()));
-	QObject::connect(Solve4, SIGNAL(clicked()), SLOT(SolveA4()));
-	QObject::connect(Solve5, SIGNAL(clicked()), SLOT(SolveA5()));
-	QObject::connect(Solve6, SIGNAL(clicked()), SLOT(SolveA6()));
-	QObject::connect(Solve7, SIGNAL(clicked()), SLOT(SolveA7()));
-	QObject::connect(Solve8, SIGNAL(clicked()), SLOT(SolveA8()));
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 
@@ -108,8 +85,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn1->drawText(30, 32+(40*0), "Assn1  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(0)->get_KnowReq())+" submit? "+sol);
+		Assn1->drawText(50, 90, "     1                  "+Num.setNum(onGoingGame->getAssignment(0)->get_KnowReq())+"                  "+sol);
 		Assn1->end();
+		Solve1->setGeometry(QRect(400, 62, 95, 40));
+		Solve1->setIcon(SolveIcon);
+		Solve1->setIconSize(QSize(90, 36));
+		Solve1->setFlat(true);
+		Solve1->show();
+		QObject::connect(Solve1, SIGNAL(clicked()), SLOT(SolveA1()));
 	}
 
 	if(onGoingGame->getAssn(1) == 2){
@@ -121,8 +104,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn2->drawText(30, 32+(40*1), "Assn2  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(1)->get_KnowReq())+" submit? "+sol);
+		Assn2->drawText(50, 90+(40*1), "     2                  "+Num.setNum(onGoingGame->getAssignment(1)->get_KnowReq())+"                  "+sol);
 		Assn2->end();
+		Solve2->setGeometry(QRect(400, 102, 95, 40));
+		Solve2->setIcon(SolveIcon);
+		Solve2->setIconSize(QSize(90, 36));
+		Solve2->setFlat(true);
+		Solve2->show();
+		QObject::connect(Solve2, SIGNAL(clicked()), SLOT(SolveA2()));
 	}
 
 	if(onGoingGame->getAssn(2) == 2){
@@ -134,8 +123,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn3->drawText(30, 32+(40*2), "Assn3  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(2)->get_KnowReq())+" submit? "+sol);
+		Assn3->drawText(50, 90+(40*2), "     3                  "+Num.setNum(onGoingGame->getAssignment(2)->get_KnowReq())+"                  "+sol);
 		Assn3->end();
+		Solve3->setGeometry(QRect(400, 142, 95, 40));
+		Solve3->setIcon(SolveIcon);
+		Solve3->setIconSize(QSize(90, 36));
+		Solve3->setFlat(true);
+		Solve3->show();
+		QObject::connect(Solve3, SIGNAL(clicked()), SLOT(SolveA3()));
 	}
 
 	if(onGoingGame->getAssn(3) == 2){
@@ -147,8 +142,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn4->drawText(30, 32+(40*3), "Assn4  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(3)->get_KnowReq())+" submit? "+sol);
+		Assn4->drawText(50, 90+(40*3), "     4                  "+Num.setNum(onGoingGame->getAssignment(3)->get_KnowReq())+"                  "+sol);
 		Assn4->end();
+		Solve4->setGeometry(QRect(400, 182, 95, 40));
+		Solve4->setIcon(SolveIcon);
+		Solve4->setIconSize(QSize(90, 36));
+		Solve4->setFlat(true);
+		Solve4->show();
+		QObject::connect(Solve4, SIGNAL(clicked()), SLOT(SolveA4()));
 	}
 
 	if(onGoingGame->getAssn(4) == 2){
@@ -160,8 +161,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn5->drawText(30, 32+(40*4), "Assn5  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(4)->get_KnowReq())+" submit? "+sol);
+		Assn5->drawText(50, 90+(40*4), "     5                  "+Num.setNum(onGoingGame->getAssignment(4)->get_KnowReq())+"                  "+sol);
 		Assn5->end();
+		Solve5->setGeometry(QRect(400, 222, 95, 40));
+		Solve5->setIcon(SolveIcon);
+		Solve5->setIconSize(QSize(90, 36));
+		Solve5->setFlat(true);
+		Solve5->show();
+		QObject::connect(Solve5, SIGNAL(clicked()), SLOT(SolveA5()));
 	}
 
 	if(onGoingGame->getAssn(5) == 2){
@@ -173,8 +180,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn6->drawText(30, 32+(40*5), "Assn6  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(5)->get_KnowReq())+" submit? "+sol);
+		Assn6->drawText(50, 90+(40*5), "     6                  "+Num.setNum(onGoingGame->getAssignment(5)->get_KnowReq())+"                  "+sol);
 		Assn6->end();
+		Solve6->setGeometry(QRect(400, 262, 95, 40));
+		Solve6->setIcon(SolveIcon);
+		Solve6->setIconSize(QSize(90, 36));
+		Solve6->setFlat(true);
+		Solve6->show();
+		QObject::connect(Solve6, SIGNAL(clicked()), SLOT(SolveA6()));
 	}
 
 	if(onGoingGame->getAssn(6) == 2){
@@ -186,8 +199,14 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn7->drawText(30, 32+(40*6), "Assn7  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(6)->get_KnowReq())+" submit? "+sol);
+		Assn7->drawText(50, 90+(40*6), "     7                  "+Num.setNum(onGoingGame->getAssignment(6)->get_KnowReq())+"                  "+sol);
 		Assn7->end();
+		Solve7->setGeometry(QRect(400, 302, 95, 40));
+		Solve7->setIcon(SolveIcon);
+		Solve7->setIconSize(QSize(90, 36));
+		Solve7->setFlat(true);
+		Solve7->show();
+		QObject::connect(Solve7, SIGNAL(clicked()), SLOT(SolveA7()));
 	}
 
 	if(onGoingGame->getAssn(7) == 2){
@@ -199,21 +218,27 @@ void TestAssn::paintEvent(QPaintEvent*){
 		}else{
 			sol.append("X");
 		}
-		Assn8->drawText(30, 32+(40*7), "Assn8  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(7)->get_KnowReq())+" submit? "+sol);
+		Assn8->drawText(50, 90+(40*7), "     8                  "+Num.setNum(onGoingGame->getAssignment(7)->get_KnowReq())+"                  "+sol);
 		Assn8->end();
+		Solve8->setGeometry(QRect(400, 342, 95, 40));
+		Solve8->setIcon(SolveIcon);
+		Solve8->setIconSize(QSize(90, 36));
+		Solve8->setFlat(true);
+		Solve8->show();
+		QObject::connect(Solve8, SIGNAL(clicked()), SLOT(SolveA8()));
 	}
 
 	if(onGoingGame->getTest(0) != NULL){
 		Midterm->begin(this);
-		Midterm->setFont(*font);
-		Midterm->drawText(30, 362, "Midterm   Scroe :"+Num.setNum(onGoingGame->getTest(0)->get_Score()));
+		Midterm->setFont(*testfont);
+		Midterm->drawText(560, 90, ""+Num.setNum(onGoingGame->getTest(0)->get_Score()));
 		Midterm->end();
 	}
 
 	if(onGoingGame->getTest(1) != NULL){
 		Final->begin(this);
-		Final->setFont(*font);
-		Final->drawText(30, 402,   "Final     Scroe :"+Num.setNum(onGoingGame->getTest(1)->get_Score()));
+		Final->setFont(*testfont);
+		Final->drawText(560, 230,   ""+Num.setNum(onGoingGame->getTest(1)->get_Score()));
 		Final->end();
 	}
 }

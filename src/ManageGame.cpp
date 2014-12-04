@@ -38,7 +38,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
 	InclineLonely = 0.5;
 	DeclineHealth = -0.6;
-	InclineFinance = 0.25;
+	InclineFinance = 1;
 
 	three_M = 0;
 	
@@ -57,7 +57,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 		BuildingList[i] = NULL;
 	}
 	Build();
-	resize(500,150);
+	resize(650,150);
 
 
 
@@ -66,7 +66,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	font = new QFont( "Resources/NanumBarunGothic.ttp");
 	font->setKerning( true );
 	font->setBold( true );
-	font->setPixelSize( 20 );
+	font->setPixelSize( 25 );
 	
 	showst = new QPainter(this);
 	showh = new QPainter(this);
@@ -75,14 +75,13 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	showS = new QPainter(this);
 	showTime = new QPainter(this);
 
-	GameTimer = new QTimer(this);
+
 	MainTimer = new QTimer(this);
 
 	repaint();
-	QObject::connect(GameTimer, SIGNAL(timeout()), SLOT(StartGame()));
+
 	QObject::connect(MainTimer, SIGNAL(timeout()), SLOT(StartClock()));
 
-	GameTimer->start(9000);
 	MainTimer->start(1000);
 }
 
@@ -124,28 +123,19 @@ void ManageGame::setAssn(int i){
 }
 
 void ManageGame::SetStrings(){
-	s1.clear();
-	s1.append(" Lonely :");
+
 	st1.setNum(onPlayer->get_Lonely());
-	s1.append(st1);
-	s2.clear();
-	s2.append(" Health : ");
+
+
 	st2.setNum(onPlayer->get_Health());
-	s2.append(st2);
-	s3.clear();
-	s3.append(" Wisdom : ");
+
 	st3.setNum(onPlayer->get_Knowledge());
-	s3.append(st3);
-	s4.clear();
-	s4.append(" Sociality : ");
+
 	st4.setNum(onPlayer->get_Sociality());
-	s4.append(st4);
-	g.clear();
-	g.append(" Gold : ");
+
 	gt.setNum(onPlayer->get_Finance());
-	g.append(gt);
+
 	t.clear();
-	t.append(" Time : ");
 	nt.setNum(time/60);
 	t.append(nt+":");
 	nt.setNum(time%60);
@@ -160,44 +150,43 @@ void ManageGame::paintEvent(QPaintEvent *){
 	
 	showst->begin(this);
 	showst->setFont(*font);
-	showst->drawText(50, 45, s1);
+	showst->drawText(90, 130, st1);
 	showst->end();
 
 	
 	showh->begin(this);
 	showh->setFont(*font);
-	showh->drawText(50, 85, s2);
+	showh->drawText(205, 130, st2);
 	showh->end();
 
 	
 	showgold->begin(this);
 	showgold->setFont(*font);
-	showgold->drawText(50, 125, g);
+	showgold->drawText(355, 130, gt);
 	showgold->end();
 
 	
 	showw->begin(this);
 	showw->setFont(*font);
-	showw->drawText(220, 45, s3);
+	showw->drawText(580, 85, st3);
 	showw->end();
 
 
 	showS->begin(this);
 	showS->setFont(*font);
-	showS->drawText(220, 85, s4);
+	showS->drawText(580, 129, st4);
 	showS->end();
 
 
 	showTime->begin(this);
 	showTime->setFont(*font);
-	showTime->drawText(220, 125, t);
+	showTime->drawText(580, 39, t);
 	showTime->end();
 }
 
 void ManageGame::change_status(){
 	onPlayer->set_Lonely(InclineLonely);
 	onPlayer->set_Health(DeclineHealth);
-	onPlayer->set_Finance(InclineFinance);
 	repaint();
 }
 
@@ -685,12 +674,18 @@ void ManageGame::BACKalert()
 void ManageGame::StartClock(){
 	time++;
 	repaint();
+	if(time%9 == 0)
+		change_status();
+
+	if(time%36 == 0)
+		onPlayer->set_Finance(InclineFinance);
+
 	if(three_M <= 10)
 		Check_Assn();
 }
 
 void ManageGame::Check_Assn(){
-	if(time%5 == 0 ){
+	if(time%10 == 0 ){
 		three_M++;
 		if(three_M%5 == 0){
 			if(three_M == 5){
@@ -966,10 +961,20 @@ void ManageGame::SolveAssn(int i){
 	if(Assignmentlist[i]==NULL)
 		return;
 
-	if((!Assignmentlist[i]->get_solved())&&(!Assignmentlist[i]->get_Cannotsolve())){
-		if(onPlayer->get_Knowledge()>=Assignmentlist[i]->get_KnowReq()){
-			Assignmentlist[i]->set_solve();
-			ParentMap->getTA()->repaint();
+	if(!Assignmentlist[i]->get_solved()){
+		if(!Assignmentlist[i]->get_Cannotsolve()){
+			if(onPlayer->get_Knowledge()>=Assignmentlist[i]->get_KnowReq()){
+				Assignmentlist[i]->set_solve();
+				ParentMap->getTA()->repaint();
+				ParentMap->setNormalAlert("Solve");
+			}
+			else{
+				ParentMap->setNormalAlert("lowKnow");
+				return;
+			}
+		}else{
+			ParentMap->setNormalAlert("Due");
+			return;
 		}
 	}
 }

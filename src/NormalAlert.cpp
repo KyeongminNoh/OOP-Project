@@ -84,6 +84,13 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 	else if( alertType == "stuHea")
 		Image.load(QString::fromUtf8("Resources/club_notice.png"));
 
+	else if(alertType == "Solve")
+		Image.load(QString::fromUtf8("Resources/SummitAssn.png"));
+	else if(alertType == "lowKnow")
+		Image.load(QString::fromUtf8("Resources/shortKnowledge.png"));
+	else if(alertType == "Due")
+		Image.load(QString::fromUtf8("Resources/LateAssn.png"));
+
 	normalalert->setPixmap(Image);
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");

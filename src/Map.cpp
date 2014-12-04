@@ -617,7 +617,7 @@ void Map::setTA(){
 	if(!nowActing){
 
 		QPixmap BImage;
-		BImage.load(QString::fromUtf8("Resources/White.png"));
+		BImage.load(QString::fromUtf8("Resources/TestAndAssn.png"));
 		Screen = new QLabel(nowEnvironment);
 		Screen->setScaledContents(true);
 		Screen->setGeometry(QRect(0, 0, 660, 450));

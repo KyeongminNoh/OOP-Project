@@ -37,7 +37,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	Footer->setScaledContents(true);
 	Footer->setGeometry(QRect(0,450,800,150));
 	QPixmap footerImage;
-	footerImage.load(QString::fromUtf8("Resources/footer.png"));
+	footerImage.load(QString::fromUtf8("Resources/footer_new.png"));
 	Footer->setPixmap(footerImage);
 
 	QIcon TAImage;
@@ -45,9 +45,9 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 	QPushButton *TAButton;
 	TAButton = new QPushButton(Footer);
-    TAButton->setGeometry(QRect(25, 40, 130, 65));
+    TAButton->setGeometry(QRect(10, 15, 120, 65));
 	TAButton->setIcon(TAImage);
-	TAButton->setIconSize(QSize(120, 60));
+	TAButton->setIconSize(QSize(110, 55));
 	TAButton->setFlat(true);
 	TAButton->show();
 
@@ -56,14 +56,15 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 
 	QPushButton *FriendButton;
 	FriendButton = new QPushButton(Footer);
-    FriendButton->setGeometry(QRect(160, 40, 90, 60));
+    FriendButton->setGeometry(QRect(10, 75, 120, 65));
 	FriendButton->setIcon(FriendImage);
-	FriendButton->setIconSize(QSize(90, 60));
+	FriendButton->setIconSize(QSize(110, 55));
+	FriendButton->setFlat(true);
 	FriendButton->show();
 
 	onGoingGame = new ManageGame(isMan, isDayPerson, maP , MenuBar ,Footer);
 
-	onGoingGame->setGeometry(QRect(300,0,800,150));
+	onGoingGame->setGeometry(QRect(150,0,800,150));
 	onGoingGame->show();
 	
 	QObject::connect(MenuBar->gym, SIGNAL(clicked()),  MenuBar, SLOT(setGymIcon()));
