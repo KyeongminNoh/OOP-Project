@@ -15,6 +15,7 @@
 #define MARKET_COST 30
 
 class Assignment;
+class Test;
 class Player;
 class Building;
 class Friend;
@@ -44,6 +45,7 @@ public:
 	Player* get_onPlayer(){ return onPlayer;}
 	Semester* get_nowSemester(){ return nowSemester;}
 	Assignment* getAssignment(int i);
+	Test* getTest(int i);
 
 
 	void SolveAssn(int i);
@@ -72,6 +74,7 @@ private:
 	QTimer *MainTimer;
 	Player *onPlayer;
 	Assignment **Assignmentlist;
+	Test **Testlist;
 	Building **BuildingList;
 	Friend **FriendList;
 	Environment *nowEnvironment;

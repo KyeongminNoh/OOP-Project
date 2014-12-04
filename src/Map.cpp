@@ -31,7 +31,8 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	inmarket = NULL;
 	inloghouse = NULL;
 	instudenthall = NULL;
-
+	inlibrary = NULL;
+	inlabor = NULL;
 
 	askalert = NULL;
 	normalalert = NULL;
@@ -68,13 +69,6 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	nowPlayer->setPixmap(PlayerImage);
 	nowPlayer->show();
 
-	
-	QPushButton *Reset;
-	Reset = new QPushButton(nowEnvironment);
-	Reset->setText("Reset!");
-	Reset->setGeometry(QRect(0, 0, 40, 30));
-	Reset->show();
-
 
 	DormitoryImage = new QPushButton(nowEnvironment);
 	//DormitoryImage->setScaledContents(true);
@@ -109,7 +103,6 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	QObject::connect(EngineeringImage, SIGNAL(clicked()), SLOT(MoveToEngineering()));
 	QObject::connect(CafeteriaImage, SIGNAL(clicked()), SLOT(MoveToCafeteria()));
 	QObject::connect(DormitoryImage, SIGNAL(clicked()), SLOT(MoveToDormitory()));
-	QObject::connect(Reset, SIGNAL(clicked()), SLOT(ResetPlayer()));
 
 }
 
@@ -354,8 +347,8 @@ void Map::DeleteInBldg()
 	instudenthall = NULL;
 	delete inlibrary;
 	inlibrary = NULL;
-//	delete inlabor;
-//	inlabor = NULL;
+	delete inlabor;
+	inlabor = NULL;
 	ResetPlayer();
 }
 
@@ -394,6 +387,7 @@ void Map::ResetPlayer(){
 
 	nowPlayer->setGeometry(QRect(x, y, 40, 80));
 	repaint();
+	SetActing(false);
 }
 
 void Map::MovePlayer(){
@@ -405,51 +399,60 @@ void Map::MovePlayer(){
 }
 
 void Map::MoveToEngineering(){
+	if(!nowActing){
 	px = 5.77;
 	py = 5.77;
 
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1300, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1350, this, SLOT(setInEngineering()));
 	Timer->start(20);
+	}
 }
 
 void Map::MoveToCafeteria(){
+	if(!nowActing){
 	px = -6.4;
 	py = 2;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(800, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(850, this, SLOT(setInCafeteria()));
 	Timer->start(20);
+	}
 }
 
 void Map::MoveToGym(){
-
+	if(!nowActing){
 	px = -3.5;
 	py = 7.5;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
-
-
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1050, this, SLOT(setInGym()));
 	Timer->start(30);
+	}
 }
 
 void Map::MoveToLaborBuilding(){
+	if(!nowActing){
 	px = -5.5;
 	py = 5.05;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1050, this, SLOT(setInLabor()));
 	
 	Timer->start(30);
+	}
 }
 
 void Map::DeleteTimer(){
@@ -459,66 +462,73 @@ void Map::DeleteTimer(){
 }
 
 void Map::MoveToDormitory(){
+	if(!nowActing){
 	px = 0.9;
 	py = 7;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1200, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1250, this, SLOT(setInDormitory()));
 	Timer->start(30);
+	}
 }
 
 void Map::MoveToStudentHall(){
+	if(!nowActing){
 	px = 3;
 	py = 6.5;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1200, this, SLOT(DeleteTimer()));
-		QTimer::singleShot(1250, this, SLOT(setInStudentHall()));
+	QTimer::singleShot(1250, this, SLOT(setInStudentHall()));
 	Timer->start(30);
+	}
 }
 
 void Map::MoveToLogHouse(){
+	if(!nowActing){
 	px = -5.5;
 	py = 7.3;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
-//	if(Inbuildingalert != NULL)
-//		return;
-//	else{
-
-//	}
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1050, this, SLOT(setInLogHouse()));
 	Timer->start(30);
+	}
 }
 
 void Map::MoveToLibrary(){
+	if(!nowActing){
 	px = 7;
 	py = 4.7;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1050, this, SLOT(setInLibrary()));
 	Timer->start(30);
+	}
 }
 
 void Map::MoveToMarket(){
-
+	if(!nowActing){
 	px = 6;
 	py = -0.5;
 	
+	SetActing(true);
 	Timer = new QTimer(this);
 	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
-
-
 	QTimer::singleShot(1000, this, SLOT(DeleteTimer()));
 	QTimer::singleShot(1050, this, SLOT(setInMarket()));
 	Timer->start(30);
+	}
 }
 
 

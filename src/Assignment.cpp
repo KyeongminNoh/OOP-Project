@@ -4,4 +4,5 @@ Assignment::Assignment(int num, int KnowReq){
 	number = num;
 	KnowledgeRequire = KnowReq;
 	solved = false;
+	cannotsolve = false;
 }

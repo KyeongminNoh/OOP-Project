@@ -72,49 +72,37 @@ BuildWhat::BuildWhat(Map *map, QWidget *parent) : QWidget(parent){
 }
 
 void BuildWhat::setGymIcon(){
-	if(nowmap->getOnGoingGame()->getBuilding(3) == NULL){
-		//gym->setGeometry(QRect(22, 52, 100, 39));
-		//QTimer::singleShot(150, this, SLOT(resetIcon()));
+	if((nowmap->getOnGoingGame()->getBuilding(3) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setGymAlert()));
 	}
 }
 
 void BuildWhat::setLibIcon(){
-	if(nowmap->getOnGoingGame()->getBuilding(6) == NULL){
-		//lib->setGeometry(QRect(22, 112, 100, 39));
-		//QTimer::singleShot(150, this, SLOT(resetIcon()));
+	if((nowmap->getOnGoingGame()->getBuilding(6) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setLibAlert()));
 	}
 }
 
 void BuildWhat::setLabIcon(){
-	if(nowmap->getOnGoingGame()->getBuilding(4) == NULL){
-		//lab->setGeometry(QRect(22, 172, 100, 39));
-		//QTimer::singleShot(150, this, SLOT(resetIcon()));
+	if((nowmap->getOnGoingGame()->getBuilding(4) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setLabAlert()));
 	}
 }
 
 void BuildWhat::setStuIcon(){
-	if(nowmap->getOnGoingGame()->getBuilding(5) == NULL){
-		//stu->setGeometry(QRect(22, 292, 100, 39));
-		//QTimer::singleShot(150, this, SLOT(resetIcon()));
+	if((nowmap->getOnGoingGame()->getBuilding(5) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setStuAlert()));
 	}
 }
 
 void BuildWhat::setLogIcon(){
-	if(nowmap->getOnGoingGame()->getBuilding(7) == NULL){
-		//logH->setGeometry(QRect(22, 232, 100, 39));
-		//QTimer::singleShot(150, this, SLOT(resetIcon()));
+	if((nowmap->getOnGoingGame()->getBuilding(7) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setLogAlert()));
 	}
 }
 
 void BuildWhat::setMarIcon(){
-	if(nowmap->getOnGoingGame()->getBuilding(8) == NULL){
-		//mar->setGeometry(QRect(22, 352, 100, 39));
-		//QTimer::singleShot(150, this, SLOT(resetIcon()));
+	if((nowmap->getOnGoingGame()->getBuilding(8) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setMarAlert()));
 	}
 }

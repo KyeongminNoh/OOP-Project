@@ -21,6 +21,7 @@
 #include "InLabor.h"
 #include "InStudentHall.h"
 #include "Assignment.h"
+#include "Test.h"
 #include "TestAssn.h"
 #include <QMessageBox>
 
@@ -41,10 +42,12 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 
 	three_M = 0;
 	
+	Testlist = new Test*[2];
 	Assignmentlist = new Assignment*[8];
 	BuildingList = new Building*[9];
 	for(int i = 0; i<9; i++){
 		if(i<2){
+			Testlist[i] = NULL;
 			testCheck[i]=0;
 		}
 		if(i<8){
@@ -105,6 +108,10 @@ Building* ManageGame::getBuilding(int i){
 
 Assignment* ManageGame::getAssignment(int i){
 	return Assignmentlist[i];
+}
+
+Test* ManageGame::getTest(int i){
+	return Testlist[i];
 }
 
 int ManageGame::getAssn(int i){
@@ -678,14 +685,26 @@ void ManageGame::BACKalert()
 void ManageGame::StartClock(){
 	time++;
 	repaint();
-	Check_Assn();
+	if(three_M <= 10)
+		Check_Assn();
 }
 
 void ManageGame::Check_Assn(){
-	if(time%10 == 0 ){
+	if(time%5 == 0 ){
 		three_M++;
 		if(three_M%5 == 0){
-			testCheck[three_M/5] = 1;
+			if(three_M == 5){
+				if(assnCheck[3] == 1){
+					assnCheck[3] = 0;
+				}
+				Testlist[0] = new Test(onPlayer->get_Knowledge(), 10);
+			}
+			if(three_M == 10){
+				if(assnCheck[7] == 1){
+					assnCheck[7] = 0;
+				}
+				Testlist[1] = new Test(onPlayer->get_Knowledge(), 20);
+			}
 		}
 		else{
 			if(three_M == 1)
@@ -693,12 +712,16 @@ void ManageGame::Check_Assn(){
 			else if(three_M < 5){
 				if(assnCheck[three_M - 2] != 2){
 					assnCheck[three_M - 2] = 0;
+				}else if(assnCheck[three_M - 2] = 2){
+					Assignmentlist[three_M - 2]->set_Cannotsolve();
 				}
 				assnCheck[three_M - 1] = 1;
 			}
 			else{
 				if(assnCheck[three_M - 3] != 2){
 					assnCheck[three_M - 3] = 0;
+				}else if(assnCheck[three_M - 3] = 2){
+					Assignmentlist[three_M - 3]->set_Cannotsolve();
 				}
 				assnCheck[three_M - 2] = 1;
 			}
@@ -943,7 +966,7 @@ void ManageGame::SolveAssn(int i){
 	if(Assignmentlist[i]==NULL)
 		return;
 
-	if(!Assignmentlist[i]->get_solved()){
+	if((!Assignmentlist[i]->get_solved())&&(!Assignmentlist[i]->get_Cannotsolve())){
 		if(onPlayer->get_Knowledge()>=Assignmentlist[i]->get_KnowReq()){
 			Assignmentlist[i]->set_solve();
 			ParentMap->getTA()->repaint();

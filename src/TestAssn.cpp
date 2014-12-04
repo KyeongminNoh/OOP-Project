@@ -1,6 +1,7 @@
 #include "TestAssn.h"
 #include "ManageGame.h"
 #include "Assignment.h"
+#include "Test.h"
 #include "Map.h"
 
 TestAssn::TestAssn(ManageGame *Game, QWidget *parent) : QLabel(parent){
@@ -19,6 +20,8 @@ TestAssn::TestAssn(ManageGame *Game, QWidget *parent) : QLabel(parent){
 	Assn7 = new QPainter(this);
 	Assn8 = new QPainter(this);
 
+	Midterm = new QPainter(this);
+	Final = new QPainter(this);
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");
 	font->setKerning( true );
@@ -26,42 +29,42 @@ TestAssn::TestAssn(ManageGame *Game, QWidget *parent) : QLabel(parent){
 	font->setPixelSize( 20 );
 
 	Solve1= new QPushButton(this);
-	Solve1->setGeometry(QRect(400, 10, 80, 30));
+	Solve1->setGeometry(QRect(540, 10, 80, 30));
 	Solve1->setText("Solve");
 	Solve1->show();
 
 	Solve2= new QPushButton(this);
-	Solve2->setGeometry(QRect(400, 50, 80, 30));
+	Solve2->setGeometry(QRect(540, 50, 80, 30));
 	Solve2->setText("Solve");
 	Solve2->show();
 
 	Solve3= new QPushButton(this);
-	Solve3->setGeometry(QRect(400, 90, 80, 30));
+	Solve3->setGeometry(QRect(540, 90, 80, 30));
 	Solve3->setText("Solve");
 	Solve3->show();
 
 	Solve4= new QPushButton(this);
-	Solve4->setGeometry(QRect(400, 130, 80, 30));
+	Solve4->setGeometry(QRect(540, 130, 80, 30));
 	Solve4->setText("Solve");
 	Solve4->show();
 
 	Solve5= new QPushButton(this);
-	Solve5->setGeometry(QRect(400, 170, 80, 30));
+	Solve5->setGeometry(QRect(540, 170, 80, 30));
 	Solve5->setText("Solve");
 	Solve5->show();
 
 	Solve6= new QPushButton(this);
-	Solve6->setGeometry(QRect(400, 210, 80, 30));
+	Solve6->setGeometry(QRect(540, 210, 80, 30));
 	Solve6->setText("Solve");
 	Solve6->show();
 	
 	Solve7= new QPushButton(this);
-	Solve7->setGeometry(QRect(400, 250, 80, 30));
+	Solve7->setGeometry(QRect(540, 250, 80, 30));
 	Solve7->setText("Solve");
 	Solve7->show();
 
 	Solve8= new QPushButton(this);
-	Solve8->setGeometry(QRect(400, 290, 80, 30));
+	Solve8->setGeometry(QRect(540, 290, 80, 30));
 	Solve8->setText("Solve");
 	Solve8->show();
 
@@ -101,11 +104,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn1->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(0)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn1->drawText(30, 32+(40*0), "Assn1  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(0)->get_KnowReq())+" "+sol);
+		Assn1->drawText(30, 32+(40*0), "Assn1  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(0)->get_KnowReq())+" submit? "+sol);
 		Assn1->end();
 	}
 
@@ -114,11 +117,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn2->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(1)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn2->drawText(30, 32+(40*1), "Assn2  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(1)->get_KnowReq())+" "+sol);
+		Assn2->drawText(30, 32+(40*1), "Assn2  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(1)->get_KnowReq())+" submit? "+sol);
 		Assn2->end();
 	}
 
@@ -127,11 +130,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn3->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(2)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn3->drawText(30, 32+(40*2), "Assn3  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(2)->get_KnowReq())+" "+sol);
+		Assn3->drawText(30, 32+(40*2), "Assn3  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(2)->get_KnowReq())+" submit? "+sol);
 		Assn3->end();
 	}
 
@@ -140,11 +143,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn4->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(3)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn4->drawText(30, 32+(40*3), "Assn4  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(3)->get_KnowReq())+" "+sol);
+		Assn4->drawText(30, 32+(40*3), "Assn4  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(3)->get_KnowReq())+" submit? "+sol);
 		Assn4->end();
 	}
 
@@ -153,11 +156,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn5->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(4)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn5->drawText(30, 32+(40*4), "Assn5  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(4)->get_KnowReq())+" "+sol);
+		Assn5->drawText(30, 32+(40*4), "Assn5  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(4)->get_KnowReq())+" submit? "+sol);
 		Assn5->end();
 	}
 
@@ -166,11 +169,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn6->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(5)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn6->drawText(30, 32+(40*5), "Assn6  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(5)->get_KnowReq())+" "+sol);
+		Assn6->drawText(30, 32+(40*5), "Assn6  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(5)->get_KnowReq())+" submit? "+sol);
 		Assn6->end();
 	}
 
@@ -179,11 +182,11 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn7->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(6)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn7->drawText(30, 32+(40*6), "Assn7  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(6)->get_KnowReq())+" "+sol);
+		Assn7->drawText(30, 32+(40*6), "Assn7  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(6)->get_KnowReq())+" submit? "+sol);
 		Assn7->end();
 	}
 
@@ -192,12 +195,26 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Assn8->setFont(*font);
 		sol.clear();
 		if(onGoingGame->getAssignment(7)->get_solved()){
-			sol.append("solved");
+			sol.append("O");
 		}else{
-			sol.append("unsolved");
+			sol.append("X");
 		}
-		Assn8->drawText(30, 32+(40*7), "Assn8  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(7)->get_KnowReq())+" "+sol);
+		Assn8->drawText(30, 32+(40*7), "Assn8  KnowRequire: "+Num.setNum(onGoingGame->getAssignment(7)->get_KnowReq())+" submit? "+sol);
 		Assn8->end();
+	}
+
+	if(onGoingGame->getTest(0) != NULL){
+		Midterm->begin(this);
+		Midterm->setFont(*font);
+		Midterm->drawText(30, 362, "Midterm   Scroe :"+Num.setNum(onGoingGame->getTest(0)->get_Score()));
+		Midterm->end();
+	}
+
+	if(onGoingGame->getTest(1) != NULL){
+		Final->begin(this);
+		Final->setFont(*font);
+		Final->drawText(30, 402,   "Final     Scroe :"+Num.setNum(onGoingGame->getTest(1)->get_Score()));
+		Final->end();
 	}
 }
 

@@ -31,6 +31,7 @@ public:
 	Map(bool Man, QWidget *parent = 0);
 
 	bool NowActing(){return nowActing;}
+	void SetActing(bool A){nowActing = A;}
 
 	Semester* get_nowSemester(){ return nowSemester;}
 	InGym* getInGym();

@@ -7,14 +7,14 @@ LaborBuilding::LaborBuilding(ManageGame *mg){
 	level = 1;
 	enabled_atNight = true;
 	name = "Ã¼À°°ü";
-	UpgradeCost = -50;
+	UpgradeCost = 50;
 
 	mg->change_InclineFinance(0.05);
 };
 
 void LaborBuilding::Upgrade(ManageGame *mg){
 	level++;
-	UpgradeCost += -50;
+	UpgradeCost += 50;
 	mg->change_InclineFinance(0.05);
 };
 
