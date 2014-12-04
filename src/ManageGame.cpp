@@ -685,7 +685,7 @@ void ManageGame::StartClock(){
 }
 
 void ManageGame::Check_Assn(){
-	if(time%10 == 0 ){
+	if(time%180 == 0 ){
 		three_M++;
 		if(three_M%5 == 0){
 			if(three_M == 5){
