@@ -70,6 +70,13 @@ private:
 	int three_M;
 	int assnCheck[8];
 	int testCheck[2];
+
+	int SportFriend;
+	int TopFriend;
+	bool Lover;
+	int Senior;
+	int DrunkenFriend;
+
 	QTimer *GameTimer;
 	QTimer *MainTimer;
 	Player *onPlayer;
@@ -122,10 +129,11 @@ public slots:
 	void DrinkinMarket(int T);
 	void EatinLogHouse(int T);
 	void ClubActivity(int T);
-//	void UpgradeGym();
-//	void UpgradeMarket();
-//	void UpgradeLaborBuilding();
-//	void UpgradeLibrary();
-//	void UpgradeLogHouse();
-//	void UpgradeStudentHall();
+
+	void MakeDF();
+	void MakeS();
+	void MakeSF();
+	void MakeTF();
+	void MakeLO();
+
 };

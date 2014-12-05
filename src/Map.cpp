@@ -16,6 +16,8 @@
 #include "TestAssn.h"
 #include <QMouseEvent>
 #include <QTimer>
+#include <time.h>
+#include <stdlib.h>
 
 Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	x =320;
@@ -25,6 +27,9 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	py = 1;
 	nowActing = false;
 	nowSemester = new Semester();
+
+	Friend = NULL;
+	FriendType = 0;
 
 	incafeteria = NULL;
 	Inbuildingalert = NULL;
@@ -633,4 +638,96 @@ void Map::setTA(){
 
 TestAssn* Map::getTA(){
 	return TA;
+}
+
+void Map::SetFriend(){
+	srand(time(NULL));
+
+	int T = (rand()%30)+1;
+
+	Friend = new QPushButton(nowEnvironment);
+	//LogHouseImage->setScaledContents(true);
+	
+	QIcon IFriend;
+	if(T>=0&&T<=10){
+		FriendType = 1;
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Player.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(150,100,40,80));
+	}else if(T>10&&T<=18){
+		FriendType = 2;
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Man.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(450,100,40,80));
+	}else if(T>18&&T<=24){
+		FriendType = 3;
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Day.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(450,300,40,80));
+	}else if(T>24&&T<=28){
+		FriendType = 4;
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Night.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(250,100,40,80));
+	}else if(T>28&&T<=30){
+		FriendType = 5;
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Woman.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(200,350,40,80));
+	}
+	
+    
+    Friend->setIcon(IFriend);
+	Friend->setIconSize(QSize(40, 80));
+	Friend->setFlat(true);
+	Friend->show();
+	QObject::connect(Friend, SIGNAL(clicked()), SLOT(MakeFriend()));
+}
+
+void Map::DeleteFriend(){
+	if(Friend != NULL){
+		Friend->hide();
+		delete Friend;
+	}
+	Friend = NULL;
+}
+
+void Map::MakeFriend(){
+	if(FriendType == 1){
+		if(askalert != NULL)
+			return;
+		else{
+			askalert = new AskAlert(onGoingGame, "DF",nowEnvironment);
+			askalert->setGeometry(QRect(110, 100, 300, 225));
+			askalert->show();
+		}
+	}else if(FriendType == 2){
+		if(askalert != NULL)
+			return;
+		else{
+			askalert = new AskAlert(onGoingGame, "S",nowEnvironment);
+			askalert->setGeometry(QRect(110, 100, 300, 225));
+			askalert->show();
+		}
+	}else if(FriendType == 3){
+		if(askalert != NULL)
+			return;
+		else{
+			askalert = new AskAlert(onGoingGame, "SF",nowEnvironment);
+			askalert->setGeometry(QRect(110, 100, 300, 225));
+			askalert->show();
+		}
+	}else if(FriendType == 4){
+		if(askalert != NULL)
+			return;
+		else{
+			askalert = new AskAlert(onGoingGame, "TF",nowEnvironment);
+			askalert->setGeometry(QRect(110, 100, 300, 225));
+			askalert->show();
+		}
+	}else if(FriendType == 5){
+		if(askalert != NULL)
+			return;
+		else{
+			askalert = new AskAlert(onGoingGame, "LO",nowEnvironment);
+			askalert->setGeometry(QRect(110, 100, 300, 225));
+			askalert->show();
+		}
+	}
+
 }

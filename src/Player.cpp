@@ -45,3 +45,12 @@ void Player::set_Finance(qreal S_Finan){
 void Player::set_Max_Health(qreal M_Hea){
 	Max_Health += M_Hea;
 }
+
+void Player::add_Friend(){
+	if(isMan){
+		Sociality += 1;
+	}
+	else{
+		Sociality += 1.5;
+	}
+}

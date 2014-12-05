@@ -82,6 +82,18 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 	else if(BuildingName == "LabUpgrade2")
 		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
 
+	else if(BuildingName == "DF")
+		Image.load(QString::fromUtf8("Resources/Alert.png"));
+	else if(BuildingName == "S")
+		Image.load(QString::fromUtf8("Resources/Alert.png"));
+	else if(BuildingName == "SF")
+		Image.load(QString::fromUtf8("Resources/Alert.png"));
+	else if(BuildingName == "TF")
+		Image.load(QString::fromUtf8("Resources/Alert.png"));
+	else if(BuildingName == "LO")
+		Image.load(QString::fromUtf8("Resources/Alert.png"));
+
+
 	askalert = new QLabel(this);
 	askalert->setScaledContents(true);
 	askalert->setGeometry(QRect(0, 0, 300, 225));
@@ -177,6 +189,23 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoWork()));
 	else if(BuildingName == "LabUpgrade1" || BuildingName == "LabUpgrade2")
 		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildLaborBuilding()));
+
+	else if(BuildingName == "Work") // Labor
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(DoWork()));
+	else if(BuildingName == "LabUpgrade1" || BuildingName == "LabUpgrade2")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame,SLOT(BuildLaborBuilding()));
+
+	else if(BuildingName == "DF" )
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame ,SLOT(MakeDF()));
+	else if(BuildingName == "S" )
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame ,SLOT(MakeS()));
+	else if(BuildingName == "SF" )
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame ,SLOT(MakeSF()));
+	else if(BuildingName == "TF")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame ,SLOT(MakeTF()));
+	else if(BuildingName == "LO")
+		QObject::connect(Yes, SIGNAL(clicked()), onGoingGame ,SLOT(MakeLO()));
+
 
 	if(BuildingName == "GymUpgrade1" || BuildingName == "GymUpgrade2" || BuildingName == "Exer")
 		QObject::connect(No, SIGNAL(clicked()), onGoingGame, SLOT(NothingInGym()));

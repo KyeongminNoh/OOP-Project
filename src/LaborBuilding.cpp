@@ -9,16 +9,16 @@ LaborBuilding::LaborBuilding(ManageGame *mg){
 	name = "Ã¼À°°ü";
 	UpgradeCost = 50;
 
-	mg->change_InclineFinance(0.05);
+	mg->change_InclineFinance(0.5);
 };
 
 void LaborBuilding::Upgrade(ManageGame *mg){
 	level++;
 	UpgradeCost += 50;
-	mg->change_InclineFinance(0.05);
+	mg->change_InclineFinance(0.5);
 };
 
 void LaborBuilding::Upgrade2(ManageGame *mg){
 	level++;
-	mg->change_InclineFinance(0.1);
+	mg->change_InclineFinance(1);
 };

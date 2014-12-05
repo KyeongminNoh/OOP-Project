@@ -60,6 +60,8 @@ public:
 	void DeleteTA();
 
 	//void DeleteInCafeteria();
+	void SetFriend();
+
 	void createGymImage(int level);
 	void createLibraryImage(int level);
 	void createMarketImage(int level);
@@ -68,7 +70,7 @@ public:
 	void createStudentHall(int level);
 private:
 	qreal x, y, px, py;
-	int time, stoptime;
+	//int time, stoptime;
 
 	QTimer *Timer;
 
@@ -104,6 +106,10 @@ private:
 	QPushButton *StudentHallImage;
 	QPushButton *MarketImage;
 	QPushButton *LibraryImage;
+
+	QPushButton *Friend;
+	int FriendType;
+
 	QLabel *Session1;
 
 public slots:
@@ -149,4 +155,6 @@ public slots:
 	void setInLabor();
 
 	void setTA();
+	void DeleteFriend();
+	void MakeFriend();
 };

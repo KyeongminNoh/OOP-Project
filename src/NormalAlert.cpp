@@ -25,7 +25,11 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 	else if(alertType == "ECom3")
 		Image.load(QString::fromUtf8("Resources/exercise3_notice.png"));
 	else if(alertType == "Heal")
-		Image.load(QString::fromUtf8("Resources/HealthAlert.png"));
+		Image.load(QString::fromUtf8("Resources/exercise_notice.png"));
+	else if(alertType == "WHeal")
+		Image.load(QString::fromUtf8("Resources/labor_notice.png"));
+	else if(alertType == "SHeal")
+		Image.load(QString::fromUtf8("Resources/study_notice.png"));
 	else if(alertType == "UCom")
 		Image.load(QString::fromUtf8("Resources/UpgradeComplete.png"));
 	else if(alertType == "SCom1")

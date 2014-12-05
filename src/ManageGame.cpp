@@ -97,14 +97,18 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	Build();
 	resize(650,150);
 
-
+	SportFriend = 0;
+	Senior = 0;
+	DrunkenFriend = 0;
+	Lover = 0;
+	TopFriend = 0;
 
 	time = 0;
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");
 	font->setKerning( true );
 	font->setBold( true );
-	font->setPixelSize( 25 );
+	font->setPixelSize( 21 );
 	
 	showst = new QPainter(this);
 	showh = new QPainter(this);
@@ -113,7 +117,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	showS = new QPainter(this);
 	showTime = new QPainter(this);
 
-
+		ParentMap->SetFriend();
 	MainTimer = new QTimer(this);
 
 	repaint();
@@ -188,37 +192,37 @@ void ManageGame::paintEvent(QPaintEvent *){
 	
 	showst->begin(this);
 	showst->setFont(*font);
-	showst->drawText(90, 130, st1);
+	showst->drawText(90, 128, st1);
 	showst->end();
 
 	
 	showh->begin(this);
 	showh->setFont(*font);
-	showh->drawText(205, 130, st2);
+	showh->drawText(205, 128, st2);
 	showh->end();
 
 	
 	showgold->begin(this);
 	showgold->setFont(*font);
-	showgold->drawText(355, 130, gt);
+	showgold->drawText(353, 128, gt);
 	showgold->end();
 
 	
 	showw->begin(this);
 	showw->setFont(*font);
-	showw->drawText(580, 85, st3);
+	showw->drawText(580, 82, st3);
 	showw->end();
 
 
 	showS->begin(this);
 	showS->setFont(*font);
-	showS->drawText(580, 129, st4);
+	showS->drawText(580, 126, st4);
 	showS->end();
 
 
 	showTime->begin(this);
 	showTime->setFont(*font);
-	showTime->drawText(580, 39, t);
+	showTime->drawText(580, 36, t);
 	showTime->end();
 }
 
@@ -558,6 +562,7 @@ if(BuildingList[3]->get_level() == 1){
 	}
 	else
 	{
+		ParentMap->getInGym()->DeleteAskAlert();
 		ParentMap->setNormalAlert("Heal");
 	}
 }
@@ -572,6 +577,7 @@ else if(BuildingList[3]->get_level() == 2){
 	}
 	else
 	{
+		ParentMap->getInGym()->DeleteAskAlert();
 		ParentMap->setNormalAlert("Heal");
 	}
 }
@@ -586,6 +592,7 @@ else if(BuildingList[3]->get_level() == 3){
 	}
 	else
 	{
+		ParentMap->getInGym()->DeleteAskAlert();
 		ParentMap->setNormalAlert("Heal");
 	}
 }
@@ -604,7 +611,8 @@ if(BuildingList[6]->get_level() == 1){
 	}
 	else
 	{
-		ParentMap->setNormalAlert("Heal");
+		ParentMap->getInLibrary()->DeleteAskAlert();
+		ParentMap->setNormalAlert("SHeal");
 	}
 }
 else if(BuildingList[6]->get_level() == 2){
@@ -618,7 +626,8 @@ else if(BuildingList[6]->get_level() == 2){
 	}
 	else
 	{
-		ParentMap->setNormalAlert("Heal");
+		ParentMap->getInLibrary()->DeleteAskAlert();
+		ParentMap->setNormalAlert("SHeal");
 	}
 }
 else if(BuildingList[6]->get_level() == 3){
@@ -632,7 +641,8 @@ else if(BuildingList[6]->get_level() == 3){
 	}
 	else
 	{
-		ParentMap->setNormalAlert("Heal");
+		ParentMap->getInLibrary()->DeleteAskAlert();
+		ParentMap->setNormalAlert("SHeal");
 	}
 }
 }
@@ -650,7 +660,8 @@ if(BuildingList[4]->get_level() == 1){
 	}
 	else
 	{
-		ParentMap->setNormalAlert("Heal");
+		ParentMap->getInLabor()->DeleteAskAlert();
+		ParentMap->setNormalAlert("WHeal");
 	}
 }
 else if(BuildingList[4]->get_level() == 2){
@@ -664,7 +675,8 @@ else if(BuildingList[4]->get_level() == 2){
 	}
 	else
 	{
-		ParentMap->setNormalAlert("Heal");
+		ParentMap->getInLabor()->DeleteAskAlert();
+		ParentMap->setNormalAlert("WHeal");
 	}
 }
 else if(BuildingList[4]->get_level() == 3){
@@ -678,7 +690,8 @@ else if(BuildingList[4]->get_level() == 3){
 	}
 	else
 	{
-		ParentMap->setNormalAlert("Heal");
+		ParentMap->getInLabor()->DeleteAskAlert();
+		ParentMap->setNormalAlert("WHeal");
 	}
 }
 }
@@ -712,6 +725,12 @@ void ManageGame::BACKalert()
 void ManageGame::StartClock(){
 	time++;
 	repaint();
+
+	if(time%5 == 0){
+		ParentMap->DeleteFriend();
+		ParentMap->SetFriend();
+	}
+
 	if(time%9 == 0)
 	{
 		change_status();
@@ -1024,3 +1043,69 @@ void ManageGame::SolveAssn(int i){
 		}
 	}
 }
+
+
+void ManageGame::MakeDF(){
+	ParentMap->DeleteAskAlert();
+	DrunkenFriend++;
+	onPlayer->add_Friend();
+	ParentMap->setNormalAlert("BCom");
+	ParentMap->DeleteFriend();
+};
+
+void ManageGame::MakeS(){
+	if(onPlayer->get_Sociality() >= 3){
+		ParentMap->DeleteAskAlert();
+		Senior++;
+		onPlayer->add_Friend();
+		ParentMap->setNormalAlert("BCom");
+		ParentMap->DeleteFriend();
+	}else{
+		ParentMap->DeleteAskAlert();
+		ParentMap->setNormalAlert("Fin");
+	}
+};
+
+void ManageGame::MakeSF(){
+	if(onPlayer->get_Sociality() >= 5){
+		ParentMap->DeleteAskAlert();
+		SportFriend++;
+		onPlayer->add_Friend();
+		ParentMap->setNormalAlert("BCom");
+		ParentMap->DeleteFriend();
+	}else{
+		ParentMap->DeleteAskAlert();
+		ParentMap->setNormalAlert("Fin");
+	}
+};
+
+void ManageGame::MakeTF(){
+	if(onPlayer->get_Sociality() >= 10){
+		ParentMap->DeleteAskAlert();
+		TopFriend++;
+		onPlayer->add_Friend();
+		ParentMap->setNormalAlert("BCom");
+		ParentMap->DeleteFriend();
+	}else{
+		ParentMap->DeleteAskAlert();
+		ParentMap->setNormalAlert("Fin");
+	}
+};
+
+void ManageGame::MakeLO(){
+	if(Lover){
+		if(onPlayer->get_Sociality() >= 20){
+			ParentMap->DeleteAskAlert();
+			Lover = true;
+			onPlayer->add_Friend();
+			ParentMap->setNormalAlert("BCom");
+			ParentMap->DeleteFriend();
+		}else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
+		}
+	}else{
+		ParentMap->DeleteAskAlert();
+		ParentMap->setNormalAlert("Fin");
+	}
+};
