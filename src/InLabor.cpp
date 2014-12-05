@@ -35,7 +35,7 @@ InLabor::InLabor(ManageGame *Game, QWidget *parent) : QWidget(parent){
 		
 
 		QIcon WorkImage;
-		WorkImage.addPixmap(QPixmap(QString::fromUtf8("Resources/DoLabor.png")), QIcon::Normal, QIcon::Off);
+		WorkImage.addPixmap(QPixmap(QString::fromUtf8("Resources/Work.png")), QIcon::Normal, QIcon::Off);
 
 		QPushButton *WorkButton;
 		WorkButton = new QPushButton(Screen);

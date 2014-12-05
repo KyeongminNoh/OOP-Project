@@ -77,6 +77,12 @@ private:
 	int Senior;
 	int DrunkenFriend;
 
+	int k_midterm;
+	int k_finalterm;
+
+	int startassn;
+	int mulassn;
+
 	QTimer *GameTimer;
 	QTimer *MainTimer;
 	Player *onPlayer;

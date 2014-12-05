@@ -33,48 +33,80 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	Parent = parent;
 	MenuBar = MB;
 
-	nowSemester = new Semester();
+	nowSemester = ParentMap->get_nowSemester();
 
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
 	if(ParentMap->get_nowSemester()->get_CurrentSemester()==1)
 	{
 		InclineLonely = 0.5;
 		DeclineHealth = -0.6;
+		k_midterm = 10;
+		k_finalterm = 20;
+		startassn = 2;
+		mulassn = 2;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==2)
 	{
 		InclineLonely = 0.6;
 		DeclineHealth = -0.7;
+		k_midterm = 15;
+		k_finalterm = 30;
+		startassn = 3;
+		mulassn = 3;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==3)
 	{
 		InclineLonely = 0.7;
 		DeclineHealth = -0.9;
+		k_midterm = 22;
+		k_finalterm = 38;
+		startassn = 10;
+		mulassn = 3;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==4)
 	{
 		InclineLonely = 0.8;
 		DeclineHealth = -1.1;
+		k_midterm = 28;
+		k_finalterm = 48;
+		startassn = 12;
+		mulassn = 4;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==5)
 	{
 		InclineLonely = 0.9;
 		DeclineHealth = -1.3;
+		k_midterm = 36;
+		k_finalterm = 57;
+		startassn = 20;
+		mulassn = 4;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==6)
 	{
 		InclineLonely = 1.0;
 		DeclineHealth = -1.5;
+		k_midterm = 43;
+		k_finalterm = 68;
+		startassn = 23;
+		mulassn = 5;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==7)
 	{
 		InclineLonely = 1.1;
 		DeclineHealth = -1.7;
+		k_midterm = 50;
+		k_finalterm = 76;
+		startassn = 30;
+		mulassn = 5;
 	}
 	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==8)
 	{
 		InclineLonely = 1.25;
 		DeclineHealth = -2.0;
+		k_midterm = 58;
+		k_finalterm = 88;
+		startassn = 34;
+		mulassn = 6;
 	}
 	InclineFinance = 1;
 
@@ -161,7 +193,7 @@ int ManageGame::getAssn(int i){
 
 void ManageGame::setAssn(int i){
 	assnCheck[i] = 2;
-	Assignmentlist[i] = new Assignment(i+1, 10+(3*i));
+	Assignmentlist[i] = new Assignment(i+1, startassn+(mulassn*i));
 }
 
 void ManageGame::SetStrings(){
@@ -757,13 +789,13 @@ void ManageGame::Check_Assn(){
 				if(assnCheck[3] == 1){
 					assnCheck[3] = 0;
 				}
-				Testlist[0] = new Test(onPlayer->get_Knowledge(), 10);
+				Testlist[0] = new Test(onPlayer->get_Knowledge(), k_midterm);
 			}
 			if(three_M == 10){
 				if(assnCheck[7] == 1){
 					assnCheck[7] = 0;
 				}
-				Testlist[1] = new Test(onPlayer->get_Knowledge(), 20);
+				Testlist[1] = new Test(onPlayer->get_Knowledge(), k_finalterm);
 			}
 		}
 		else{
