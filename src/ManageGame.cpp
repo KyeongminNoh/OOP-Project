@@ -36,8 +36,46 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	nowSemester = new Semester();
 
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
-	InclineLonely = 0.5;
-	DeclineHealth = -0.6;
+	if(ParentMap->get_nowSemester()->get_CurrentSemester()==1)
+	{
+		InclineLonely = 0.5;
+		DeclineHealth = -0.6;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==2)
+	{
+		InclineLonely = 0.6;
+		DeclineHealth = -0.7;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==3)
+	{
+		InclineLonely = 0.7;
+		DeclineHealth = -0.9;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==4)
+	{
+		InclineLonely = 0.8;
+		DeclineHealth = -1.1;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==5)
+	{
+		InclineLonely = 0.9;
+		DeclineHealth = -1.3;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==6)
+	{
+		InclineLonely = 1.0;
+		DeclineHealth = -1.5;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==7)
+	{
+		InclineLonely = 1.1;
+		DeclineHealth = -1.7;
+	}
+	else if(ParentMap->get_nowSemester()->get_CurrentSemester()==8)
+	{
+		InclineLonely = 1.25;
+		DeclineHealth = -2.0;
+	}
 	InclineFinance = 1;
 
 	three_M = 0;
@@ -675,7 +713,15 @@ void ManageGame::StartClock(){
 	time++;
 	repaint();
 	if(time%9 == 0)
+	{
 		change_status();
+		if(onPlayer->get_Health()<=DeclineHealth*0 || onPlayer->get_Lonely()>=onPlayer->get_Max_Lonely()-InclineLonely*0)
+		{
+			delete MainTimer;
+			ParentMap->setNormalAlert("Over");
+		}
+	
+	}
 
 	if(time%36 == 0)
 		onPlayer->set_Finance(InclineFinance);

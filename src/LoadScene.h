@@ -18,9 +18,10 @@ public:
 	~LoadScene(){}
 
 	public slots:
-
+		void NextClicked();
 private:
 	GameWindow* window;
 	QWidget* Page;
+	QLabel* Head;
 	QLabel* Title;
 };

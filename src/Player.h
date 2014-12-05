@@ -22,6 +22,7 @@ public:
 	qreal get_Health(){return Health;}
 	qreal get_Lonely(){return Lonely;}
 	qreal get_Max_Health(){return Max_Health;}
+	qreal get_Max_Lonely(){return Max_Lonely;}
 	bool get_Nocturnal() {return isNocturnal;}
 	bool get_Man() {return isMan;}
 private:

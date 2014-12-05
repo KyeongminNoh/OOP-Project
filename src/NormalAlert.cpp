@@ -91,6 +91,9 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 	else if(alertType == "Due")
 		Image.load(QString::fromUtf8("Resources/LateAssn.png"));
 
+	else if(alertType == "Over")
+		Image.load(QString::fromUtf8("Resources/GameOver.png"));
+
 	normalalert->setPixmap(Image);
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");

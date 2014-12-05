@@ -39,7 +39,7 @@ void Player::set_Knowledge(qreal S_Know){
 }
 
 void Player::set_Finance(qreal S_Finan){
-	Finance += S_Finan;	
+	Finance += S_Finan;
 };
 
 void Player::set_Max_Health(qreal M_Hea){

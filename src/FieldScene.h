@@ -5,6 +5,7 @@
 #include "BuildWhat.h"
 #include "ManageGame.h"
 #include "Map.h"
+#include "Semester.h"
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
@@ -17,7 +18,7 @@ class FieldScene : public QWidget
 
 public:
 	FieldScene() {}
-	FieldScene(GameWindow* win, int isMan, int isDayPerson);
+	FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemester);
 	~FieldScene(){}
 
 public slots:

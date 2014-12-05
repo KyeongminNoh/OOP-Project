@@ -1,7 +1,7 @@
 #include "FieldScene.h"
 
 
-FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
+FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemester){
 	window = win;
 
 	Page = new QWidget(window);
@@ -17,7 +17,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson){
 	window->setCentralWidget(Title);
 
 	maP = new Map(isMan-1,Title);
-
+	maP->get_nowSemester()->set_CurrentSemester(isSemester);
 	maP->setGeometry(QRect(140,0, 660, 450));
 	maP->show();
 

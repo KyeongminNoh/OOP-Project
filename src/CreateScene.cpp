@@ -173,7 +173,7 @@ void CreateScene::NextClicked()
 	if(isMan == 0 || isDayPerson == 0){
 	}
 	else{
-		FieldScene* fieldscene = new FieldScene(window, isMan, isDayPerson);
+		FieldScene* fieldscene = new FieldScene(window, isMan, isDayPerson, 1);
 	}
 }
 
