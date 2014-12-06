@@ -7,7 +7,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
-
+#include <QLabel>
 struct data{
 	int isDayPerson,isMan,isSemester;
 //		int BuildingLevel[9];
