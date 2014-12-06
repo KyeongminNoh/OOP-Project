@@ -25,6 +25,8 @@ public:
 	~LoadScene(){}
 
 	public slots:
+		void showClicked();
+		void BackClicked2();
 		void NextClicked();
 		void BackClicked();
 		void DataView1();
@@ -32,6 +34,7 @@ public:
 		void DataView3();
 		void DataView4();
 private:
+	void paintEvent(QPaintEvent*);
 	GameWindow* window;
 	QWidget* Page;
 	QLabel* Head;
@@ -39,6 +42,9 @@ private:
 	QLabel *Person;
 	QLabel* Night;
 	QLabel* Session1;
+	QLabel *grade;
+	QPushButton *backButton2;
+	QFont* font;
 	struct data s[5];
 	int FileCheck;
 };
