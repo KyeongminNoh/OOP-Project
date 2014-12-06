@@ -8,6 +8,13 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
 
+struct data{
+	int isDayPerson,isMan,isSemester;
+//		int BuildingLevel[9];
+	int Friend_num[6];
+	int Max_Heal;
+	int grade[9];
+};
 class LoadScene : public QWidget
 {
 	Q_OBJECT
@@ -19,6 +26,7 @@ public:
 
 	public slots:
 		void NextClicked();
+		void BackClicked();
 		void DataView1();
 		void DataView2();
 		void DataView3();
@@ -31,10 +39,6 @@ private:
 	QLabel *Person;
 	QLabel* Night;
 	QLabel* Session1;
+	struct data s[5];
 	int FileCheck;
-	int isDayPerson[5],isMan[5],isSemester[5];
-	int BuildingLevel[5][9];
-	int Friend_num[5][6];
-	int Max_Heal[5],Knowl[5];
-	int grade[5][9];
 };

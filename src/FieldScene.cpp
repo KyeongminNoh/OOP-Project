@@ -1,7 +1,7 @@
 #include "FieldScene.h"
 
 
-FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemester){
+FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data S){
 	window = win;
 
 	Page = new QWidget(window);
@@ -16,7 +16,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemest
 
 	window->setCentralWidget(Title);
 
-	maP = new Map(isMan-1,isSemester,Title);
+	maP = new Map(isMan-1,S.isSemester,Title);
 //	maP->get_nowSemester()->set_CurrentSemester(isSemester);
 	maP->setGeometry(QRect(140,0, 660, 450));
 	maP->show();
@@ -62,7 +62,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemest
 	FriendButton->setFlat(true);
 	FriendButton->show();
 
-	onGoingGame = new ManageGame(isMan, isDayPerson, maP , MenuBar ,Footer);
+	onGoingGame = new ManageGame(isMan, isDayPerson, maP , MenuBar, S ,Footer);
 
 	onGoingGame->setGeometry(QRect(150,0,800,150));
 	onGoingGame->show();

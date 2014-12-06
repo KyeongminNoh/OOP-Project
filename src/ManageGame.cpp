@@ -26,7 +26,7 @@
 #include <QMessageBox>
 
 
-ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWidget *parent) : QWidget(parent){
+ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,struct data S,QWidget *parent) : QWidget(parent){
 
 	ParentMap = map;
 	ParentMap->setManageGame(this);
@@ -36,6 +36,11 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	nowSemester = ParentMap->get_nowSemester();
 
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
+	if(!(S.Max_Heal<=90 || S.Max_Heal>=10000))
+	{
+		onPlayer->set_Max_Health(S.Max_Heal-onPlayer->get_Max_Health());
+		onPlayer->set_Health(S.Max_Heal);
+	}
 	if(ParentMap->get_nowSemester()->get_CurrentSemester()==1)
 	{
 		InclineLonely = 0.5;
@@ -129,11 +134,19 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	Build();
 	resize(650,150);
 
-	SportFriend = 0;
-	Senior = 0;
-	DrunkenFriend = 0;
-	Lover = false;
-	TopFriend = 0;
+	int i,j;
+	for(i=1 ; i<=5 ; i++)
+	{
+		if(S.Friend_num[i]<=0 || S.Friend_num[i]>=1000)
+			S.Friend_num[i]=0;
+		for(j=1 ; j<=S.Friend_num[i] ; j++)
+			onPlayer->add_Friend();
+	}
+	SportFriend = S.Friend_num[3];
+	Senior = S.Friend_num[2];
+	DrunkenFriend = S.Friend_num[1];
+	Lover = (bool)S.Friend_num[5];
+	TopFriend = S.Friend_num[4];
 
 	time = 0;
 

@@ -12,7 +12,6 @@
 // 
 /* savedata form
    2 2					---> 남자 주행성
-   0 0 0 0 0 0 0 0		---> 다 레벨 0 건물
    0 0 0 0 0			---> 친구 수
    100				---> 최대 체력
    -1 -1 -1 -1 1 1 1 1	---> A0 A0 A0 A0 진행x 진행x 진행x 진행x
@@ -35,10 +34,21 @@ LoadScene::LoadScene(GameWindow* win)
 	window->setCentralWidget(Title);
 
 
+	QIcon showIcon;
+	showIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GradeShow.png")), QIcon::Normal, QIcon::Off);
 	QIcon NextIcon;
 	NextIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoStart.png")), QIcon::Normal, QIcon::Off);
-	QIcon OKIcon;
-	OKIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/OK.png")), QIcon::Normal, QIcon::Off);
+	QIcon BackIcon;
+	BackIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoBack.png")), QIcon::Normal, QIcon::Off);
+
+	QIcon SaveIcon1;
+	SaveIcon1.addPixmap(QPixmap(QString::fromUtf8("Resources/savefile1.png")), QIcon::Normal, QIcon::Off);
+	QIcon SaveIcon2;
+	SaveIcon2.addPixmap(QPixmap(QString::fromUtf8("Resources/savefile2.png")), QIcon::Normal, QIcon::Off);
+	QIcon SaveIcon3;
+	SaveIcon3.addPixmap(QPixmap(QString::fromUtf8("Resources/savefile3.png")), QIcon::Normal, QIcon::Off);
+	QIcon SaveIcon4;
+	SaveIcon4.addPixmap(QPixmap(QString::fromUtf8("Resources/savefile4.png")), QIcon::Normal, QIcon::Off);
 
 	Head = new QLabel(Title);
 	Head->setScaledContents(true);
@@ -72,24 +82,31 @@ LoadScene::LoadScene(GameWindow* win)
 		if(fp[i]!=NULL)
 		{
 			int check=0;
-			fscanf(fp[i],"%d %d",&isMan[i],&isDayPerson[i]);
+			fscanf(fp[i],"%d %d",&s[i].isMan,&s[i].isDayPerson);
 //			for(j=1 ; j<=8 ; j++)
 //				fscanf(fp[i],"%d ",&BuildingLevel[i][j]);
 			for(j=1 ; j<=5 ; j++)
-				fscanf(fp[i],"%d ",&Friend_num[i][j]);
-			fscanf(fp[i],"%d",&Max_Heal[i]);
+				fscanf(fp[i],"%d ",&s[i].Friend_num[j]);
+			fscanf(fp[i],"%d",&s[i].Max_Heal);
 			for(j=1 ; j<=8 ; j++)
 			{
-				fscanf(fp[i],"%d ",&grade[i][j]);
-				if(grade[i][j]==1 && check==0)
+				fscanf(fp[i],"%d ",&s[i].grade[j]);
+				if(s[i].grade[j]==1 && check==0)
 				{
-					isSemester[i]=j;
+					s[i].isSemester=j;
 					check=1;
 				}
 			}
 			loadButton[i] = new QPushButton(Title);
-			loadButton[i]->setGeometry(QRect(195, 80+90*i, 210, 70));
-			loadButton[i]->setIcon(OKIcon);
+			loadButton[i]->setGeometry(QRect(165, 80+90*i, 210, 70));
+			if(i==1)
+				loadButton[i]->setIcon(SaveIcon1);
+			else if(i==2)
+				loadButton[i]->setIcon(SaveIcon2);
+			else if(i==3)
+				loadButton[i]->setIcon(SaveIcon3);
+			else if(i==4)
+				loadButton[i]->setIcon(SaveIcon4);
 			loadButton[i]->setIconSize(QSize(210, 70));
 			loadButton[i]->setFlat(true);
 			loadButton[i]->show();
@@ -115,36 +132,58 @@ LoadScene::LoadScene(GameWindow* win)
 		{
 			Load = new QLabel(Title);
 			Load->setScaledContents(true);
-			Load->setGeometry(QRect(195,80+90*i,210,70));
+			Load->setGeometry(QRect(200,80+90*i,140,70));
 			QPixmap Kimage;
-			Kimage.load(QString::fromUtf8("Resources/No.png"));
+			Kimage.load(QString::fromUtf8("Resources/emptyfile.png"));
 			Load->setPixmap(Kimage);
 			Load->show();
 
 		}
 	}
+	QPushButton *backButton;
+	backButton = new QPushButton(Title);
+	backButton->setGeometry(QRect(50, 515, 210, 70));
+	backButton->setIcon(BackIcon);
+	backButton->setIconSize(QSize(200, 64));
+	backButton->setFlat(true);
+	backButton->show();
+
+	QPushButton *showButton;
+	showButton = new QPushButton(Title);
+	showButton->setGeometry(QRect(345, 515, 210, 70));
+	showButton->setIcon(showIcon);
+	showButton->setIconSize(QSize(200, 64));
+	showButton->setFlat(true);
+	showButton->show();
 
 	QPushButton *nextButton;
 	nextButton = new QPushButton(Title);
-	nextButton->setGeometry(QRect(295, 515, 210, 70));
+	nextButton->setGeometry(QRect(495, 515, 210, 70));
 	nextButton->setIcon(NextIcon);
 	nextButton->setIconSize(QSize(200, 64));
 	nextButton->setFlat(true);
 	nextButton->show();
 
 	QObject::connect(nextButton, SIGNAL(clicked()),this,SLOT(NextClicked()));
-
+	QObject::connect(backButton, SIGNAL(clicked()),this,SLOT(BackClicked()));
 	
 
 	Title->show();
 }
+void LoadScene::BackClicked()
+{
+	StartScene* startscene = new StartScene(window);
+}
 void LoadScene::NextClicked()
 {
-	FieldScene* fieldscene = new FieldScene(window, isMan[FileCheck], isDayPerson[FileCheck], isSemester[FileCheck]);
+	if(FileCheck>=1 && FileCheck<= 4)
+		FieldScene* fieldscene = new FieldScene(window, s[FileCheck].isMan, s[FileCheck].isDayPerson, s[FileCheck]);
+	else
+		return;
 }
 void LoadScene::DataView1()
 {
-	if(isMan[1]==2)
+	if(s[1].isMan==2)
 	{
 		QPixmap Iperson;
 		Iperson.load(QString::fromUtf8("Resources/Man.png"));
@@ -160,7 +199,7 @@ void LoadScene::DataView1()
 
 		Person->show();
 	}
-	if(isDayPerson[1]==2)
+	if(s[1].isDayPerson==2)
 	{
 		QPixmap weather;
 		weather.load(QString::fromUtf8("Resources/Day.png"));
@@ -177,7 +216,7 @@ void LoadScene::DataView1()
 		Night->show();
 	}
 	QString SN;
-	SN.setNum(isSemester[1]);
+	SN.setNum(s[1].isSemester);
 	QByteArray Session;
 	Session.append("Resources/Session");
 	Session.append(SN);
@@ -191,7 +230,7 @@ void LoadScene::DataView1()
 }
 void LoadScene::DataView2()
 {
-	if(isMan[2]==2)
+	if(s[2].isMan==2)
 	{
 		QPixmap Iperson;
 		Iperson.load(QString::fromUtf8("Resources/Man.png"));
@@ -207,7 +246,7 @@ void LoadScene::DataView2()
 
 		Person->show();
 	}
-	if(isDayPerson[2]==2)
+	if(s[2].isDayPerson==2)
 	{
 		QPixmap weather;
 		weather.load(QString::fromUtf8("Resources/Day.png"));
@@ -224,7 +263,7 @@ void LoadScene::DataView2()
 		Night->show();
 	}
 	QString SN;
-	SN.setNum(isSemester[2]);
+	SN.setNum(s[2].isSemester);
 	QByteArray Session;
 	Session.append("Resources/Session");
 	Session.append(SN);
@@ -237,7 +276,7 @@ void LoadScene::DataView2()
 	FileCheck=2;
 }
 void LoadScene::DataView3(){
-	if(isMan[3]==2)
+	if(s[3].isMan==2)
 	{
 		QPixmap Iperson;
 		Iperson.load(QString::fromUtf8("Resources/Man.png"));
@@ -253,7 +292,7 @@ void LoadScene::DataView3(){
 
 		Person->show();
 	}
-	if(isDayPerson[3]==2)
+	if(s[3].isDayPerson==2)
 	{
 		QPixmap weather;
 		weather.load(QString::fromUtf8("Resources/Day.png"));
@@ -270,7 +309,7 @@ void LoadScene::DataView3(){
 		Night->show();
 	}
 	QString SN;
-	SN.setNum(isSemester[3]);
+	SN.setNum(s[3].isSemester);
 	QByteArray Session;
 	Session.append("Resources/Session");
 	Session.append(SN);
@@ -283,7 +322,7 @@ void LoadScene::DataView3(){
 	FileCheck=3;
 }
 void LoadScene::DataView4(){
-	if(isMan[4]==2)
+	if(s[4].isMan==2)
 	{
 		QPixmap Iperson;
 		Iperson.load(QString::fromUtf8("Resources/Man.png"));
@@ -299,7 +338,7 @@ void LoadScene::DataView4(){
 
 		Person->show();
 	}
-	if(isDayPerson[4]==2)
+	if(s[4].isDayPerson==2)
 	{
 		QPixmap weather;
 		weather.load(QString::fromUtf8("Resources/Day.png"));
@@ -316,7 +355,7 @@ void LoadScene::DataView4(){
 		Night->show();
 	}
 	QString SN;
-	SN.setNum(isSemester[4]);
+	SN.setNum(s[4].isSemester);
 	QByteArray Session;
 	Session.append("Resources/Session");
 	Session.append(SN);

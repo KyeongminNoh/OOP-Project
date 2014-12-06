@@ -1,6 +1,7 @@
 #include "CreateScene.h"
 #include "StartScene.h"
 #include "FieldScene.h"
+#include "LoadScene.h"
 #include <QMouseEvent>
 #include <QTimer>
 
@@ -170,10 +171,12 @@ void CreateScene::Nightclicked()
 
 void CreateScene::NextClicked()
 {
+	struct data s;
+	s.isSemester=1;
 	if(isMan == 0 || isDayPerson == 0){
 	}
 	else{
-		FieldScene* fieldscene = new FieldScene(window, isMan, isDayPerson, 1);
+		FieldScene* fieldscene = new FieldScene(window, isMan, isDayPerson, s);
 	}
 }
 

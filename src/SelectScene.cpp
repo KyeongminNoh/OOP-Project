@@ -142,35 +142,51 @@ SelectScene::SelectScene(GameWindow* win, int isMan, int isDayPerson)
 }
 void SelectScene::Start1()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 1);
+	struct data s;
+	s.isSemester=1;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start2()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 2);
+	struct data s;
+	s.isSemester=2;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start3()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 3);
+	struct data s;
+	s.isSemester=3;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start4()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 4);
+	struct data s;
+	s.isSemester=4;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start5()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 5);
+	struct data s;
+	s.isSemester=5;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start6()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 6);
+	struct data s;
+	s.isSemester=6;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start7()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 7);
+	struct data s;
+	s.isSemester=7;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 void SelectScene::Start8()
 {
-	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, 8);
+	struct data s;
+	s.isSemester=8;
+	FieldScene* fieldscene = new FieldScene(window, Man, DayPerson, s);
 }
 /*void LoadScene::MousePressEvent(QMouseEvent *event){
 	Cursor = event->pos();

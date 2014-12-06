@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QFont>
 #include <QPainter>
+#include "LoadScene.h"
 
 #define LABORB_COST 20
 #define STUHALL_COST 20
@@ -25,12 +26,13 @@ class BuildWhat;
 class Semester;
 
 
+
 class ManageGame : public QWidget {
 
 	Q_OBJECT
 
 public:
-	ManageGame( int isMan, int isDayPerson, Map *map, BuildWhat *MB,QWidget *parent = 0);
+	ManageGame( int isMan, int isDayPerson, Map *map, BuildWhat *MB,struct data S,QWidget *parent = 0);
 
 	Building* getBuilding(int i);
 	int getAssn(int i);
