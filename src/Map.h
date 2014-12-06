@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QPushButton>
 
+class FieldScene;
 class ManageGame;
 class Building;
 class Environment;
@@ -20,7 +21,7 @@ class InLabor;
 class TestAssn;
 class FriendList;
 class Semester;
-
+class EndAlert;
 
 //enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
 //enum { CLICK_MOUSE_MOVE_RANGE = 6 };
@@ -29,8 +30,9 @@ class Map : public QWidget {
 	Q_OBJECT
 
 public:
-	Map(bool Man,int isSemester, QWidget *parent = 0);
+	Map(bool Man, FieldScene *Field,int isSemester, QWidget *parent = 0);
 
+	void SetScreen(bool isNight);
 	bool NowActing(){return nowActing;}
 	void SetActing(bool A){nowActing = A;}
 
@@ -46,6 +48,7 @@ public:
 	TestAssn* getTA();
 	FriendList* getFList();
 
+	void setEndAlert(QString name);
 	void setNormalAlert(QString name);
 	void setManageGame(ManageGame *Game);
 	ManageGame* getOnGoingGame(){return onGoingGame;};
@@ -78,10 +81,13 @@ private:
 
 	bool nowActing;
 
+	FieldScene *field;
+
 	Semester *nowSemester;
 	ManageGame *onGoingGame;
 	NormalAlert *normalalert;
 	AskAlert *askalert;
+	EndAlert *endalert;
 
 	InGym *Inbuildingalert;
 	InDormitory *indormitory;
@@ -135,6 +141,13 @@ public slots:
 	void MoveToLogHouse();
 	void MoveToLibrary();
 	void MoveToMarket();
+
+	void MoveToDrunkenFriend();
+	void MoveToSenior();
+	void MoveToSportFriend();
+	void MoveToTopFriend();
+	void MoveToLover();
+
 	void MovePlayer();
 	void DeleteTimer();
 

@@ -7,6 +7,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
 
+
 enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
 enum { CLICK_MOUSE_MOVE_RANGE = 6 };
 
@@ -30,7 +31,7 @@ protected:
 private:
 
 	QLabel *Head;
-
+	
 	QLabel *alertButton1;
 	GameWindow* window;
 	QWidget* Page;

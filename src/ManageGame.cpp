@@ -131,6 +131,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 		}
 		BuildingList[i] = NULL;
 	}
+	isNight = false;
 	Build();
 	resize(650,150);
 
@@ -166,7 +167,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 	MainTimer = new QTimer(this);
 
 	repaint();
-
+	ParentMap->setEndAlert("GameOver");
 	QObject::connect(MainTimer, SIGNAL(timeout()), SLOT(StartClock()));
 
 	MainTimer->start(1000);
@@ -237,7 +238,7 @@ void ManageGame::paintEvent(QPaintEvent *){
 	
 	showst->begin(this);
 	showst->setFont(*font);
-	showst->drawText(90, 128, st1);
+	showst->drawText(80, 128, st1);
 	showst->end();
 
 	
@@ -444,8 +445,8 @@ void ManageGame::BuildLaborBuilding(){
 			ParentMap->getInLabor()->ReDraw();
 		}
 		else{
-			ParentMap->DeleteAskAlert();
-			ParentMap->setNormalAlert("Fin");
+			ParentMap->getInLabor()->DeleteAskAlert();
+			ParentMap->getInLabor()->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[4]->get_level() == 2){
@@ -459,8 +460,8 @@ void ManageGame::BuildLaborBuilding(){
 			ParentMap->getInLabor()->ReDraw();
 		}
 		else{
-			ParentMap->DeleteAskAlert();
-			ParentMap->setNormalAlert("Fin");
+			ParentMap->getInLabor()->DeleteAskAlert();
+			ParentMap->getInLabor()->setNormalAlert("Fin");
 		}
 	}
 	
@@ -541,8 +542,8 @@ void ManageGame::BuildLibrary(){
 			ParentMap->getInLibrary()->ReDraw();
 		}
 		else{
-			ParentMap->DeleteAskAlert();
-			ParentMap->setNormalAlert("Fin");
+			ParentMap->getInLibrary()->DeleteAskAlert();
+			ParentMap->getInLibrary()->setNormalAlert("Fin");
 		}
 	}
 	else if(BuildingList[6]->get_level() == 2){
@@ -556,8 +557,8 @@ void ManageGame::BuildLibrary(){
 			ParentMap->getInLibrary()->ReDraw();
 		}
 		else{
-			ParentMap->DeleteAskAlert();
-			ParentMap->setNormalAlert("Fin");
+			ParentMap->getInLibrary()->DeleteAskAlert();
+			ParentMap->getInLibrary()->setNormalAlert("Fin");
 		}
 	}
 	
@@ -798,9 +799,15 @@ void ManageGame::StartClock(){
 	time++;
 	repaint();
 
-	if(time%6 == 0){
+	if(time%5 == 0){
+
+		isNight = isNight ?  0 : 1;
+		ParentMap->SetScreen(isNight);
+	}
+
+	if(time%30 == 0){
 		ParentMap->SetFriend();
-		QTimer::singleShot(5000, ParentMap, SLOT(DeleteFriend()));
+		QTimer::singleShot(15000, ParentMap, SLOT(DeleteFriend()));
 	}
 
 	if(time%9 == 0)
@@ -809,7 +816,7 @@ void ManageGame::StartClock(){
 		if(onPlayer->get_Health()<=DeclineHealth*0 || onPlayer->get_Lonely()>=onPlayer->get_Max_Lonely()-InclineLonely*0)
 		{
 			delete MainTimer;
-			ParentMap->setNormalAlert("Over");
+			ParentMap->setEndAlert("GameOver");
 		}
 	
 	}
@@ -833,6 +840,7 @@ void ManageGame::Check_Assn(){
 					assnCheck[3] = 0;
 				}
 				Testlist[0] = new Test(onPlayer->get_Knowledge(), k_midterm);
+				ParentMap->setNormalAlert("Midterm");
 			}
 			if(three_M == 10){
 				if(assnCheck[7] == 1){
@@ -1174,7 +1182,7 @@ void ManageGame::MakeSF(){
 	if(onPlayer->get_Sociality() >= 5){
 		ParentMap->DeleteAskAlert();
 		SportFriend++;
-		DeclineHealth -= 0.01;
+		DeclineHealth += 0.01;
 		onPlayer->add_Friend();
 		ParentMap->setNormalAlert("FMCom");
 		ParentMap->DeleteFriend();

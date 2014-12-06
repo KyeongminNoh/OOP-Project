@@ -34,6 +34,8 @@ class ManageGame : public QWidget {
 public:
 	ManageGame( int isMan, int isDayPerson, Map *map, BuildWhat *MB,struct data S,QWidget *parent = 0);
 
+	bool getisNight(){return isNight;}
+
 	Building* getBuilding(int i);
 	int getAssn(int i);
 	void setAssn(int i);
@@ -73,6 +75,7 @@ private:
 	QPainter *showTime;
 	QFont *font;
 
+	bool isNight;
 
 	int time;
 	int three_M;

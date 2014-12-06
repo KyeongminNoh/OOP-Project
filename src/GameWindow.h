@@ -4,6 +4,13 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+
+class StartScene;
+class FieldScene;
+class LoadScene;
+class CreateScene;
 
 class GameWindow : public QMainWindow
 {
@@ -12,10 +19,14 @@ class GameWindow : public QMainWindow
 public:
 	GameWindow();
 	~GameWindow(){}
-
+	StartScene *Startscene;
+	FieldScene *Fieldscene;
+	LoadScene *Loadscene;
+	CreateScene *Createscene;
 	public slots:
 
 private:
+	
 	int w;
 	int h;
 };

@@ -25,6 +25,7 @@ SelectScene::SelectScene(GameWindow* win, int isMan, int isDayPerson)
 	window->setCentralWidget(Title);
 
 
+
 	QIcon Menu1;
 	Menu1.addPixmap(QPixmap(QString::fromUtf8("Resources/Semester1.png")), QIcon::Normal, QIcon::Off);
 	QIcon Menu2;

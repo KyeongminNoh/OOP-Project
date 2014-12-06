@@ -1,8 +1,19 @@
 #include "FieldScene.h"
-
+#include "StartScene.h"
 
 FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data S){
 	window = win;
+
+	_bgm = new QMediaPlayer;
+	Playlist = new QMediaPlaylist();
+
+	Playlist->addMedia(QUrl::fromLocalFile("Resources/Graduate.mp3"));	
+	Playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+	_bgm->setPlaylist(Playlist);
+	Playlist->setCurrentIndex(0);
+
+	_bgm->play();
 
 	Page = new QWidget(window);
 	Page->resize(800,600);
@@ -16,7 +27,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data 
 
 	window->setCentralWidget(Title);
 
-	maP = new Map(isMan-1,S.isSemester,Title);
+	maP = new Map(isMan-1,this,S.isSemester,Title);
 //	maP->get_nowSemester()->set_CurrentSemester(isSemester);
 	maP->setGeometry(QRect(140,0, 660, 450));
 	maP->show();
@@ -96,4 +107,13 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data 
 	
 	//QObject::connect(MenuBar->mar, SIGNAL(clicked()), maP, SLOT(setMarAlert()));
 
+}
+
+void FieldScene::ReturnStart(){
+	StartScene* startscene = new StartScene(window);
+	delete this;
+}
+
+void FieldScene::ExitGame(){
+	window->close();
 }

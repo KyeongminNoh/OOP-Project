@@ -10,6 +10,8 @@ GameWindow::GameWindow()
 	setMinimumSize(w,h);
 	setMaximumSize(w,h);
 
+	
+
 	StartScene* startscene = new StartScene(this);
 
 	this->show();

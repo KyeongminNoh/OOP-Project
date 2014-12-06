@@ -60,9 +60,9 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 	else if(BuildingName == "clubA" || BuildingName == "clubB" || BuildingName == "clubC") // 운동하는 것, building은 아님
 		Image.load(QString::fromUtf8("Resources/AskClub.png"));
 	else if(BuildingName == "StuUpgrade1")
-		Image.load(QString::fromUtf8("Resources/AskUpgrade1_StuHall.png"));
+		Image.load(QString::fromUtf8("Resources/AskUpgrade1.png"));
 	else if(BuildingName == "StuUpgrade2")
-		Image.load(QString::fromUtf8("Resources/AskUpgrade2_StuHall.png"));
+		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
 
 	// Library 내부
 

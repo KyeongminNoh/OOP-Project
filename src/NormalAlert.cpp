@@ -107,6 +107,14 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 	else if(alertType == "HaveLover")
 		Image.load(QString::fromUtf8("Resources/friends_notice3.png"));
 
+	else if(alertType == "Midterm")
+		Image.load(QString::fromUtf8("Resources/MidTermTest.png"));
+
+	else if(alertType == "CantuseDay")
+		Image.load(QString::fromUtf8("Resources/CantuseDay.png"));
+	else if(alertType == "CantuseNight")
+		Image.load(QString::fromUtf8("Resources/CantuseNight.png"));
+
 	normalalert->setPixmap(Image);
 
 	font = new QFont( "Resources/NanumBarunGothic.ttp");

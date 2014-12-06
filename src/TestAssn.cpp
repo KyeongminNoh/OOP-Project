@@ -83,6 +83,8 @@ void TestAssn::paintEvent(QPaintEvent*){
 	
 	QString Num;
 	QString sol;
+	QString MidtermGrade;
+	QString FinalGrade;
 	
 	if(onGoingGame->getAssn(0) == 2){
 		Assn1->begin(this);
@@ -235,18 +237,20 @@ void TestAssn::paintEvent(QPaintEvent*){
 		Solve8->show();
 		QObject::connect(Solve8, SIGNAL(clicked()), SLOT(SolveA8()));
 	}
-
+	
 	if(onGoingGame->getTest(0) != NULL){
+		MidtermGrade.append(onGoingGame->getTest(0)->getGrade());
 		Midterm->begin(this);
 		Midterm->setFont(*testfont);
-		Midterm->drawText(560, 90, ""+Num.setNum(onGoingGame->getTest(0)->get_Score()));
+		Midterm->drawText(560, 90, MidtermGrade);
 		Midterm->end();
 	}
-
+	
 	if(onGoingGame->getTest(1) != NULL){
+		FinalGrade.append(onGoingGame->getTest(1)->getGrade());
 		Final->begin(this);
 		Final->setFont(*testfont);
-		Final->drawText(560, 230,   ""+Num.setNum(onGoingGame->getTest(1)->get_Score()));
+		Final->drawText(560, 230,   FinalGrade);
 		Final->end();
 	}
 }

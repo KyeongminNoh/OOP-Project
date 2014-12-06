@@ -9,7 +9,6 @@ StartScene::StartScene(GameWindow* win)
 	window = win;
 
 
-
 	Page = new QWidget(window);
 	Page->resize(800,600);
 

@@ -15,17 +15,21 @@
 #include "Semester.h"
 #include "TestAssn.h"
 #include "FriendList.h"
+#include "EndAlert.h"
 #include <QMouseEvent>
 #include <QTimer>
 #include <time.h>
 #include <stdlib.h>
 
-Map::Map(bool Man,int isSemester, QWidget *parent) : QWidget(parent){
+Map::Map(bool Man, FieldScene* Field ,int isSemester, QWidget *parent) : QWidget(parent){
 	x =320;
 	y =350;
 	
 	px = 1;
 	py = 1;
+
+	field = Field;
+
 	nowActing = false;
 	nowSemester = new Semester();
 	nowSemester->set_CurrentSemester(isSemester);
@@ -43,11 +47,13 @@ Map::Map(bool Man,int isSemester, QWidget *parent) : QWidget(parent){
 
 	askalert = NULL;
 	normalalert = NULL;
+	endalert = NULL;
 
 	nowEnvironment = new QLabel(this);
 	nowEnvironment->resize(660, 450);
-
-
+	SetScreen(0);
+	nowEnvironment->setScaledContents(true);
+	nowEnvironment->setGeometry(QRect(0, 0, 660, 450));
 	nowEnvironment->show();
 
 	QString SN;
@@ -112,7 +118,15 @@ Map::Map(bool Man,int isSemester, QWidget *parent) : QWidget(parent){
 	QObject::connect(DormitoryImage, SIGNAL(clicked()), SLOT(MoveToDormitory()));
 
 }
-
+void Map::SetScreen(bool isNight){
+	QPixmap DayOrNight;
+	if(isNight)
+		DayOrNight.load(QString::fromUtf8("Resources/black.png"));
+	else
+		DayOrNight.load(QString::fromUtf8("Resources/white.png"));
+	nowEnvironment->setPixmap(DayOrNight);
+	nowEnvironment->show();
+}
 
 void Map::createGymImage(int level){
 	GymImage = new QPushButton(nowEnvironment);
@@ -318,26 +332,46 @@ void Map::setMarAlert(){
 }
 
 void Map::setNormalAlert(QString name){
+
 	if(normalalert != NULL)
-		return;
-	else{
-		normalalert = new NormalAlert(onGoingGame, name, "map", nowEnvironment);
-		normalalert->setGeometry(QRect(110, 150, 300, 150));
-		if(name == "Sleep" || name == "CTSleep"){
-			normalalert->setGeometry(QRect(0, 0, 660, 450));
-		}
-		normalalert->show();
+		delete normalalert;
+
+	normalalert = new NormalAlert(onGoingGame, name, "map", nowEnvironment);
+	normalalert->setGeometry(QRect(110, 150, 300, 150));
+	if(name == "Sleep" || name == "CTSleep"){
+		normalalert->setGeometry(QRect(0, 0, 660, 450));
 	}
+
+	normalalert->show();
+	
+}
+
+void Map::setEndAlert(QString name){
+
+	if(normalalert != NULL)
+		delete normalalert;
+
+	endalert = new EndAlert(field, name, nowEnvironment);
+	endalert->setGeometry(QRect(110, 150, 300, 225));
+
+	endalert->show();
+	
 }
 
 void Map::DeleteAskAlert(){
 	delete askalert;
 	askalert = NULL;
+	if(Friend != NULL)
+		Friend->show();
+
+	nowActing = false;
+	ResetPlayer();
 }
 
 void Map::DeleteNormalAlert(){
 	delete normalalert;
 	normalalert = NULL;
+	ResetPlayer();
 }
 
 void Map::DeleteInBldg()
@@ -434,7 +468,7 @@ void Map::MovePlayer(){
 }
 
 void Map::MoveToEngineering(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 5.77;
 	py = 5.77;
 
@@ -448,7 +482,7 @@ void Map::MoveToEngineering(){
 }
 
 void Map::MoveToCafeteria(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -6.4;
 	py = 2;
 	
@@ -462,7 +496,7 @@ void Map::MoveToCafeteria(){
 }
 
 void Map::MoveToGym(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -3.5;
 	py = 7.5;
 	
@@ -476,7 +510,7 @@ void Map::MoveToGym(){
 }
 
 void Map::MoveToLaborBuilding(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -5.5;
 	py = 5.05;
 	
@@ -497,7 +531,7 @@ void Map::DeleteTimer(){
 }
 
 void Map::MoveToDormitory(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 0.9;
 	py = 7;
 	
@@ -511,7 +545,7 @@ void Map::MoveToDormitory(){
 }
 
 void Map::MoveToStudentHall(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 3;
 	py = 6.5;
 	
@@ -525,7 +559,7 @@ void Map::MoveToStudentHall(){
 }
 
 void Map::MoveToLogHouse(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -5.5;
 	py = 7.3;
 	
@@ -539,7 +573,7 @@ void Map::MoveToLogHouse(){
 }
 
 void Map::MoveToLibrary(){
-	if(!nowActing){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 7;
 	py = 4.7;
 	
@@ -553,7 +587,7 @@ void Map::MoveToLibrary(){
 }
 
 void Map::MoveToMarket(){
-	if(!nowActing){
+if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 6;
 	py = -0.5;
 	
@@ -566,6 +600,75 @@ void Map::MoveToMarket(){
 	}
 }
 
+void Map::MoveToDrunkenFriend(){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
+	px = 5.5;
+	py = 0;
+	
+	SetActing(true);
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(600, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(650, this, SLOT(MakeFriend()));
+	Timer->start(30);
+	}
+}
+
+void Map::MoveToSenior(){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
+	px = 4;
+	py = 11.5;
+	
+	SetActing(true);
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(600, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(650, this, SLOT(MakeFriend()));
+	Timer->start(30);
+	}
+}
+
+void Map::MoveToSportFriend(){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
+	px = -3.5;
+	py = 11.5;
+	
+	SetActing(true);
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(600, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(650, this, SLOT(MakeFriend()));
+	Timer->start(30);
+	}
+}
+
+void Map::MoveToTopFriend(){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
+	px = 7;
+	py = 7.5;
+	
+	SetActing(true);
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(600, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(650, this, SLOT(MakeFriend()));
+	Timer->start(30);
+	}
+}
+
+void Map::MoveToLover(){
+	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
+	px = -4;
+	py = 1;
+	
+	SetActing(true);
+	Timer = new QTimer(this);
+	QObject::connect(Timer, SIGNAL(timeout()), SLOT(MovePlayer()));
+	QTimer::singleShot(600, this, SLOT(DeleteTimer()));
+	QTimer::singleShot(650, this, SLOT(MakeFriend()));
+	Timer->start(30);
+	}
+}
 
 void Map::setInGym(){
 	Inbuildingalert = new InGym(onGoingGame, nowEnvironment);
@@ -619,6 +722,11 @@ void Map::setInEngineering(){
 }
 
 void Map::setInCafeteria(){
+	if(onGoingGame->getisNight()){
+		setNormalAlert("CantuseNight");
+		return;
+	}
+
 	incafeteria = new InCafeteria(onGoingGame, nowEnvironment);
 	incafeteria->setGeometry(QRect(0,0,660, 450));
 	incafeteria->show();
@@ -627,6 +735,7 @@ void Map::setInCafeteria(){
 }
 
 void Map::setInMarket(){
+
 	inmarket = new InMarket(onGoingGame, nowEnvironment);
 	inmarket->setGeometry(QRect(0,0,660, 450));
 	inmarket->show();
@@ -635,6 +744,11 @@ void Map::setInMarket(){
 }
 
 void Map::setInLogHouse(){
+	if(!onGoingGame->getisNight()){
+		setNormalAlert("CantuseDay");
+		return;
+	}
+
 	inloghouse = new InLogHouse(onGoingGame, nowEnvironment);
 	inloghouse->setGeometry(QRect(0,0,660, 450));
 	inloghouse->show();
@@ -689,7 +803,7 @@ void Map::setFList(){
 	if(!nowActing){
 
 		QPixmap BImage;
-		BImage.load(QString::fromUtf8("Resources/white.png"));
+		BImage.load(QString::fromUtf8("Resources/FriendList.png"));
 		Screen = new QLabel(nowEnvironment);
 		Screen->setScaledContents(true);
 		Screen->setGeometry(QRect(0, 0, 660, 450));
@@ -754,7 +868,20 @@ void Map::SetFriend(){
 	if(nowActing)
 		Friend->hide();
 
-	QObject::connect(Friend, SIGNAL(clicked()), SLOT(MakeFriend()));
+	if((askalert != NULL || normalalert != NULL)&&(FriendType==2 || FriendType == 4))
+		Friend->hide();
+
+	if(FriendType == 1)
+		QObject::connect(Friend, SIGNAL(clicked()), SLOT(MoveToDrunkenFriend()));
+	else if(FriendType == 2)
+		QObject::connect(Friend, SIGNAL(clicked()), SLOT(MoveToSenior()));
+	else if(FriendType == 3)
+		QObject::connect(Friend, SIGNAL(clicked()), SLOT(MoveToSportFriend()));
+	else if(FriendType == 4)
+		QObject::connect(Friend, SIGNAL(clicked()), SLOT(MoveToTopFriend()));
+	else if(FriendType == 5)
+		QObject::connect(Friend, SIGNAL(clicked()), SLOT(MoveToLover()));
+
 }
 
 void Map::DeleteFriend(){
@@ -766,6 +893,7 @@ void Map::DeleteFriend(){
 }
 
 void Map::MakeFriend(){
+
 	if(FriendType == 1){
 		if(askalert != NULL)
 			return;
@@ -807,5 +935,6 @@ void Map::MakeFriend(){
 			askalert->show();
 		}
 	}
+
 
 }

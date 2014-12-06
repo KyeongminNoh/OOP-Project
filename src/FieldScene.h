@@ -12,6 +12,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 
 
@@ -24,10 +26,14 @@ public:
 	FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data S);
 	~FieldScene(){}
 
+	void ReturnStart();
+	void ExitGame();
 public slots:
 		
 
 private:
+	QMediaPlayer* _bgm;
+	QMediaPlaylist* Playlist;
 	GameWindow* window;
 	QWidget* Page;
 	QLabel* Title;

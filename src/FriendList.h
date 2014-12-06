@@ -23,7 +23,7 @@ private:
 	QLabel *Screen;
 	QPainter **DrunkenFriend, **Senior, **SportFriend, **TopFriend, **Lover;
 	
-	QFont *font, *testfont;
+	QFont *font, *font2;
 
 
 public slots:
