@@ -26,6 +26,7 @@ public:
 	FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data S);
 	~FieldScene(){}
 
+	void DeleteEndAlert();
 	void ReturnStart();
 	void ExitGame();
 public slots:

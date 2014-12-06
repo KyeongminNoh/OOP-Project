@@ -65,7 +65,7 @@ void EndAlert::ClickNo(){
 }
 
 void EndAlert::ClickNo2(){
-	delete this;
+	field->DeleteEndAlert();
 }
 
 void EndAlert::ClickYes(){

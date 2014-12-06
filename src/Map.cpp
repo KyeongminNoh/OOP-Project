@@ -226,6 +226,10 @@ void Map::setGym_Upgrade_Alert()
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "GymUpgrade",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -236,6 +240,10 @@ void Map::setExerAlert()
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Exer",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -246,6 +254,10 @@ void Map::setGymAlert(){
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Gym",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -258,6 +270,10 @@ void Map::setLib_Upgrade_Alert()
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "LibUpgrade",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -268,6 +284,10 @@ void Map::setStudyAlert()
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Study",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -277,6 +297,10 @@ void Map::setLibAlert(){
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Lib",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -288,6 +312,10 @@ void Map::setLab_Upgrade_Alert()
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "LabUpgrade",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -298,6 +326,10 @@ void Map::setWorkAlert()
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Work",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -307,6 +339,10 @@ void Map::setLabAlert(){
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Lab",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -317,6 +353,10 @@ void Map::setLogAlert(){
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Log",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -327,6 +367,10 @@ void Map::setStuAlert(){
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Stu",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -337,6 +381,10 @@ void Map::setMarAlert(){
 	if(askalert != NULL)
 		return;
 	else{
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		askalert = new AskAlert(onGoingGame, "Mar",nowEnvironment);
 		askalert->setGeometry(QRect(110, 100, 300, 225));
 		askalert->show();
@@ -380,9 +428,21 @@ void Map::DeleteAskAlert(){
 	ResetPlayer();
 }
 
+void Map::DeleteEndAlert(){
+	delete endalert;
+	endalert = NULL;
+	if(Friend != NULL)
+		Friend->show();
+
+	nowActing = false;
+	ResetPlayer();
+}
+
 void Map::DeleteNormalAlert(){
 	delete normalalert;
 	normalalert = NULL;
+	if(Friend != NULL)
+		Friend->show();
 	ResetPlayer();
 }
 
@@ -480,6 +540,10 @@ void Map::MovePlayer(){
 }
 
 void Map::MoveToEngineering(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 5.77;
 	py = 5.77;
@@ -494,6 +558,10 @@ void Map::MoveToEngineering(){
 }
 
 void Map::MoveToCafeteria(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -6.4;
 	py = 2;
@@ -507,7 +575,12 @@ void Map::MoveToCafeteria(){
 	}
 }
 
+
 void Map::MoveToGym(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -3.5;
 	py = 7.5;
@@ -522,6 +595,10 @@ void Map::MoveToGym(){
 }
 
 void Map::MoveToLaborBuilding(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -5.5;
 	py = 5.05;
@@ -543,6 +620,10 @@ void Map::DeleteTimer(){
 }
 
 void Map::MoveToDormitory(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 0.9;
 	py = 7;
@@ -557,6 +638,10 @@ void Map::MoveToDormitory(){
 }
 
 void Map::MoveToStudentHall(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 3;
 	py = 6.5;
@@ -571,6 +656,10 @@ void Map::MoveToStudentHall(){
 }
 
 void Map::MoveToLogHouse(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -5.5;
 	py = 7.3;
@@ -585,6 +674,10 @@ void Map::MoveToLogHouse(){
 }
 
 void Map::MoveToLibrary(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 7;
 	py = 4.7;
@@ -599,6 +692,10 @@ void Map::MoveToLibrary(){
 }
 
 void Map::MoveToMarket(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 6;
 	py = -0.5;
@@ -613,6 +710,10 @@ if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 }
 
 void Map::MoveToDrunkenFriend(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 5.5;
 	py = 0;
@@ -627,6 +728,10 @@ void Map::MoveToDrunkenFriend(){
 }
 
 void Map::MoveToSenior(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 4;
 	py = 11.5;
@@ -641,6 +746,10 @@ void Map::MoveToSenior(){
 }
 
 void Map::MoveToSportFriend(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -3.5;
 	py = 11.5;
@@ -655,6 +764,10 @@ void Map::MoveToSportFriend(){
 }
 
 void Map::MoveToTopFriend(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = 7;
 	py = 7.5;
@@ -669,6 +782,10 @@ void Map::MoveToTopFriend(){
 }
 
 void Map::MoveToLover(){
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if((!nowActing)&&((askalert==NULL)&&(normalalert==NULL))){
 	px = -4;
 	py = 1;
@@ -683,6 +800,7 @@ void Map::MoveToLover(){
 }
 
 void Map::setInGym(){
+
 	Inbuildingalert = new InGym(onGoingGame, nowEnvironment);
 	Inbuildingalert->setGeometry(QRect(0, 0, 660, 450));
 	Inbuildingalert->show();
@@ -718,6 +836,7 @@ InLabor* Map::getInLabor(){
 }
 
 void Map::setInDormitory(){
+
 	indormitory = new InDormitory(onGoingGame, nowEnvironment);
 	indormitory->setGeometry(QRect(0, 0, 660, 450));
 	indormitory->show();
@@ -726,6 +845,7 @@ void Map::setInDormitory(){
 }
 
 void Map::setInEngineering(){
+
 	inengineering = new InEngineering(onGoingGame, nowEnvironment);
 	inengineering->setGeometry(QRect(0, 0, 660, 450));
 	inengineering->show();
@@ -734,6 +854,7 @@ void Map::setInEngineering(){
 }
 
 void Map::setInCafeteria(){
+
 	if(onGoingGame->getisNight()){
 		setNormalAlert("CantuseNight");
 		return;
@@ -756,6 +877,7 @@ void Map::setInMarket(){
 }
 
 void Map::setInLogHouse(){
+
 	if(!onGoingGame->getisNight()){
 		setNormalAlert("CantuseDay");
 		return;
@@ -768,6 +890,7 @@ void Map::setInLogHouse(){
 		Friend->hide();
 }
 void Map::setInLibrary(){
+
 	inlibrary = new InLibrary(onGoingGame, nowEnvironment);
 	inlibrary->setGeometry(QRect(0,0,660, 450));
 	inlibrary->show();
@@ -775,6 +898,7 @@ void Map::setInLibrary(){
 		Friend->hide();
 }
 void Map::setInLabor(){
+
 	inlabor = new InLabor(onGoingGame, nowEnvironment);
 	inlabor->setGeometry(QRect(0,0,660, 450));
 	inlabor->show();
@@ -783,6 +907,7 @@ void Map::setInLabor(){
 }
 
 void Map::setInStudentHall(){
+
 	instudenthall = new InStudentHall(onGoingGame, nowEnvironment);
 	instudenthall->setGeometry(QRect(0,0,660, 450));
 	instudenthall->show();
@@ -791,8 +916,12 @@ void Map::setInStudentHall(){
 }
 
 void Map::setTA(){
-	if(!nowActing){
 
+	if(!nowActing){
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		QPixmap BImage;
 		BImage.load(QString::fromUtf8("Resources/TestAndAssn.png"));
 		Screen = new QLabel(nowEnvironment);
@@ -812,8 +941,12 @@ void Map::setTA(){
 }
 
 void Map::setFList(){
+	
 	if(!nowActing){
-
+		if(endalert!=NULL){
+			delete endalert;
+			endalert = NULL;
+		}
 		QPixmap BImage;
 		BImage.load(QString::fromUtf8("Resources/FriendList.png"));
 		Screen = new QLabel(nowEnvironment);
@@ -833,7 +966,10 @@ void Map::setFList(){
 }
 
 void Map::setGR(){
-
+		if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 
 		QPixmap BImage;
 		BImage.load(QString::fromUtf8("Resources/Results.png"));
@@ -900,7 +1036,7 @@ void Map::SetFriend(){
 	if(nowActing)
 		Friend->hide();
 
-	if((askalert != NULL || normalalert != NULL)&&(FriendType==2 || FriendType == 4))
+	if((askalert != NULL || normalalert != NULL || endalert != NULL)&&(FriendType==2 || FriendType == 4))
 		Friend->hide();
 
 	if(FriendType == 1)
@@ -925,7 +1061,10 @@ void Map::DeleteFriend(){
 }
 
 void Map::MakeFriend(){
-
+	if(endalert!=NULL){
+		delete endalert;
+		endalert = NULL;
+	}
 	if(FriendType == 1){
 		if(askalert != NULL)
 			return;

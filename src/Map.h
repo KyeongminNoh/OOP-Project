@@ -58,6 +58,7 @@ public:
 	AskAlert* getAskAlert(){return askalert;};
 	void DeleteAskAlert();
 	void DeleteNormalAlert();
+	void DeleteEndAlert();
 	void DeleteInBldg();
 	void DeleteInDormitory();
 	void DeleteInLibrary();

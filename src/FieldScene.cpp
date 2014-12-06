@@ -118,3 +118,7 @@ void FieldScene::ReturnStart(){
 void FieldScene::ExitGame(){
 	window->close();
 }
+
+void FieldScene::DeleteEndAlert(){
+	maP->DeleteEndAlert();
+}
