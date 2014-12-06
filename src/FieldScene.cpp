@@ -91,6 +91,8 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemest
 
 	
 	QObject::connect(TAButton, SIGNAL(clicked()), maP, SLOT(setTA()));
+
+	QObject::connect(FriendButton, SIGNAL(clicked()), maP, SLOT(setFList()));
 	
 	//QObject::connect(MenuBar->mar, SIGNAL(clicked()), maP, SLOT(setMarAlert()));
 

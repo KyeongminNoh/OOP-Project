@@ -18,6 +18,7 @@ class InLibrary;
 class InStudentHall;
 class InLabor;
 class TestAssn;
+class FriendList;
 class Semester;
 
 
@@ -43,7 +44,7 @@ public:
 	InLabor *getInLabor();
 
 	TestAssn* getTA();
-
+	FriendList* getFList();
 
 	void setNormalAlert(QString name);
 	void setManageGame(ManageGame *Game);
@@ -58,6 +59,7 @@ public:
 	void DeleteInLabor();
 
 	void DeleteTA();
+	void DeleteFList();
 
 	//void DeleteInCafeteria();
 	void SetFriend();
@@ -93,6 +95,7 @@ private:
 
 	QLabel *Screen;
 	TestAssn *TA;
+	FriendList *FL;
 
 	QLabel *nowEnvironment;
 	QLabel *nowPlayer;
@@ -155,6 +158,7 @@ public slots:
 	void setInLabor();
 
 	void setTA();
+	void setFList();
 	void DeleteFriend();
 	void MakeFriend();
 };

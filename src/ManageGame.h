@@ -49,6 +49,12 @@ public:
 
 
 	void SolveAssn(int i);
+
+	int getDF(){return DrunkenFriend;};
+	int getS(){return Senior;};
+	int getSF(){return SportFriend;};
+	int getTF(){return TopFriend;};
+	bool getL(){return Lover;};
 private:
 	void paintEvent(QPaintEvent *);
 	
@@ -108,6 +114,7 @@ public slots:
 	void NoSleep();
 	void CloseEngineering();
 	void CloseTA();
+	void CloseFL();
 
 	void NothingInGym();
 	void NothingInCaf();

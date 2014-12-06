@@ -83,15 +83,15 @@ AskAlert::AskAlert(ManageGame *Game, QString Name, QWidget *parent) : QWidget(pa
 		Image.load(QString::fromUtf8("Resources/AskUpgrade2.png"));
 
 	else if(BuildingName == "DF")
-		Image.load(QString::fromUtf8("Resources/Alert.png"));
+		Image.load(QString::fromUtf8("Resources/AskDrunkenFriend.png"));
 	else if(BuildingName == "S")
-		Image.load(QString::fromUtf8("Resources/Alert.png"));
+		Image.load(QString::fromUtf8("Resources/AskSeniorFriend.png"));
 	else if(BuildingName == "SF")
-		Image.load(QString::fromUtf8("Resources/Alert.png"));
+		Image.load(QString::fromUtf8("Resources/AskHealthyFriend.png"));
 	else if(BuildingName == "TF")
-		Image.load(QString::fromUtf8("Resources/Alert.png"));
+		Image.load(QString::fromUtf8("Resources/AskStudyFriend.png"));
 	else if(BuildingName == "LO")
-		Image.load(QString::fromUtf8("Resources/Alert.png"));
+		Image.load(QString::fromUtf8("Resources/AskLoverFriend.png"));
 
 
 	askalert = new QLabel(this);

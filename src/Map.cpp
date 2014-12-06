@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Semester.h"
 #include "TestAssn.h"
+#include "FriendList.h"
 #include <QMouseEvent>
 #include <QTimer>
 #include <time.h>
@@ -355,6 +356,9 @@ void Map::DeleteInBldg()
 	delete inlabor;
 	inlabor = NULL;
 	ResetPlayer();
+	if(Friend != NULL){
+		Friend ->show();
+	}
 }
 
 void Map::DeleteInDormitory()
@@ -362,6 +366,9 @@ void Map::DeleteInDormitory()
 	delete indormitory;
 	indormitory = NULL;
 	ResetPlayer();
+	if(Friend != NULL){
+		Friend ->show();
+	}
 }
 
 void Map::DeleteInEngineering()
@@ -369,6 +376,9 @@ void Map::DeleteInEngineering()
 	delete inengineering;
 	inengineering = NULL;
 	ResetPlayer();
+	if(Friend != NULL){
+		Friend ->show();
+	}
 }
 
 void Map::DeleteTA(){
@@ -380,6 +390,25 @@ void Map::DeleteTA(){
 	Screen = NULL;
 
 	nowActing = false;
+
+	if(Friend != NULL){
+		Friend ->show();
+	}
+};
+
+void Map::DeleteFList(){
+	
+	delete FL;
+	FL = NULL;
+
+	delete Screen;
+	Screen = NULL;
+
+	nowActing = false;
+
+	if(Friend != NULL){
+		Friend ->show();
+	}
 };
 
 void Map::setManageGame(ManageGame *Game){
@@ -541,7 +570,8 @@ void Map::setInGym(){
 	Inbuildingalert = new InGym(onGoingGame, nowEnvironment);
 	Inbuildingalert->setGeometry(QRect(0, 0, 660, 450));
 	Inbuildingalert->show();
-
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 InGym* Map::getInGym(){
@@ -575,47 +605,62 @@ void Map::setInDormitory(){
 	indormitory = new InDormitory(onGoingGame, nowEnvironment);
 	indormitory->setGeometry(QRect(0, 0, 660, 450));
 	indormitory->show();
-
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 void Map::setInEngineering(){
 	inengineering = new InEngineering(onGoingGame, nowEnvironment);
 	inengineering->setGeometry(QRect(0, 0, 660, 450));
 	inengineering->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 void Map::setInCafeteria(){
 	incafeteria = new InCafeteria(onGoingGame, nowEnvironment);
 	incafeteria->setGeometry(QRect(0,0,660, 450));
 	incafeteria->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 void Map::setInMarket(){
 	inmarket = new InMarket(onGoingGame, nowEnvironment);
 	inmarket->setGeometry(QRect(0,0,660, 450));
 	inmarket->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 void Map::setInLogHouse(){
 	inloghouse = new InLogHouse(onGoingGame, nowEnvironment);
 	inloghouse->setGeometry(QRect(0,0,660, 450));
 	inloghouse->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 void Map::setInLibrary(){
 	inlibrary = new InLibrary(onGoingGame, nowEnvironment);
 	inlibrary->setGeometry(QRect(0,0,660, 450));
 	inlibrary->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 void Map::setInLabor(){
 	inlabor = new InLabor(onGoingGame, nowEnvironment);
 	inlabor->setGeometry(QRect(0,0,660, 450));
 	inlabor->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 void Map::setInStudentHall(){
 	instudenthall = new InStudentHall(onGoingGame, nowEnvironment);
 	instudenthall->setGeometry(QRect(0,0,660, 450));
 	instudenthall->show();
+	if(Friend != NULL)
+		Friend->hide();
 }
 
 void Map::setTA(){
@@ -632,12 +677,40 @@ void Map::setTA(){
 		TA->setGeometry(QRect(0, 0, 660, 450));
 		TA->show();
 		nowActing = true;
+
+		if(Friend != NULL)
+			Friend->hide();
+	}
+	return;
+}
+
+void Map::setFList(){
+	if(!nowActing){
+
+		QPixmap BImage;
+		BImage.load(QString::fromUtf8("Resources/white.png"));
+		Screen = new QLabel(nowEnvironment);
+		Screen->setScaledContents(true);
+		Screen->setGeometry(QRect(0, 0, 660, 450));
+		Screen->setPixmap(BImage);
+		Screen->show();
+		FL = new FriendList(onGoingGame, Screen);
+		FL->setGeometry(QRect(0, 0, 660, 450));
+		FL->show();
+		nowActing = true;
+
+		if(Friend != NULL)
+			Friend->hide();
 	}
 	return;
 }
 
 TestAssn* Map::getTA(){
 	return TA;
+}
+
+FriendList* Map::getFList(){
+	return FL;
 }
 
 void Map::SetFriend(){
@@ -651,31 +724,35 @@ void Map::SetFriend(){
 	QIcon IFriend;
 	if(T>=0&&T<=10){
 		FriendType = 1;
-		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Player.png")), QIcon::Normal, QIcon::Off);
-		Friend->setGeometry(QRect(150,100,40,80));
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/DrunkenFriend.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(140,350,70,80));
 	}else if(T>10&&T<=18){
 		FriendType = 2;
-		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Man.png")), QIcon::Normal, QIcon::Off);
-		Friend->setGeometry(QRect(450,100,40,80));
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/SeniorFriend.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(180,120,60,80));
 	}else if(T>18&&T<=24){
 		FriendType = 3;
-		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Day.png")), QIcon::Normal, QIcon::Off);
-		Friend->setGeometry(QRect(450,300,40,80));
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/HealthyFriend.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(430,120,60,80));	
 	}else if(T>24&&T<=28){
 		FriendType = 4;
-		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Night.png")), QIcon::Normal, QIcon::Off);
-		Friend->setGeometry(QRect(250,100,40,80));
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/StudyFriend.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(120,200,60,80));
 	}else if(T>28&&T<=30){
 		FriendType = 5;
-		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/Woman.png")), QIcon::Normal, QIcon::Off);
-		Friend->setGeometry(QRect(200,350,40,80));
+		IFriend.addPixmap(QPixmap(QString::fromUtf8("Resources/LoverFriend.png")), QIcon::Normal, QIcon::Off);
+		Friend->setGeometry(QRect(440,300,60,80));
 	}
 	
     
     Friend->setIcon(IFriend);
-	Friend->setIconSize(QSize(40, 80));
+	Friend->setIconSize(QSize(80, 80));
 	Friend->setFlat(true);
 	Friend->show();
+
+	if(nowActing)
+		Friend->hide();
+
 	QObject::connect(Friend, SIGNAL(clicked()), SLOT(MakeFriend()));
 }
 

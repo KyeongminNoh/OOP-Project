@@ -27,6 +27,9 @@ void Player::set_Sociality(qreal S_Social){
 void Player::set_Lonely(qreal S_Lone){
 	Lonely = Lonely + S_Lone;
 }
+void Player::set_Lonely(){
+	Lonely = 50;
+}
 
 void Player::set_Health(qreal S_Hea){
 	Health = Health + S_Hea;

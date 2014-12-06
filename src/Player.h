@@ -5,6 +5,7 @@ class Player{
 public:
 	Player(bool Nocturnal, bool Man);
 	void set_Lonely(qreal S_Lone);
+	void set_Lonely();
 	void set_Health(qreal S_Hea);
 	void set_Knowledge(qreal S_Know); // Knowledge+=S_Know	
 	void set_Finance(qreal S_Finan);

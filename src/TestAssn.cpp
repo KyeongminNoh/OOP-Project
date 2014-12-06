@@ -36,13 +36,21 @@ TestAssn::TestAssn(ManageGame *Game, QWidget *parent) : QLabel(parent){
 	SolveIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/solve.png")), QIcon::Normal, QIcon::Off);
 
 	Solve1= new QPushButton(this);
+	Solve1->hide();
 	Solve2= new QPushButton(this);
+	Solve2->hide();
 	Solve3= new QPushButton(this);
+	Solve3->hide();
 	Solve4= new QPushButton(this);
+	Solve4->hide();
 	Solve5= new QPushButton(this);
+	Solve5->hide();
 	Solve6= new QPushButton(this);		
+	Solve6->hide();
 	Solve7= new QPushButton(this);	
+	Solve7->hide();
 	Solve8= new QPushButton(this);
+	Solve8->hide();
 	
 
 	Back = new QPushButton(this);

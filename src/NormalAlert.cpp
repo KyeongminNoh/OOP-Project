@@ -69,6 +69,8 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 		Image.load(QString::fromUtf8("Resources/market3_notice.png"));
 	else if( alertType == "MarFin")
 		Image.load(QString::fromUtf8("Resources/market_notice.png"));
+	else if( alertType == "MarFin")
+		Image.load(QString::fromUtf8("Resources/market_notice2.png"));
 
 	else if( alertType == "AeatL")
 		Image.load(QString::fromUtf8("Resources/log1_notice.png"));
@@ -97,6 +99,13 @@ NormalAlert::NormalAlert(ManageGame *Game, QString Name, QString Canvas ,QWidget
 
 	else if(alertType == "Over")
 		Image.load(QString::fromUtf8("Resources/GameOver.png"));
+
+	else if(alertType == "FMCom")
+		Image.load(QString::fromUtf8("Resources/friends_notice2.png"));
+	else if(alertType == "SSoc")
+		Image.load(QString::fromUtf8("Resources/friends_notice.png"));
+	else if(alertType == "HaveLover")
+		Image.load(QString::fromUtf8("Resources/friends_notice3.png"));
 
 	normalalert->setPixmap(Image);
 

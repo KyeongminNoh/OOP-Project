@@ -132,7 +132,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	SportFriend = 0;
 	Senior = 0;
 	DrunkenFriend = 0;
-	Lover = 0;
+	Lover = false;
 	TopFriend = 0;
 
 	time = 0;
@@ -149,7 +149,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,QWid
 	showS = new QPainter(this);
 	showTime = new QPainter(this);
 
-		ParentMap->SetFriend();
+
 	MainTimer = new QTimer(this);
 
 	repaint();
@@ -164,7 +164,7 @@ void ManageGame::TakeGold(){
 }
 
 void ManageGame::change_InclineLonely(qreal d){
-	InclineLonely = InclineLonely - d;
+		InclineLonely = InclineLonely - d;
 }
 
 void ManageGame::change_InclineFinance(qreal i){
@@ -259,7 +259,14 @@ void ManageGame::paintEvent(QPaintEvent *){
 }
 
 void ManageGame::change_status(){
-	onPlayer->set_Lonely(InclineLonely);
+	if(Lover){
+		if(onPlayer->get_Lonely()<5)
+			onPlayer->set_Lonely(InclineLonely);
+		else if(onPlayer->get_Lonely()>5)
+			onPlayer->set_Lonely();
+	}else{
+		onPlayer->set_Lonely(InclineLonely);
+	}
 	onPlayer->set_Health(DeclineHealth);
 	repaint();
 }
@@ -583,11 +590,13 @@ void ManageGame::BuildLogHouse(){
 
 void ManageGame::DoExer()
 {
+	qreal FH = SportFriend * 0.5;
+
 if(BuildingList[3]->get_level() == 1){
 	if(onPlayer->get_Health() >= 10) // 운동시 필요 체력
 	{
 		onPlayer->set_Health(-10);
-		onPlayer->set_Max_Health(5);
+		onPlayer->set_Max_Health(5+FH);
 		ParentMap->getInGym()->DeleteAskAlert();
 		ParentMap->getInGym()->setNormalAlert("ECom1");
 		repaint();
@@ -602,7 +611,7 @@ else if(BuildingList[3]->get_level() == 2){
 	if(onPlayer->get_Health() >= 15) // 운동시 필요 체력
 	{
 		onPlayer->set_Health(-15);
-		onPlayer->set_Max_Health(10);
+		onPlayer->set_Max_Health(10+FH);
 		ParentMap->getInGym()->DeleteAskAlert();
 		ParentMap->getInGym()->setNormalAlert("ECom2");
 		repaint();
@@ -617,7 +626,7 @@ else if(BuildingList[3]->get_level() == 3){
 	if(onPlayer->get_Health() >= 20) // 운동시 필요 체력
 	{
 		onPlayer->set_Health(-20);
-		onPlayer->set_Max_Health(20);
+		onPlayer->set_Max_Health(20+FH);
 		ParentMap->getInGym()->DeleteAskAlert();
 		ParentMap->getInGym()->setNormalAlert("ECom3");
 		repaint();
@@ -632,11 +641,13 @@ else if(BuildingList[3]->get_level() == 3){
 
 void ManageGame::DoStudy()
 {
+	qreal FS = TopFriend * 0.5;
+
 if(BuildingList[6]->get_level() == 1){
 	if(onPlayer->get_Health() >= 10) // 공부시 필요 체력
 	{
 		onPlayer->set_Health(-10);
-		onPlayer->set_Knowledge(1);
+		onPlayer->set_Knowledge(1+FS);
 		ParentMap->getInLibrary()->DeleteAskAlert();
 		ParentMap->getInLibrary()->setNormalAlert("SCom1");
 		repaint();
@@ -651,7 +662,7 @@ else if(BuildingList[6]->get_level() == 2){
 	if(onPlayer->get_Health() >= 15) // 운동시 필요 체력
 	{
 		onPlayer->set_Health(-15);
-		onPlayer->set_Knowledge(3);
+		onPlayer->set_Knowledge(3+FS);
 		ParentMap->getInLibrary()->DeleteAskAlert();
 		ParentMap->getInLibrary()->setNormalAlert("SCom2");
 		repaint();
@@ -666,7 +677,7 @@ else if(BuildingList[6]->get_level() == 3){
 	if(onPlayer->get_Health() >= 20) // 운동시 필요 체력
 	{
 		onPlayer->set_Health(-20);
-		onPlayer->set_Knowledge(5);
+		onPlayer->set_Knowledge(5+FS);
 		ParentMap->getInLibrary()->DeleteAskAlert();
 		ParentMap->getInLibrary()->setNormalAlert("SCom3");
 		repaint();
@@ -758,9 +769,9 @@ void ManageGame::StartClock(){
 	time++;
 	repaint();
 
-	if(time%5 == 0){
-		ParentMap->DeleteFriend();
+	if(time%6 == 0){
 		ParentMap->SetFriend();
+		QTimer::singleShot(5000, ParentMap, SLOT(DeleteFriend()));
 	}
 
 	if(time%9 == 0)
@@ -779,6 +790,9 @@ void ManageGame::StartClock(){
 
 	if(three_M <= 10)
 		Check_Assn();
+
+	repaint();
+
 }
 
 void ManageGame::Check_Assn(){
@@ -853,6 +867,10 @@ void ManageGame::CloseTA(){
 	ParentMap->DeleteTA();
 }
 
+void ManageGame::CloseFL(){
+	ParentMap->DeleteFList();
+}
+
 void ManageGame::NothingInGym(){
 	ParentMap->getInGym()->DeleteAskAlert();
 };
@@ -880,9 +898,11 @@ void ManageGame::NothingInStu(){
 }
 
 void ManageGame::EatinCaf(int T){
+	qreal FF = -(0.1 * Senior);
+
 	if(T == 1){
-		if(onPlayer->get_Finance() >= 5){
-			onPlayer->set_Finance(-5);
+		if(onPlayer->get_Finance() >= (5+FF)){
+			onPlayer->set_Finance(-(5+FF));
 			onPlayer->set_Health(3);
 			ParentMap->getInCafeteria()->DeleteAskAlert();
 			repaint();
@@ -894,8 +914,8 @@ void ManageGame::EatinCaf(int T){
 		}
 	}
 	else if(T == 2){
-		if(onPlayer->get_Finance() >= 7){
-			onPlayer->set_Finance(-7);
+		if(onPlayer->get_Finance() >= (7+FF)){
+			onPlayer->set_Finance(-(7+FF));
 			onPlayer->set_Health(5);
 			ParentMap->getInCafeteria()->DeleteAskAlert();
 			repaint();
@@ -907,8 +927,8 @@ void ManageGame::EatinCaf(int T){
 		}
 	}
 	else if(T == 3){
-		if(onPlayer->get_Finance() >= 10){
-			onPlayer->set_Finance(-10);
+		if(onPlayer->get_Finance() >= (10+FF)){
+			onPlayer->set_Finance(-(10+FF));
 			onPlayer->set_Health(8);
 			ParentMap->getInCafeteria()->DeleteAskAlert();
 			repaint();
@@ -923,14 +943,23 @@ void ManageGame::EatinCaf(int T){
 }
 
 void ManageGame::DrinkinMarket(int T){
+	qreal FH = 0.2 * DrunkenFriend;
+	qreal FF = (0.2 * DrunkenFriend) - (0.1 * Senior);
+	qreal FL = 0.2 * DrunkenFriend;
+
 	if(T == 1){
-		if(onPlayer->get_Finance() >= 10){
-			onPlayer->set_Finance(-10);
-			onPlayer->set_Health(-6);
-			onPlayer->set_Lonely(-5);
-			ParentMap->getInMarket()->DeleteAskAlert();
-			repaint();
-			ParentMap->getInMarket()->setNormalAlert("Drink1");
+		if(onPlayer->get_Finance() >= (10 + FF)){
+			if(onPlayer->get_Health() >= (6+FH)){
+				onPlayer->set_Finance(-(10+FF));
+				onPlayer->set_Health(-(6+FH));
+				onPlayer->set_Lonely(-(5+FL));
+				ParentMap->getInMarket()->DeleteAskAlert();
+				repaint();
+				ParentMap->getInMarket()->setNormalAlert("Drink1");
+			}else{
+				ParentMap->getInMarket()->DeleteAskAlert();
+				ParentMap->getInMarket()->setNormalAlert("MarHea");
+			}
 		}
 		else{
 			ParentMap->getInMarket()->DeleteAskAlert();
@@ -938,13 +967,18 @@ void ManageGame::DrinkinMarket(int T){
 		}
 	}
 	else if(T == 2){
-		if(onPlayer->get_Finance() >= 12){
-			onPlayer->set_Finance(-12);
-			onPlayer->set_Health(-8);
-			onPlayer->set_Lonely(-10);
-			ParentMap->getInMarket()->DeleteAskAlert();
-			repaint();
-			ParentMap->getInMarket()->setNormalAlert("Drink2");
+		if(onPlayer->get_Finance() >= (12+FF)){
+			if(onPlayer->get_Health() >= (8+FH)){
+				onPlayer->set_Finance(-(12+FF));
+				onPlayer->set_Health(-(8+FH));
+				onPlayer->set_Lonely(-(10+FL));
+				ParentMap->getInMarket()->DeleteAskAlert();
+				repaint();
+				ParentMap->getInMarket()->setNormalAlert("Drink2");
+			}else{
+				ParentMap->getInMarket()->DeleteAskAlert();
+				ParentMap->getInMarket()->setNormalAlert("MarHea");
+			}
 		}
 		else{
 			ParentMap->getInMarket()->DeleteAskAlert();
@@ -952,13 +986,19 @@ void ManageGame::DrinkinMarket(int T){
 		}
 	}
 	else if(T == 3){
-		if(onPlayer->get_Finance() >= 15){
-			onPlayer->set_Finance(-15);
-			onPlayer->set_Health(-10);
-			onPlayer->set_Lonely(-15);
-			ParentMap->getInMarket()->DeleteAskAlert();
-			repaint();
-			ParentMap->getInMarket()->setNormalAlert("Drink3");
+		if(onPlayer->get_Finance() >= (15+FF)){
+			if(onPlayer->get_Health() >= (10+FH)){
+
+				onPlayer->set_Finance(-(15+FF));
+				onPlayer->set_Health(-(10+FH));
+				onPlayer->set_Lonely(-(15+FL));
+				ParentMap->getInMarket()->DeleteAskAlert();
+				repaint();
+				ParentMap->getInMarket()->setNormalAlert("Drink3");
+			}else{
+				ParentMap->getInMarket()->DeleteAskAlert();
+				ParentMap->getInMarket()->setNormalAlert("MarHea");
+			}
 		}
 		else{
 			ParentMap->getInMarket()->DeleteAskAlert();
@@ -969,9 +1009,11 @@ void ManageGame::DrinkinMarket(int T){
 }
 
 void ManageGame::EatinLogHouse(int T){
+	qreal FF = -(0.1 * Senior);
+
 	if(T == 1){
-		if(onPlayer->get_Finance() >= 5){
-			onPlayer->set_Finance(-5);
+		if(onPlayer->get_Finance() >= (5+FF)){
+			onPlayer->set_Finance(-(5+FF));
 			onPlayer->set_Health(2);
 			ParentMap->getInLogHouse()->DeleteAskAlert();
 			repaint();
@@ -983,8 +1025,8 @@ void ManageGame::EatinLogHouse(int T){
 		}
 	}
 	else if(T == 2){
-		if(onPlayer->get_Finance() >= 7){
-			onPlayer->set_Finance(-7);
+		if(onPlayer->get_Finance() >= (7+FF)){
+			onPlayer->set_Finance(-(7+FF));
 			onPlayer->set_Health(4);
 			ParentMap->getInLogHouse()->DeleteAskAlert();
 			repaint();
@@ -996,8 +1038,8 @@ void ManageGame::EatinLogHouse(int T){
 		}
 	}
 	else if(T == 3){
-		if(onPlayer->get_Finance() >= 10){
-			onPlayer->set_Finance(-10);
+		if(onPlayer->get_Finance() >= (10+FF)){
+			onPlayer->set_Finance(-(10+FF));
 			onPlayer->set_Health(7);
 			ParentMap->getInLogHouse()->DeleteAskAlert();
 			repaint();
@@ -1055,12 +1097,14 @@ void ManageGame::ClubActivity(int T){
 }
 
 void ManageGame::SolveAssn(int i){
+	int FS = (Senior * 1) + (TopFriend * 5);
+
 	if(Assignmentlist[i]==NULL)
 		return;
 
 	if(!Assignmentlist[i]->get_solved()){
 		if(!Assignmentlist[i]->get_Cannotsolve()){
-			if(onPlayer->get_Knowledge()>=Assignmentlist[i]->get_KnowReq()){
+			if(onPlayer->get_Knowledge()>=(Assignmentlist[i]->get_KnowReq() - FS)){
 				Assignmentlist[i]->set_solve();
 				ParentMap->getTA()->repaint();
 				ParentMap->setNormalAlert("Solve");
@@ -1076,12 +1120,11 @@ void ManageGame::SolveAssn(int i){
 	}
 }
 
-
 void ManageGame::MakeDF(){
 	ParentMap->DeleteAskAlert();
 	DrunkenFriend++;
 	onPlayer->add_Friend();
-	ParentMap->setNormalAlert("BCom");
+	ParentMap->setNormalAlert("FMCom");
 	ParentMap->DeleteFriend();
 };
 
@@ -1090,11 +1133,11 @@ void ManageGame::MakeS(){
 		ParentMap->DeleteAskAlert();
 		Senior++;
 		onPlayer->add_Friend();
-		ParentMap->setNormalAlert("BCom");
+		ParentMap->setNormalAlert("FMCom");
 		ParentMap->DeleteFriend();
 	}else{
 		ParentMap->DeleteAskAlert();
-		ParentMap->setNormalAlert("Fin");
+		ParentMap->setNormalAlert("SSoc");
 	}
 };
 
@@ -1102,12 +1145,13 @@ void ManageGame::MakeSF(){
 	if(onPlayer->get_Sociality() >= 5){
 		ParentMap->DeleteAskAlert();
 		SportFriend++;
+		DeclineHealth -= 0.01;
 		onPlayer->add_Friend();
-		ParentMap->setNormalAlert("BCom");
+		ParentMap->setNormalAlert("FMCom");
 		ParentMap->DeleteFriend();
 	}else{
 		ParentMap->DeleteAskAlert();
-		ParentMap->setNormalAlert("Fin");
+		ParentMap->setNormalAlert("SSoc");
 	}
 };
 
@@ -1116,28 +1160,29 @@ void ManageGame::MakeTF(){
 		ParentMap->DeleteAskAlert();
 		TopFriend++;
 		onPlayer->add_Friend();
-		ParentMap->setNormalAlert("BCom");
+		ParentMap->setNormalAlert("FMCom");
 		ParentMap->DeleteFriend();
 	}else{
 		ParentMap->DeleteAskAlert();
-		ParentMap->setNormalAlert("Fin");
+		ParentMap->setNormalAlert("SSoc");
 	}
 };
 
 void ManageGame::MakeLO(){
-	if(Lover){
+	if(!Lover){
 		if(onPlayer->get_Sociality() >= 20){
 			ParentMap->DeleteAskAlert();
 			Lover = true;
 			onPlayer->add_Friend();
-			ParentMap->setNormalAlert("BCom");
+			InclineFinance -= 0.2;
+			ParentMap->setNormalAlert("FMCom");
 			ParentMap->DeleteFriend();
 		}else{
 			ParentMap->DeleteAskAlert();
-			ParentMap->setNormalAlert("Fin");
+			ParentMap->setNormalAlert("SSoc");
 		}
 	}else{
 		ParentMap->DeleteAskAlert();
-		ParentMap->setNormalAlert("Fin");
+		ParentMap->setNormalAlert("HaveLover");
 	}
 };
