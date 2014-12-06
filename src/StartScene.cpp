@@ -16,7 +16,7 @@ StartScene::StartScene(GameWindow* win)
 
 	Logo = new QLabel(Page);
 	Logo->setScaledContents(true);
-	Logo->setGeometry(QRect(0,0,800,600));
+	Logo->setGeometry(QRect(150,50,500,500));
     QPixmap Limage;
     Limage.load(QString::fromUtf8("Resources/logo.png"));
     Logo->setPixmap(Limage);
