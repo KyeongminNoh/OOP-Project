@@ -20,7 +20,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-Map::Map(bool Man, QWidget *parent) : QWidget(parent){
+Map::Map(bool Man,int isSemester, QWidget *parent) : QWidget(parent){
 	x =320;
 	y =350;
 	
@@ -28,6 +28,7 @@ Map::Map(bool Man, QWidget *parent) : QWidget(parent){
 	py = 1;
 	nowActing = false;
 	nowSemester = new Semester();
+	nowSemester->set_CurrentSemester(isSemester);
 
 	Friend = NULL;
 	FriendType = 0;

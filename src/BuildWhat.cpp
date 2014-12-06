@@ -70,7 +70,6 @@ BuildWhat::BuildWhat(Map *map, QWidget *parent) : QWidget(parent){
 	mar->setFlat(true);
 	mar->show();
 }
-
 void BuildWhat::setGymIcon(){
 	if((nowmap->getOnGoingGame()->getBuilding(3) == NULL)&&(!nowmap->NowActing())){
 		QTimer::singleShot(151, nowmap, SLOT(setGymAlert()));

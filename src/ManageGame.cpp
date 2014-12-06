@@ -430,6 +430,10 @@ void ManageGame::BuildLaborBuilding(){
 			ParentMap->getInLabor()->setNormalAlert("UCom");
 			ParentMap->getInLabor()->ReDraw();
 		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
+		}
 	}
 	else if(BuildingList[4]->get_level() == 2){
 		if(onPlayer->get_Finance() >= BuildingList[4]->get_UpgradeCost()){
@@ -440,6 +444,10 @@ void ManageGame::BuildLaborBuilding(){
 			MenuBar->setLabInactive();
 			ParentMap->getInLabor()->setNormalAlert("UCom");
 			ParentMap->getInLabor()->ReDraw();
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	
@@ -519,6 +527,10 @@ void ManageGame::BuildLibrary(){
 			ParentMap->getInLibrary()->setNormalAlert("UCom");
 			ParentMap->getInLibrary()->ReDraw();
 		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
+		}
 	}
 	else if(BuildingList[6]->get_level() == 2){
 		if(onPlayer->get_Finance() >= BuildingList[6]->get_UpgradeCost()){
@@ -529,6 +541,10 @@ void ManageGame::BuildLibrary(){
 			MenuBar->setLibInactive();
 			ParentMap->getInLibrary()->setNormalAlert("UCom");
 			ParentMap->getInLibrary()->ReDraw();
+		}
+		else{
+			ParentMap->DeleteAskAlert();
+			ParentMap->setNormalAlert("Fin");
 		}
 	}
 	

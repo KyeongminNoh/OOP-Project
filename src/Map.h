@@ -29,7 +29,7 @@ class Map : public QWidget {
 	Q_OBJECT
 
 public:
-	Map(bool Man, QWidget *parent = 0);
+	Map(bool Man,int isSemester, QWidget *parent = 0);
 
 	bool NowActing(){return nowActing;}
 	void SetActing(bool A){nowActing = A;}

@@ -16,8 +16,8 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, int isSemest
 
 	window->setCentralWidget(Title);
 
-	maP = new Map(isMan-1,Title);
-	maP->get_nowSemester()->set_CurrentSemester(isSemester);
+	maP = new Map(isMan-1,isSemester,Title);
+//	maP->get_nowSemester()->set_CurrentSemester(isSemester);
 	maP->setGeometry(QRect(140,0, 660, 450));
 	maP->show();
 
