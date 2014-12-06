@@ -10,7 +10,7 @@ EndAlert::EndAlert(FieldScene* Field, QString Name, QWidget *parent) : QWidget(p
 
 	QPixmap Image;
 	
-	Image.load(QString::fromUtf8("Resources/AskGym.png"));
+	Image.load(QString::fromUtf8("Resources/GameOver.png"));
 
 	askalert = new QLabel(this);
 	askalert->setScaledContents(true);
@@ -26,7 +26,7 @@ EndAlert::EndAlert(FieldScene* Field, QString Name, QWidget *parent) : QWidget(p
 	Yes = new QPushButton(askalert);
 	Yes->setGeometry(QRect(30, 170, 100, 45));
 	QIcon YesIcon;
-    YesIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/Yes.png")), QIcon::Normal, QIcon::Off);
+    YesIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GameOver_GoToMain.png")), QIcon::Normal, QIcon::Off);
 	Yes->setIcon(YesIcon);
 	Yes->setIconSize(QSize(90, 36));
 	Yes->setFlat(true);
@@ -34,7 +34,7 @@ EndAlert::EndAlert(FieldScene* Field, QString Name, QWidget *parent) : QWidget(p
 	No = new QPushButton(askalert);
 	No->setGeometry(QRect(170, 170, 100, 45));
 	QIcon NoIcon;
-    NoIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/No.png")), QIcon::Normal, QIcon::Off);
+    NoIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GameOver_ExitGame.png")), QIcon::Normal, QIcon::Off);
 	No->setIcon(NoIcon);
 	No->setIconSize(QSize(90, 36));
 	No->setFlat(true);

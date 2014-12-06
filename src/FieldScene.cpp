@@ -110,6 +110,7 @@ FieldScene::FieldScene(GameWindow* win, int isMan, int isDayPerson, struct data 
 }
 
 void FieldScene::ReturnStart(){
+	_bgm->stop();
 	StartScene* startscene = new StartScene(window);
 	delete this;
 }

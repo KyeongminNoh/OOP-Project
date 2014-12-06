@@ -9,9 +9,10 @@ public:
 	int get_grade(){return grade;}
 	void set_CurrentSemester(int C);
 	void set_HaveLover();
-	void set_grade();
+	void setGrade(QString G);
 private:
 	int CurrentSemester;
 	bool HaveLover;
 	int grade;
+	QString Grade[8];
 };

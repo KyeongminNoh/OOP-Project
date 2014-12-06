@@ -35,7 +35,7 @@ public:
 	ManageGame( int isMan, int isDayPerson, Map *map, BuildWhat *MB,struct data S,QWidget *parent = 0);
 
 	bool getisNight(){return isNight;}
-
+	void SetGrade();
 	Building* getBuilding(int i);
 	int getAssn(int i);
 	void setAssn(int i);

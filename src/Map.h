@@ -48,6 +48,8 @@ public:
 	TestAssn* getTA();
 	FriendList* getFList();
 
+
+
 	void setEndAlert(QString name);
 	void setNormalAlert(QString name);
 	void setManageGame(ManageGame *Game);

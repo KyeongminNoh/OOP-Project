@@ -167,7 +167,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 	MainTimer = new QTimer(this);
 
 	repaint();
-	ParentMap->setEndAlert("GameOver");
+	
 	QObject::connect(MainTimer, SIGNAL(timeout()), SLOT(StartClock()));
 
 	MainTimer->start(1000);
@@ -176,6 +176,52 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 void ManageGame::TakeGold(){
 	onPlayer->set_Finance(InclineFinance);
 }
+
+void ManageGame::SetGrade(){
+	int A;
+	A =0;
+	for(int i=0; i<8; i++){
+		if(Assignmentlist[i]!=NULL){
+			if(Assignmentlist[i]->get_solved())
+				A++;
+		}
+	}
+	A -= 8;
+	A += Testlist[0]->get_Score();
+	A += Testlist[1]->get_Score();
+
+	A = -A;
+
+	
+	if(A==0)
+			nowSemester->setGrade("A+");
+	else if(A==1)
+			nowSemester->setGrade("A");
+	else if(A==2)
+			nowSemester->setGrade("A-");
+	else if(A==3)
+			nowSemester->setGrade("B+");
+	else if(A==4)
+			nowSemester->setGrade("B");
+	else if(A==5)
+			nowSemester->setGrade("B-");
+	else if(A==6)
+			nowSemester->setGrade("C+");
+	else if(A==7)
+			nowSemester->setGrade("C");
+	else if(A==8)
+			nowSemester->setGrade("C-");
+	else if(A==9)
+			nowSemester->setGrade("D+");
+	else if(A==10)
+			nowSemester->setGrade("D");
+	else if(A==11)
+			nowSemester->setGrade("D-");
+	else if(A>12)
+			nowSemester->setGrade("F");
+	
+}
+
 
 void ManageGame::change_InclineLonely(qreal d){
 		InclineLonely = InclineLonely - d;
@@ -800,7 +846,6 @@ void ManageGame::StartClock(){
 	repaint();
 
 	if(time%5 == 0){
-
 		isNight = isNight ?  0 : 1;
 		ParentMap->SetScreen(isNight);
 	}
@@ -832,7 +877,7 @@ void ManageGame::StartClock(){
 }
 
 void ManageGame::Check_Assn(){
-	if(time%180 == 0 ){
+	if(time%1 == 0 ){
 		three_M++;
 		if(three_M%5 == 0){
 			if(three_M == 5){
@@ -847,6 +892,10 @@ void ManageGame::Check_Assn(){
 					assnCheck[7] = 0;
 				}
 				Testlist[1] = new Test(onPlayer->get_Knowledge(), k_finalterm);
+				delete MainTimer;
+				SetGrade();
+				ParentMap->setEndAlert("GameOver");
+				
 			}
 		}
 		else{
