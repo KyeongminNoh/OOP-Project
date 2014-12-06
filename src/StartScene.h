@@ -24,6 +24,7 @@ public:
 		void RunNewGame();
 		void RunContinue();
 		void RunExit();
+		void Menu();
 
 protected:
 
@@ -36,4 +37,5 @@ private:
 	GameWindow* window;
 	QWidget* Page;
 	QLabel* Title;
+	QLabel* Logo;
 };

@@ -3,6 +3,8 @@
 #include "CreateScene.h"
 #include "LoadScene.h"
 #include <QMouseEvent>
+#include <QTime>
+#include <QTimer>
 
 StartScene::StartScene(GameWindow* win)
 {
@@ -12,6 +14,18 @@ StartScene::StartScene(GameWindow* win)
 	Page = new QWidget(window);
 	Page->resize(800,600);
 
+	Logo = new QLabel(Page);
+	Logo->setScaledContents(true);
+	Logo->setGeometry(QRect(0,0,800,600));
+    QPixmap Limage;
+    Limage.load(QString::fromUtf8("Resources/logo.png"));
+    Logo->setPixmap(Limage);
+
+	QTimer::singleShot(1000,this,SLOT(Menu()));
+
+}
+void StartScene::Menu()
+{
 	Title = new QLabel();
 	Title->setScaledContents(true);
 	Title->setGeometry(QRect(0,0,800,600));
