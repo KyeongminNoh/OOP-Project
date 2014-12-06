@@ -35,6 +35,7 @@ Map::Map(bool Man, FieldScene* Field ,int isSemester, QWidget *parent) : QWidget
 	nowSemester = new Semester();
 	nowSemester->set_CurrentSemester(isSemester);
 
+
 	Friend = NULL;
 	FriendType = 0;
 

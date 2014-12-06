@@ -34,7 +34,62 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 	MenuBar = MB;
 
 	nowSemester = ParentMap->get_nowSemester();
-
+	int i;
+	for(i=1 ; i<=8 ; i++)
+	{
+		if(S.grade[i]==0){
+				nowSemester->setPastGrade(i,"A+");
+				nowSemester->setPastGradeNum(i,4.3);
+		}
+		else if(S.grade[i]==-1){
+				nowSemester->setPastGrade(i,"A");
+				nowSemester->setPastGradeNum(i,4);
+		}
+		else if(S.grade[i]==-2){
+				nowSemester->setPastGrade(i,"A-");
+				nowSemester->setPastGradeNum(i,3.7);
+		}
+		else if(S.grade[i]==-3){
+				nowSemester->setPastGrade(i,"B+");
+				nowSemester->setPastGradeNum(i,3.3);
+		}
+		else if(S.grade[i]==-4){
+				nowSemester->setPastGrade(i,"B");
+				nowSemester->setPastGradeNum(i,3);
+		}
+		else if(S.grade[i]==-5){
+				nowSemester->setPastGrade(i,"B-");
+				nowSemester->setPastGradeNum(i,2.7);
+		}
+		else if(S.grade[i]==-6){
+				nowSemester->setPastGrade(i,"C+");
+				nowSemester->setPastGradeNum(i,2.3);
+		}
+		else if(S.grade[i]==-7){
+				nowSemester->setPastGrade(i,"C");
+				nowSemester->setPastGradeNum(i,2);
+		}
+		else if(S.grade[i]==-8){
+				nowSemester->setPastGrade(i,"C-");
+				nowSemester->setPastGradeNum(i,1.7);
+		}
+		else if(S.grade[i]==-9){
+				nowSemester->setPastGrade(i,"D+");
+				nowSemester->setPastGradeNum(i,1.3);
+		}
+		else if(S.grade[i]==-10){
+				nowSemester->setPastGrade(i,"D");
+				nowSemester->setPastGradeNum(i,1);
+		}
+		else if(S.grade[i]==-11){
+				nowSemester->setPastGrade(i,"D-");
+				nowSemester->setPastGradeNum(i,0.7);
+		}
+		else if(S.grade[i]<-12){
+				nowSemester->setPastGrade(i,"F");
+				nowSemester->setPastGradeNum(i,0);
+		}
+	}
 	onPlayer = new Player(isMan -1 , isDayPerson - 1);
 	if(!(S.Max_Heal<=90 || S.Max_Heal>=10000))
 	{
@@ -135,7 +190,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 	Build();
 	resize(650,150);
 
-	int i,j;
+	int j;
 	for(i=1 ; i<=5 ; i++)
 	{
 		if(S.Friend_num[i]<=0 || S.Friend_num[i]>=1000)
@@ -932,7 +987,69 @@ void ManageGame::Check_Assn(){
 				delete MainTimer;
 				SetGrade();
 				ParentMap->setGR();
-				
+				int i;
+				FILE *fp[5];
+				FILE *fp2;
+				fp[1] = fopen("savedata1.txt","r");
+				fp[2] = fopen("savedata2.txt","r");
+				fp[3] = fopen("savedata3.txt","r");
+				fp[4] = fopen("savedata4.txt","r");
+				for(i=1 ; i<=4 ; i++)
+				{
+					if(!fp[i])
+					{
+						break;
+					}
+					else
+						fclose(fp[i]);
+				}
+				if(i==1)
+					fp2 = fopen("savedata1.txt","w");
+				else if(i==2)
+					fp2 = fopen("savedata2.txt","w");
+				else if(i==3)
+					fp2 = fopen("savedata3.txt","w");
+				else if(i==4)
+					fp2 = fopen("savedata4.txt","w");
+				else
+					fp2 = fopen("savedata1.txt","w");
+				fprintf(fp2,"%d %d\n",((int)onPlayer->get_Man())+1,((int)onPlayer->get_Nocturnal())+1);
+				fprintf(fp2,"%d %d %d %d %d\n",DrunkenFriend,Senior,SportFriend,TopFriend,(int)Lover);
+				fprintf(fp2,"%d\n",(int)onPlayer->get_Max_Health());
+				qreal *grad;
+				grad=nowSemester->get_grade();
+				for(i=0 ; i<8 ; i++)
+				{
+					if(grad[i]==4.3)
+						fprintf(fp2,"0 ");
+					else if(grad[i]==4)
+						fprintf(fp2,"-1 ");
+					else if(grad[i]==3.7)
+						fprintf(fp2,"-2 ");
+					else if(grad[i]==3.3)
+						fprintf(fp2,"-3 ");
+					else if(grad[i]==3)
+						fprintf(fp2,"-4 ");
+					else if(grad[i]==2.7)
+						fprintf(fp2,"-5 ");
+					else if(grad[i]==2.3)
+						fprintf(fp2,"-6 ");
+					else if(grad[i]==2)
+						fprintf(fp2,"-7 ");
+					else if(grad[i]==1.7)
+						fprintf(fp2,"-8 ");
+					else if(grad[i]==1.3)
+						fprintf(fp2,"-9 ");
+					else if(grad[i]==1)
+						fprintf(fp2,"-10 ");
+					else if(grad[i]==0.7)
+						fprintf(fp2,"-11 ");
+					else if(grad[i]==0)
+						fprintf(fp2,"-12 ");
+					else
+						fprintf(fp2,"1 ");
+				}
+				fclose(fp2);
 			}
 		}
 		else{

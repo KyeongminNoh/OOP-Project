@@ -21,3 +21,10 @@ void Semester::setGrade(QString G){
 void Semester::setGradeNum(qreal G){
 	gradeNum[CurrentSemester-1] = G;
 }
+void Semester::setPastGrade(int k,QString G){
+	Grade[k-1] = G;
+}
+
+void Semester::setPastGradeNum(int k,qreal G){
+	gradeNum[k-1] = G;
+}

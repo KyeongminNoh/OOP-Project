@@ -177,9 +177,9 @@ void LoadScene::showClicked()
 		grade = new QLabel(Title);
 		grade->setScaledContents(true);
 		grade->setGeometry(QRect(100,120,600,400));
-/*
+
 		QPixmap Gimage;
-		Gimage.load(QString::fromUtf8("Resources/Resultjjs.png"));
+		Gimage.load(QString::fromUtf8("Resources/Results.png"));
 		grade->setPixmap(Gimage);
 		grade->show();
 
@@ -193,7 +193,7 @@ void LoadScene::showClicked()
 		backButton2->setFlat(true);
 		backButton2->show();
 
-		QObject::connect(backButton2, SIGNAL(clicked()),this,SLOT(BackClicked2()));*/
+		QObject::connect(backButton2, SIGNAL(clicked()),this,SLOT(BackClicked2()));
 	}
 
 }

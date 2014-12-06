@@ -12,6 +12,8 @@ public:
 	void set_HaveLover();
 	void setGrade(QString G);
 	void setGradeNum(qreal G);
+	void setPastGrade(int k,QString G);
+	void setPastGradeNum(int k,qreal G);
 private:
 	int CurrentSemester;
 	bool HaveLover;
