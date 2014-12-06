@@ -16,6 +16,7 @@
 #include "TestAssn.h"
 #include "FriendList.h"
 #include "EndAlert.h"
+#include "GradeReport.h"
 #include <QMouseEvent>
 #include <QTimer>
 #include <time.h>
@@ -71,6 +72,15 @@ Map::Map(bool Man, FieldScene* Field ,int isSemester, QWidget *parent) : QWidget
 	Session1->setPixmap(SImage);
 	Session1->show();
 
+	Home = new QPushButton(nowEnvironment);
+	QIcon IHome;
+    IHome.addPixmap(QPixmap(QString::fromUtf8("Resources/Home.png")), QIcon::Normal, QIcon::Off);
+	Home->setIcon(IHome);
+	Home->setGeometry(QRect(620, 60, 30, 30));
+	Home->setIconSize(QSize(30, 30));
+	Home->setFlat(true);
+	Home->show();
+
 	nowPlayer = new QLabel(nowEnvironment);
 	nowPlayer->setScaledContents(true);
 	nowPlayer->setGeometry(QRect(320, 350, 40, 80));
@@ -116,6 +126,7 @@ Map::Map(bool Man, FieldScene* Field ,int isSemester, QWidget *parent) : QWidget
 	QObject::connect(EngineeringImage, SIGNAL(clicked()), SLOT(MoveToEngineering()));
 	QObject::connect(CafeteriaImage, SIGNAL(clicked()), SLOT(MoveToCafeteria()));
 	QObject::connect(DormitoryImage, SIGNAL(clicked()), SLOT(MoveToDormitory()));
+	QObject::connect(Home, SIGNAL(clicked()), SLOT(setAskBack()));
 
 }
 void Map::SetScreen(bool isNight){
@@ -820,6 +831,26 @@ void Map::setFList(){
 	return;
 }
 
+void Map::setGR(){
+
+
+		QPixmap BImage;
+		BImage.load(QString::fromUtf8("Resources/Results.png"));
+		Screen = new QLabel(nowEnvironment);
+		Screen->setScaledContents(true);
+		Screen->setGeometry(QRect(0, 0, 660, 450));
+		Screen->setPixmap(BImage);
+		Screen->show();
+		card = new GradeReport(onGoingGame, nowSemester, field, Screen);
+		card->setGeometry(QRect(0, 0, 660, 450));
+		card->show();
+
+		if(Friend != NULL)
+			Friend->hide();
+	
+
+}
+
 TestAssn* Map::getTA(){
 	return TA;
 }
@@ -938,3 +969,15 @@ void Map::MakeFriend(){
 
 
 }
+
+void Map::setAskBack(){
+	if(askalert != NULL)
+		return;
+
+	else{
+	endalert = new EndAlert(field,"GoToMain",nowEnvironment);
+	endalert->setGeometry(QRect(110, 100, 300, 225));
+	endalert->show();
+	}
+}
+

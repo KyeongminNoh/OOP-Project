@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player( bool Man, bool Nocturnal){
+Player::Player( bool Man, bool unNocturnal){
 	if(Man == true){
 		Max_Health = 100;
 		isMan = true;
@@ -8,6 +8,12 @@ Player::Player( bool Man, bool Nocturnal){
 	else{
 		Max_Health = 90;
 		isMan = false;
+	}
+
+	if(!unNocturnal){
+		isNocturnal = true;
+	}else{
+		isNocturnal = false;
 	}
 
 	Max_Lonely = 100;
