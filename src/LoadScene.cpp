@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include "StartScene.h"
+#include "GradeTable.h"
 
 // save에 넣어야 될것 : 성별, 야행성, 건물 레벨, 친구 수(사교성), 최대 체력 , 학기 마다 성적
 // 표시할 정보 : 저장된 시간, 성별, 학기 수
@@ -98,7 +99,7 @@ LoadScene::LoadScene(GameWindow* win)
 				}
 			}
 			loadButton[i] = new QPushButton(Title);
-			loadButton[i]->setGeometry(QRect(165, 80+90*i, 210, 70));
+			loadButton[i]->setGeometry(QRect(165, 80+90*i, 150, 70));
 			if(i==1)
 				loadButton[i]->setIcon(SaveIcon1);
 			else if(i==2)
@@ -107,7 +108,7 @@ LoadScene::LoadScene(GameWindow* win)
 				loadButton[i]->setIcon(SaveIcon3);
 			else if(i==4)
 				loadButton[i]->setIcon(SaveIcon4);
-			loadButton[i]->setIconSize(QSize(210, 70));
+			loadButton[i]->setIconSize(QSize(130, 65));
 			loadButton[i]->setFlat(true);
 			loadButton[i]->show();
 	
@@ -132,7 +133,7 @@ LoadScene::LoadScene(GameWindow* win)
 		{
 			Load = new QLabel(Title);
 			Load->setScaledContents(true);
-			Load->setGeometry(QRect(200,80+90*i,140,70));
+			Load->setGeometry(QRect(175,80+90*i,130,65));
 			QPixmap Kimage;
 			Kimage.load(QString::fromUtf8("Resources/emptyfile.png"));
 			Load->setPixmap(Kimage);
@@ -179,72 +180,21 @@ void LoadScene::showClicked()
 		grade->setGeometry(QRect(100,120,600,400));
 
 		QPixmap Gimage;
-		Gimage.load(QString::fromUtf8("Resources/Results.png"));
+		Gimage.load(QString::fromUtf8("Resources/showGrade.png"));
 		grade->setPixmap(Gimage);
 		grade->show();
 
-		QIcon BackIcon;
-		BackIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoBack_inGame.png")), QIcon::Normal, QIcon::Off);
+		gradetable = new GradeTable(this ,s[FileCheck].grade, grade);
 
-		backButton2 = new QPushButton(Title);
-		backButton2->setGeometry(QRect(280, 440, 210, 70));
-		backButton2->setIcon(BackIcon);
-		backButton2->setIconSize(QSize(200, 64));
-		backButton2->setFlat(true);
-		backButton2->show();
-
-		QObject::connect(backButton2, SIGNAL(clicked()),this,SLOT(BackClicked2()));
 	}
 
 }
 void LoadScene::paintEvent(QPaintEvent*){
-	QPainter **grading;
-	grading = new QPainter*[9];
-	int i;
-	for(i=1 ; i<=8 ; i++)
-		grading[i] = new QPainter(this);
-
-	font = new QFont( "Resources/NanumBarunGothic.ttp");
-	font->setKerning( true );
-	font->setBold( true );
-	font->setPixelSize( 25 );
-
-	for(i=1 ; i<=8 ; i++)
-	{
-		grading[i]->begin(this);
-		grading[i]->setFont(*font);
-		if(s[FileCheck].grade[i]==0)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "A+");
-		else if(s[FileCheck].grade[i]==-1)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "A");
-		else if(s[FileCheck].grade[i]==-2)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "A-");
-		else if(s[FileCheck].grade[i]==-3)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "B+");
-		else if(s[FileCheck].grade[i]==-4)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "B");
-		else if(s[FileCheck].grade[i]==-5)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "B-");
-		else if(s[FileCheck].grade[i]==-6)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "C+");
-		else if(s[FileCheck].grade[i]==-7)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "C");
-		else if(s[FileCheck].grade[i]==-8)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "C-");
-		else if(s[FileCheck].grade[i]==-9)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "D+");
-		else if(s[FileCheck].grade[i]==-10)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "D");
-		else if(s[FileCheck].grade[i]==-11)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "D-");
-		else if(s[FileCheck].grade[i]<=-12)
-			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "F");
-		grading[i]->end();
-	}
+	
 }
 void LoadScene::BackClicked2()
 {
-	delete backButton2;
+	delete gradetable;
 	delete grade;
 }
 void LoadScene::BackClicked()

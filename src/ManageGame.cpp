@@ -937,12 +937,12 @@ void ManageGame::StartClock(){
 	time++;
 	repaint();
 
-	if(time%5 == 0){
+	if(time%90 == 0){
 		isNight = isNight ?  0 : 1;
 		ParentMap->SetScreen(isNight);
 	}
 
-	if(time%30 == 0){
+	if(time%20 == 0){
 		ParentMap->SetFriend();
 		QTimer::singleShot(15000, ParentMap, SLOT(DeleteFriend()));
 	}

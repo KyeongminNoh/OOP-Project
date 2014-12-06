@@ -8,6 +8,9 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
 #include <QLabel>
+
+class GradeTable;
+
 struct data{
 	int isDayPerson,isMan,isSemester;
 //		int BuildingLevel[9];
@@ -45,6 +48,8 @@ private:
 	QLabel *grade;
 	QPushButton *backButton2;
 	QFont* font;
+
+	GradeTable *gradetable;
 	struct data s[5];
 	int FileCheck;
 };

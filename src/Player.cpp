@@ -18,8 +18,8 @@ Player::Player( bool Man, bool unNocturnal){
 
 	Max_Lonely = 100;
 	Num_Friend = 0;
-	Knowledge = 15;
-	Finance = 300;
+	Knowledge = 0;
+	Finance = 100;
 	Sociality = 0;
 	Lonely = 0;
 	Health = Max_Health;
@@ -31,7 +31,11 @@ void Player::set_Sociality(qreal S_Social){
 }
 
 void Player::set_Lonely(qreal S_Lone){
+	
 	Lonely = Lonely + S_Lone;
+	if(Lonely<0){
+		Lonely = 0;
+	}
 }
 void Player::set_Lonely(){
 	Lonely = 50;
