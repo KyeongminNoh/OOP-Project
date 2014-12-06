@@ -7,7 +7,7 @@ public:
 	int get_CurrentSemester(){return CurrentSemester;}
 	bool get_HaveLover(){return HaveLover;}
 	qreal* get_grade(){return gradeNum;}
-
+	QString GetGrade(int i){return Grade[i];};
 	void set_CurrentSemester(int C);
 	void set_HaveLover();
 	void setGrade(QString G);

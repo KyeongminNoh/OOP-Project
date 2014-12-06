@@ -353,7 +353,18 @@ void ManageGame::change_status(){
 	}else{
 		onPlayer->set_Lonely(InclineLonely);
 	}
-	onPlayer->set_Health(DeclineHealth);
+
+	if(onPlayer->get_Nocturnal()){
+		if(isNight)
+			onPlayer->set_Health(DeclineHealth+0.05);
+		else
+			onPlayer->set_Health(DeclineHealth);
+	}else{
+		if(isNight)
+			onPlayer->set_Health(DeclineHealth);
+		else
+			onPlayer->set_Health(DeclineHealth+0.05);
+	}
 	repaint();
 }
 
@@ -903,7 +914,7 @@ void ManageGame::StartClock(){
 }
 
 void ManageGame::Check_Assn(){
-	if(time%1 == 0 ){
+	if(time%180 == 0 ){
 		three_M++;
 		if(three_M%5 == 0){
 			if(three_M == 5){
@@ -920,7 +931,7 @@ void ManageGame::Check_Assn(){
 				Testlist[1] = new Test(onPlayer->get_Knowledge(), k_finalterm);
 				delete MainTimer;
 				SetGrade();
-				ParentMap->setEndAlert("GameOver");
+				ParentMap->setGR();
 				
 			}
 		}

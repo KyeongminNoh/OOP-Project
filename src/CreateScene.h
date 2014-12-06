@@ -24,7 +24,6 @@ public:
 		void Dayclicked();
 		void Nightclicked();
 		void NextClicked();
-		void BackClicked();
 
 private:
 	void MousePressEvent(QMouseEvent *event);
