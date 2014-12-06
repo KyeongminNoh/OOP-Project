@@ -38,6 +38,8 @@ CreateScene::CreateScene(GameWindow* win)
 	NightMenu.addPixmap(QPixmap(QString::fromUtf8("Resources/NightMenu.png")), QIcon::Normal, QIcon::Off);
 	QIcon NextIcon;
 	NextIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoStart.png")), QIcon::Normal, QIcon::Off);
+	QIcon BackIcon;
+	BackIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoBack.png")), QIcon::Normal, QIcon::Off);
 
 	Head = new QLabel(Title);
 	Head->setScaledContents(true);
@@ -47,7 +49,13 @@ CreateScene::CreateScene(GameWindow* win)
     Head->setPixmap(Himage);
 	Head->show();
 
-
+	QPushButton *backButton;
+	backButton = new QPushButton(Title);
+	backButton->setGeometry(QRect(50, 515, 210, 70));
+	backButton->setIcon(BackIcon);
+	backButton->setIconSize(QSize(200, 64));
+	backButton->setFlat(true);
+	backButton->show();
 	
 	manButton = new QPushButton(Title);
     manButton->setGeometry(QRect(125, 250, 100, 100));
@@ -103,7 +111,7 @@ CreateScene::CreateScene(GameWindow* win)
 	QObject::connect(nightButton,SIGNAL(clicked()),this,SLOT(Nightclicked()));
 
 	QObject::connect(nextButton, SIGNAL(clicked()),this,SLOT(NextClicked()));
-
+	QObject::connect(backButton, SIGNAL(clicked()),this,SLOT(BackClicked()));
 	Title->show();
 }
 
@@ -180,3 +188,7 @@ void CreateScene::NextClicked()
 	}
 }
 
+void CreateScene::BackClicked()
+{
+	StartScene* startscene = new StartScene(window);
+}
