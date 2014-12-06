@@ -6,7 +6,7 @@ Semester::Semester(){
 	HaveLover = false;
 	for(int i=0; i<8; i++){
 		Grade[i] = "";
-		gradeNum[i] = -1;
+		gradeNum[i] = 0;
 	}
 }
 
@@ -15,9 +15,9 @@ void Semester::set_CurrentSemester(int C){
 }
 
 void Semester::setGrade(QString G){
-	Grade[CurrentSemester-1] = G;
+	Grade[CurrentSemester] = G;
 }
 
 void Semester::setGradeNum(qreal G){
-	gradeNum[CurrentSemester-1] = G;
+	gradeNum[CurrentSemester] = G;
 }

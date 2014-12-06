@@ -27,11 +27,14 @@ public:
 	public slots:
 		void NextClicked();
 		void BackClicked();
+		void showClicked();
+		void BackClicked2();
 		void DataView1();
 		void DataView2();
 		void DataView3();
 		void DataView4();
 private:
+	void paintEvent(QPaintEvent*);
 	GameWindow* window;
 	QWidget* Page;
 	QLabel* Head;
@@ -39,6 +42,10 @@ private:
 	QLabel *Person;
 	QLabel* Night;
 	QLabel* Session1;
+	QLabel *grade;
+	QPushButton *backButton2;
+	QFont* font;
 	struct data s[5];
 	int FileCheck;
+	int cnt;
 };

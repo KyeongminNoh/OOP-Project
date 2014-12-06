@@ -30,5 +30,5 @@ private:
 public slots:
 	void ClickNo();
 	void ClickYes();
-	void ClickNo2();
+
 };

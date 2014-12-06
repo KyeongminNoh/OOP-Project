@@ -22,7 +22,6 @@ class TestAssn;
 class FriendList;
 class Semester;
 class EndAlert;
-class GradeReport;
 
 //enum MouseFunction { MOUSE_MOVE, MOUSE_CLICK, MOUSE_DOWN, MOUSE_DRAG, MOUSE_UP };
 //enum { CLICK_MOUSE_MOVE_RANGE = 6 };
@@ -119,12 +118,8 @@ private:
 	QPushButton *MarketImage;
 	QPushButton *LibraryImage;
 
-	QPushButton *Home;
-
 	QPushButton *Friend;
 	int FriendType;
-
-	GradeReport* card;
 
 	QLabel *Session1;
 
@@ -136,8 +131,6 @@ public slots:
 	void setLogAlert();
 	void setStuAlert();
 	void setMarAlert();
-
-	void setAskBack();
 
 
 	void ResetPlayer();
@@ -179,7 +172,6 @@ public slots:
 	void setInLibrary();
 	void setInLabor();
 
-	void setGR();
 	void setTA();
 	void setFList();
 	void DeleteFriend();

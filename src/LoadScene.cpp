@@ -150,7 +150,7 @@ LoadScene::LoadScene(GameWindow* win)
 
 	QPushButton *showButton;
 	showButton = new QPushButton(Title);
-	showButton->setGeometry(QRect(345, 515, 210, 70));
+	showButton->setGeometry(QRect(280, 515, 210, 70));
 	showButton->setIcon(showIcon);
 	showButton->setIconSize(QSize(200, 64));
 	showButton->setFlat(true);
@@ -166,9 +166,87 @@ LoadScene::LoadScene(GameWindow* win)
 
 	QObject::connect(nextButton, SIGNAL(clicked()),this,SLOT(NextClicked()));
 	QObject::connect(backButton, SIGNAL(clicked()),this,SLOT(BackClicked()));
+	QObject::connect(showButton, SIGNAL(clicked()),this,SLOT(showClicked()));
 	
 
 	Title->show();
+}
+void LoadScene::showClicked()
+{
+	if(FileCheck>=1 && FileCheck<=4)
+	{
+		grade = new QLabel(Title);
+		grade->setScaledContents(true);
+		grade->setGeometry(QRect(100,120,600,400));
+
+		QPixmap Gimage;
+		Gimage.load(QString::fromUtf8("Resources/Results.png"));
+		grade->setPixmap(Gimage);
+		grade->show();
+
+		QIcon BackIcon;
+		BackIcon.addPixmap(QPixmap(QString::fromUtf8("Resources/GoBack_inGame.png")), QIcon::Normal, QIcon::Off);
+
+		backButton2 = new QPushButton(Title);
+		backButton2->setGeometry(QRect(280, 440, 210, 70));
+		backButton2->setIcon(BackIcon);
+		backButton2->setIconSize(QSize(200, 64));
+		backButton2->setFlat(true);
+		backButton2->show();
+
+		QObject::connect(backButton2, SIGNAL(clicked()),this,SLOT(BackClicked2()));
+	}
+
+}
+void LoadScene::paintEvent(QPaintEvent*){
+	QPainter **grading;
+	grading = new QPainter*[9];
+	int i;
+	for(i=1 ; i<=8 ; i++)
+		grading[i] = new QPainter(this);
+
+	font = new QFont( "Resources/NanumBarunGothic.ttp");
+	font->setKerning( true );
+	font->setBold( true );
+	font->setPixelSize( 25 );
+
+	for(i=1 ; i<=8 ; i++)
+	{
+		grading[i]->begin(this);
+		grading[i]->setFont(*font);
+		if(s[FileCheck].grade[i]==0)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "A+");
+		else if(s[FileCheck].grade[i]==-1)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "A");
+		else if(s[FileCheck].grade[i]==-2)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "A-");
+		else if(s[FileCheck].grade[i]==-3)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "B+");
+		else if(s[FileCheck].grade[i]==-4)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "B");
+		else if(s[FileCheck].grade[i]==-5)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "B-");
+		else if(s[FileCheck].grade[i]==-6)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "C+");
+		else if(s[FileCheck].grade[i]==-7)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "C");
+		else if(s[FileCheck].grade[i]==-8)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "C-");
+		else if(s[FileCheck].grade[i]==-9)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "D+");
+		else if(s[FileCheck].grade[i]==-10)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "D");
+		else if(s[FileCheck].grade[i]==-11)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "D-");
+		else if(s[FileCheck].grade[i]<=-12)
+			grading[i]->drawText(20+30*((i-1)%4), 20+30*((i-1)/4), "F");
+		grading[i]->end();
+	}
+}
+void LoadScene::BackClicked2()
+{
+	delete backButton2;
+	delete grade;
 }
 void LoadScene::BackClicked()
 {
