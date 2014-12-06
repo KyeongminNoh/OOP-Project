@@ -193,32 +193,58 @@ void ManageGame::SetGrade(){
 	A = -A;
 
 	
-	if(A==0)
+	if(A==0){
 			nowSemester->setGrade("A+");
-	else if(A==1)
+			nowSemester->setGradeNum(4.3);
+	}
+	else if(A==1){
 			nowSemester->setGrade("A");
-	else if(A==2)
+			nowSemester->setGradeNum(4);
+	}
+	else if(A==2){
 			nowSemester->setGrade("A-");
-	else if(A==3)
+			nowSemester->setGradeNum(3.7);
+	}
+	else if(A==3){
 			nowSemester->setGrade("B+");
-	else if(A==4)
+			nowSemester->setGradeNum(3.3);
+	}
+	else if(A==4){
 			nowSemester->setGrade("B");
-	else if(A==5)
+			nowSemester->setGradeNum(3);
+	}
+	else if(A==5){
 			nowSemester->setGrade("B-");
-	else if(A==6)
+			nowSemester->setGradeNum(2.7);
+	}
+	else if(A==6){
 			nowSemester->setGrade("C+");
-	else if(A==7)
+			nowSemester->setGradeNum(2.3);
+	}
+	else if(A==7){
 			nowSemester->setGrade("C");
-	else if(A==8)
+			nowSemester->setGradeNum(2);
+	}
+	else if(A==8){
 			nowSemester->setGrade("C-");
-	else if(A==9)
+			nowSemester->setGradeNum(1.7);
+	}
+	else if(A==9){
 			nowSemester->setGrade("D+");
-	else if(A==10)
+			nowSemester->setGradeNum(1.3);
+	}
+	else if(A==10){
 			nowSemester->setGrade("D");
-	else if(A==11)
+			nowSemester->setGradeNum(1);
+	}
+	else if(A==11){
 			nowSemester->setGrade("D-");
-	else if(A>12)
+			nowSemester->setGradeNum(0.7);
+	}
+	else if(A>12){
 			nowSemester->setGrade("F");
+			nowSemester->setGradeNum(0);
+	}
 	
 }
 
