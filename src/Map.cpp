@@ -1033,10 +1033,10 @@ void Map::SetFriend(){
 	Friend->setFlat(true);
 	Friend->show();
 
-	if(nowActing)
+	if(nowActing || endalert != NULL|| FL != NULL || TA != NULL)
 		Friend->hide();
 
-	if((askalert != NULL || normalalert != NULL || endalert != NULL)&&(FriendType==2 || FriendType == 4))
+	if((askalert != NULL || normalalert != NULL || endalert != NULL )&&(FriendType==2 || FriendType == 4))
 		Friend->hide();
 
 	if(FriendType == 1)
