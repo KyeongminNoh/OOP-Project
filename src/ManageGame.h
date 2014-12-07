@@ -94,6 +94,8 @@ private:
 	int startassn;
 	int mulassn;
 
+	struct data ss;
+
 	QTimer *GameTimer;
 	QTimer *MainTimer;
 	Player *onPlayer;

@@ -181,6 +181,12 @@ void CreateScene::NextClicked()
 {
 	struct data s;
 	s.isSemester=1;
+	int i;
+	for(i=1 ; i<=8 ; i++)
+		s.grade[i]=1;
+	for(i=1 ; i<=5 ; i++)
+		s.Friend_num[i]=0;
+	s.File=5;
 	if(isMan == 0 || isDayPerson == 0){
 	}
 	else{

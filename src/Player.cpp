@@ -10,7 +10,7 @@ Player::Player( bool Man, bool unNocturnal){
 		isMan = false;
 	}
 
-	if(!unNocturnal){
+	if(unNocturnal == false){
 		isNocturnal = true;
 	}else{
 		isNocturnal = false;
@@ -26,6 +26,9 @@ Player::Player( bool Man, bool unNocturnal){
 
 }
 
+void Player::set_nocturnal(int S_Noc){
+	isNocturnal = S_Noc;
+}
 void Player::set_Sociality(qreal S_Social){
 	Sociality = Sociality + S_Social;
 }

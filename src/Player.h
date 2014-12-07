@@ -3,7 +3,7 @@
 class Player{
 
 public:
-	Player(bool Nocturnal, bool Man);
+	Player(bool Man,bool Nocturnal);
 	void set_Lonely(qreal S_Lone);
 	void set_Lonely();
 	void set_Health(qreal S_Hea);
@@ -11,6 +11,7 @@ public:
 	void set_Finance(qreal S_Finan);
 	void set_Sociality(qreal S_social);
 	void set_Max_Health(qreal M_Hea); // Max_strength=M_str;
+	void set_nocturnal(int S_Noc);
 
 	void check_Max_Health(); // max값이 넘으면 strength=Max_strength
 	qreal check_Max_Lonely(); // max값 넘으면 오류 return 0;

@@ -28,6 +28,7 @@
 
 ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,struct data S,QWidget *parent) : QWidget(parent){
 
+	ss=S;
 	ParentMap = map;
 	ParentMap->setManageGame(this);
 	Parent = parent;
@@ -85,7 +86,7 @@ ManageGame::ManageGame(int isMan, int isDayPerson, Map *map,  BuildWhat *MB,stru
 				nowSemester->setPastGrade(i,"D-");
 				nowSemester->setPastGradeNum(i,0.7);
 		}
-		else if(S.grade[i]<-12){
+		else if(S.grade[i]<=-12){
 				nowSemester->setPastGrade(i,"F");
 				nowSemester->setPastGradeNum(i,0);
 		}
@@ -990,30 +991,44 @@ void ManageGame::Check_Assn(){
 				int i;
 				FILE *fp[5];
 				FILE *fp2;
-				fp[1] = fopen("savedata1.txt","r");
-				fp[2] = fopen("savedata2.txt","r");
-				fp[3] = fopen("savedata3.txt","r");
-				fp[4] = fopen("savedata4.txt","r");
-				for(i=1 ; i<=4 ; i++)
+				if(ss.File<=4 && ss.File>=1)
 				{
-					if(!fp[i])
-					{
-						break;
-					}
-					else
-						fclose(fp[i]);
+					if(ss.File==1)
+						fp2 = fopen("savedata1.txt","w");
+					else if(ss.File==2)
+						fp2 = fopen("savedata2.txt","w");
+					else if(ss.File==3)
+						fp2 = fopen("savedata3.txt","w");
+					else if(ss.File==4)
+						fp2 = fopen("savedata4.txt","w");
 				}
-				if(i==1)
-					fp2 = fopen("savedata1.txt","w");
-				else if(i==2)
-					fp2 = fopen("savedata2.txt","w");
-				else if(i==3)
-					fp2 = fopen("savedata3.txt","w");
-				else if(i==4)
-					fp2 = fopen("savedata4.txt","w");
 				else
-					fp2 = fopen("savedata1.txt","w");
-				fprintf(fp2,"%d %d\n",((int)onPlayer->get_Man())+1,((int)onPlayer->get_Nocturnal())+1);
+				{
+					fp[1] = fopen("savedata1.txt","r");
+					fp[2] = fopen("savedata2.txt","r");
+					fp[3] = fopen("savedata3.txt","r");
+					fp[4] = fopen("savedata4.txt","r");
+					for(i=1 ; i<=4 ; i++)
+					{
+						if(!fp[i])
+						{
+							break;
+						}
+						else
+							fclose(fp[i]);
+					}
+					if(i==1)
+						fp2 = fopen("savedata1.txt","w");
+					else if(i==2)
+						fp2 = fopen("savedata2.txt","w");
+					else if(i==3)
+						fp2 = fopen("savedata3.txt","w");
+					else if(i==4)
+						fp2 = fopen("savedata4.txt","w");
+					else
+						fp2 = fopen("savedata1.txt","w");
+				}
+				fprintf(fp2,"%d %d\n",((int)onPlayer->get_Man())+1,2-((int)onPlayer->get_Nocturnal()));
 				fprintf(fp2,"%d %d %d %d %d\n",DrunkenFriend,Senior,SportFriend,TopFriend,(int)Lover);
 				fprintf(fp2,"%d\n",(int)onPlayer->get_Max_Health());
 				qreal *grad;

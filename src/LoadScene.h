@@ -17,6 +17,7 @@ struct data{
 	int Friend_num[6];
 	int Max_Heal;
 	int grade[9];
+	int File;
 };
 class LoadScene : public QWidget
 {

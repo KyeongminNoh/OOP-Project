@@ -203,6 +203,7 @@ void LoadScene::BackClicked()
 }
 void LoadScene::NextClicked()
 {
+	s[FileCheck].File=FileCheck;
 	if(FileCheck>=1 && FileCheck<= 4)
 		FieldScene* fieldscene = new FieldScene(window, s[FileCheck].isMan, s[FileCheck].isDayPerson, s[FileCheck]);
 	else
